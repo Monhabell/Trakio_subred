@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "build": "vite build && cp public/build/.vite/manifest.json public/build/manifest.json"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "@tailwindcss/forms": "^0.5.2",
+        "alpinejs": "^3.4.2",
+        "autoprefixer": "^10.4.2",
+        "axios": "^1.7.2",
+        "bootstrap": "^5.2.3",
+        "laravel-mix": "^6.0.49",
+        "laravel-vite-plugin": "^1.0.6",
+        "postcss": "^8.4.31",
+        "sass": "^1.56.1",
+        "tailwindcss": "^3.1.0",
+        "vite": "^5.4.11",
+        "webpack": "^5.92.1",
+        "webpack-cli": "^5.1.4"
+    },
+    "dependencies": {
+        "fresh": "^0.5.2",
+        "jquery": "^3.7.1",
+        "koa": "^2.13.4",
+        "laravel": "^0.0.1",
+        "laravel-echo": "^1.16.1",
+        "pdf-lib": "^1.17.1",
+        "puppeteer": "^23.3.0",
+        "pusher-js": "^8.4.0-rc2",
+        "select2": "^4.1.0-rc.0",
+        "sweetalert2": "^11.26.25",
+        "ziggy-js": "^2.4.1"
+    }
+}
