@@ -1,0 +1,180 @@
+/* ==========================================================================
+   ENV USERS — tarjetas de usuario y estado "sin resultados", construidos
+   sobre los tokens --shell-* definidos en resources/css/env/shell.css.
+   ========================================================================== */
+
+.user-card-horizontal {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--shell-surface);
+    color: var(--shell-text);
+    border: 1px solid var(--shell-border);
+    border-radius: 10px;
+    padding: 15px;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.user-card-horizontal:hover {
+    border-color: var(--shell-border-strong);
+    box-shadow: 0 4px 20px var(--shell-red-glow);
+}
+
+.user-card-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(45deg, var(--shell-red), color-mix(in srgb, var(--shell-red) 40%, black));
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.user-card-avatar i,
+.user-card-avatar img {
+    color: #fff;
+}
+
+.user-card-info {
+    flex-grow: 1;
+}
+
+.user-card-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--shell-text);
+}
+
+.user-card-role {
+    font-size: 0.9rem;
+    color: var(--shell-muted);
+}
+
+.user-card-email,
+.user-card-contract {
+    font-size: 0.85rem;
+    color: var(--shell-muted-2);
+}
+
+.user-card-extra {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--shell-muted-2);
+}
+
+.user-card-actions .btn {
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
+.user-card-actions .dropdown-menu {
+    border-radius: 8px;
+    padding: 8px;
+    background: var(--shell-surface);
+    border: 1px solid var(--shell-border-strong);
+    color: var(--shell-text);
+}
+
+.user-card-extra i {
+    margin-right: 8px;
+    color: var(--shell-red);
+}
+
+.no-results-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 50vh;
+    color: var(--shell-text);
+    background-color: var(--shell-surface);
+    border: 1px solid var(--shell-border);
+    border-radius: 14px;
+    padding: 2.5rem 1.5rem;
+}
+
+.no-results-content {
+    text-align: center;
+}
+
+.no-results-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--shell-red);
+    margin-bottom: 0.5rem;
+}
+
+.no-results-message {
+    font-size: 1rem;
+    color: var(--shell-muted);
+    margin-bottom: 1.5rem;
+}
+
+.no-results-content i {
+    color: var(--shell-red);
+}
+
+.no-results-content .btn {
+    background-color: var(--shell-red);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: box-shadow 0.3s ease;
+}
+
+.no-results-content .btn:hover {
+    box-shadow: 0 0 16px var(--shell-red-glow);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+    .user-card-horizontal {
+        padding: 12px;
+    }
+
+    .user-card-horizontal .d-flex.flex-row.justify-content-between {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .user-card-avatar {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto;
+    }
+
+    .user-card-info {
+        text-align: center;
+    }
+
+    .user-card-actions {
+        align-items: center !important;
+        width: 100%;
+    }
+
+    .user-card-actions .btn,
+    .user-card-actions .dropdown {
+        width: 100%;
+    }
+
+    .user-card-extra {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+    }
+
+    .no-results-screen {
+        min-height: 40vh;
+        padding: 2rem 1rem;
+    }
+
+    .no-results-title {
+        font-size: 1.3rem;
+    }
+}

@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+/* Estilos para el botón flotante con avatar */
+#chatbotButton {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    background: linear-gradient(90deg, #640202 0%, #000000 100%); /* Rojo oscuro */
+    background-image: url('../../img/tara/avatar1-removebg.png'); /* Reemplaza con la URL correcta */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 54px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px #640202;
+    height: 70px;
+    width: 70px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover */
+#chatbotButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(87, 0, 0, 0.3);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+/* Estilos para la ventana del chatbot */
+#chatbotWindow {
+    position: fixed;
+    bottom: 98px;
+    right: 60px;
+    width: 400px;
+    background-color: #121212b5;
+    /* Negro */
+    border: 1px solid #000000;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 5000;
+    resize: both; /* Permite redimensionar */
+    overflow: hidden; /* Oculta el contenido que desborda */
+    min-width: 300px;
+    max-width: 90%;
+    min-height: 300px;
+    max-height: 90%;
+}
+
+#chatbotHeader {
+    /* Rojo oscuro */
+    color: white;
+    padding: 0 10px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbotHeader img{
+    background-size: cover;
+    background-position: center;
+    width: 50px;
+}
+
+#chatMessages {
+    padding: 10px;
+    min-height: 400px;
+    overflow-y: auto;
+    background-color: #1f1f1f;
+    color: white;
+    background-image: url('../../img/tara/font_chatBot.jpg');
+    background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+}
+
+/* Personalizar la barra de scroll (solo WebKit) */
+#chatMessages::-webkit-scrollbar {
+    width: 6px; /* Ancho del scroll */
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #333, #6e0101); /* Degradado */
+    background-color: #333; /* Color de la barra de scroll */
+    border-radius: 10px; /* Bordes redondeados para darle un toque elegante */
+}
+
+#chatMessages::-webkit-scrollbar-track {
+    background-color: #1f1f1f; /* Color del fondo de la pista de scroll */
+}
+
+
+#userMessage {
+    width: calc(100% - 10px);
+    padding: 10px;
+    border: none;
+    border-top: 1px solid #333;
+    background-color: #1f1f1f;
+    /* Fondo de input negro claro */
+    color: white;
+}
+
+#userMessage:focus{
+    border: none !important;
+}
+
+#chatbotWindow button {
+    background-color: #793b3b00;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#chatbotWindow button:hover {
+    background-color: #88030356;
+    /* Rojo más claro */
+}
+
+#chatbotWindow input {
+    border-radius: 0 0 0 10px;
+}
+
+#chatbotWindow button:last-child {
+    border-radius: 0 0 10px 0;
+}
+
+/* Estilos para las burbujas de chat */
+.chatBubble {
+    max-width: 80%;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 1.4;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Burbujas del usuario */
+.chatBubble.user {
+    background-color: rgb(116, 2, 2);
+    color: white;
+    align-self: flex-end;
+    width: fit-content;
+    max-width: 85%;
+    margin-left: auto;
+    /* Aligns to the right */
+    border-bottom-right-radius: 0;
+    /* Optional: for chat-like styling */
+    border-radius: 20px 0 20px 20px;
+    /* Adjust to your preference */
+    text-align: left;
+    padding: 10px;
+    display: block;
+}
+
+/* Burbujas del chatbot */
+.chatBubble.bot {
+    background-color: #272727;
+    color: white;
+    align-self: flex-start;
+    max-width: 85%;
+    margin-right: auto;
+    /* Aligns to the left */
+    border-bottom-left-radius: 0;
+    /* Optional: for chat-like styling */
+    border-radius: 0 20px 20px 20px;
+    /* Adjust to your preference */
+    text-align: left;
+    padding: 10px;
+    display: block;
+    overflow-wrap: break-word;
+    max-height: none;
+}
+
+
+/* Estilos para la ventana de nueva funcionalidad */
+#newFeatureWindow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 350px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+/* Estilo del fondo opaco al abrir la ventana */
+#newFeatureWindow::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    /* Asegura que el fondo quede detrás de la ventana */
+}
+
+/* Botón de cerrar en la ventana de nueva funcionalidad */
+#newFeatureWindow button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #6b0202;
+    /* Color del botón */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#newFeatureWindow button:hover {
+    background-color: #85010100;
+    /* Color del botón al pasar el mouse */
+}
+
+
+.typing .dots span {
+    display: inline-block;
+    opacity: 0;
+    animation: typing 1s infinite;
+}
+
+.typing .dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing .dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing .dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* Estilo para fragmentos de código en línea */
+.chatBubble code {
+    background-color: #29292f; /* Fondo gris claro */
+    color: #ffffff; /* Color del texto del código */
+    padding: 2px 4px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    font-family: "Courier New", Courier, monospace; /* Tipografía */
+    font-size: 0.9em; /* Tamaño de fuente reducido */
+    white-space: pre-wrap; /* Asegura que no se desborde */
+}
+
+/* Estilo para bloques de código */
+.chatBubble pre {
+    background-color: #000000; /* Fondo oscuro */
+    color: #abb2bf; /* Color del texto */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-family: "Courier New", Courier, monospace; /* Tipografía */
+    font-size: 0.9em; /* Tamaño de fuente */
+    overflow-x: auto; /* Permite scroll horizontal si es necesario */
+    white-space: pre-wrap; /* Permite saltos de línea */
+    line-height: 1.4; /* Mejora la legibilidad */
+    margin: 10px 0; /* Margen para separar bloques */
+}
+
+/* Añadir borde lateral para bloques de código */
+.chatBubble pre code {
+    display: block; /* Asegura que el código sea un bloque */
+    padding: 20px;
+    border-left: 3px solid #ff0000; /* Línea decorativa */
+}
+
+#resizeHandle {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: -10px; /* Ajusta el desplazamiento vertical */
+    left: -10px; /* Ajusta el desplazamiento horizontal */
+    cursor: nw-resize; /* Cambia el cursor a estilo de redimensionar */
+    background-color: #6e0101; /* Color para diferenciar el botón */
+    border-radius: 50%; /* Forma circular */
+    border: 2px solid white; /* Bordes para destacar */
+    z-index: 6000; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+@keyframes typingHeader {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.typing-effect {
+    text-align: center;
+    font-size: 15px;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #ffffff;
+    width: 0;
+    animation: typingHeader 3s steps(30, end) forwards, blink 0.6s infinite;
+    -webkit-animation: typingHeader 3s steps(30, end) forwards, blink 0.6s infinite;
+    font-family: "Exo 2", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+.itemselect{
+    background-color: rgb(105, 0, 0);
+    color: white;
+    padding: 3px;  
+
+    border-radius: 5px;
+    text-align: center;
+}
+
+.chatbotResaltar{
+    background-color: rgb(17, 128, 23);
+    padding: 2px;
+    border-radius: 5px;
+}

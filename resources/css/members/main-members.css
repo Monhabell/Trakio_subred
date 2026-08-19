@@ -1,0 +1,93 @@
+@import '../shared/commom.css';
+@import '../shared/loader.css';
+@import '../shared/profile.css';
+@import '../shared/documents.css';
+@import '../shared/form-report.css';
+@import '../shared/firma.css';
+@import '../shared/birtday.css';
+
+/*
+* WELCOME PAGE
+*/
+.app-background {
+    background-color: #5e646b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feed-background {
+    background-color: #3f454d;
+    width: 90%;
+    max-width: 1200px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-header {
+    color: #ff4d4d;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.welcome-text {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.feed-item {
+    background: #353b45;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 25px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.item-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #d04949;
+    margin-bottom: 10px;
+}
+
+.gif-placeholder img {
+    width: 600px;
+    max-height: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.feed-description {
+    font-size: 0.95em;
+    color: #d3d3d3;
+    margin-top: 12px;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.explore-button {
+    display: inline-block;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #992222, #d04949);
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.explore-button:hover {
+    background: linear-gradient(135deg, #d04949, rgb(153, 34, 34));
+    transform: scale(1.05);
+}
+
+.modal-body.tyc {
+    background-color: #ffffff !important;
+}

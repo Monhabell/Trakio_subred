@@ -1,0 +1,165 @@
+/*-----------------------------------------CUMPLEAÑOS -----------------------------------------
+-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------*/
+
+.btn-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 110px;
+    background-color: rgb(90, 10, 10);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 2000;
+}
+
+.btn-flotante:hover {
+    background-color: rgb(200, 10, 10);
+}
+
+.icono {
+    position: fixed;
+    bottom: -140px;
+    right: -140px;
+    /* Para que el icono esté inicialmente detrás del botón */
+    width: 400px;
+    height: auto;
+    border-radius: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    opacity: 1;
+    transform: scale(0);
+    transition: transform 0.5s, opacity 0.5s, bottom 0.5s, right 0.5s;
+    z-index: 1000;
+    -webkit-box-shadow: -5px 10px 16px -4px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: -5px 10px 16px -4px rgba(0, 0, 0, 0.37);
+    box-shadow: -5px 10px 16px -4px rgba(0, 0, 0, 0.37);
+}
+
+#icono1.mostrar {
+    opacity: 1;
+    transform: scale(1.2);
+    /* Tamaño mayor al mostrarse */
+    bottom: 100px;
+    right: 80px;
+}
+
+.infoBirthday {
+    background-color: white;
+    color: #000;
+    border-radius: 5%;
+    width: 99%;
+    height: 99%;
+    overflow: hidden;
+}
+
+.titleBirthday {
+    width: 100%;
+    /* Ajusta el ancho del div según tus necesidades */
+    text-align: center;
+    height: 110px;
+    margin-bottom: 5px;
+    background-image: url('https://www.shutterstock.com/image-photo/birthday-cupcake-celebration-sparkler-sprinkles-600nw-1941214405.jpg');
+    /* Ruta a la imagen de fondo */
+    background-size: cover;
+    /* Ajusta el tamaño de la imagen para cubrir todo el div */
+    background-position: center;
+    /* Centra la imagen dentro del div */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
+    background-position: 0px -70px;
+}
+
+.img_cumpleaños {
+    width: 30%;
+    margin: 2px;
+}
+
+.containerBirthday {
+    background-color: white !important;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.img_Perfil_birthday {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.CumTitle {
+    font-size: 0.8rem;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.NameCum {
+    font-size: 12px;
+}
+
+.separadorline {
+    margin: 1px !important;
+    margin-bottom: 5px !important;
+}
+
+
+/* Ajustes para pantallas de menos de 600px (Móviles) */
+@media (max-width: 600px) {
+
+    .btn-flotante {
+        bottom: 15px;
+        right: 15px;
+        /* Lo movemos más a la esquina */
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .icono {
+        width: 90vw;
+        /* Usamos el 90% del ancho de la pantalla */
+        max-width: 320px;
+        /* Evitamos que sea gigante en tablets pequeñas */
+        right: -50px;
+        /* Ajuste inicial para la animación */
+        bottom: -100px;
+    }
+
+    #icono1.mostrar {
+        transform: scale(1);
+        /* En móvil es mejor no agrandarlo tanto para que no se salga */
+        bottom: 85px;
+        /* Lo subimos justo encima del botón */
+        right: 5vw;
+        /* Lo centramos un poco más */
+    }
+
+    .titleBirthday {
+        height: 80px;
+        /* Reducimos la cabecera para ahorrar espacio vertical */
+        background-position: center;
+        /* Mejor centrado en móvil */
+    }
+
+    .NameCum {
+        font-size: 11px;
+        /* Texto un poco más pequeño para evitar saltos de línea */
+    }
+
+    .containerBirthday {
+        margin: 10px;
+        /* Reducimos márgenes internos */
+    }
+}

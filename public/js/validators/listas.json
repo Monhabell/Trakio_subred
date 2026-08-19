@@ -1,0 +1,89 @@
+{
+    "_listas": {
+        "LOCALIDADES_VALIDAS": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "LOCALIDADES_VALIDAS_NAME": [
+            "Usaquén",
+            "Chapinero",
+            "Santa Fe",
+            "San Cristóbal",
+            "Usme",
+            "Tunjuelito",
+            "Bosa",
+            "Suba",
+            "Kennedy",
+            "Fontibón",
+            "Engativá",
+            "Suba",
+            "Barrios Unidos",
+            "Teusaquillo",
+            "Los Mártires",
+            "Antonio Nariño",
+            "Puente Aranda",
+            "La Candelaria",
+            "Rafael Uribe Uribe",
+            "Ciudad Bolívar",
+            "Sumapaz"
+        ],
+        "ZONA_VALIDA": [
+            "1",
+            "2",
+            "1- Urbana",
+            "2- Rural",
+            "1-Urbana",
+            "2-Rural"
+        ],
+        "TIPO_DOC_VALIDO": [
+            "2- RC",
+            "3- TI",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14"
+        ],
+        "TIPO_INSTITUCION_VALIDO": [
+            "1. NNA Trabajadores/riesgo",
+            "2. GOTI",
+            "3. Trabajadores economia informal",
+            "6. ASP"
+        ],
+        "GENERO_VALIDO": [
+            "1-Masculino",
+            "2-Femenino",
+            "3-Otro",
+            "4- No binario",
+            "5- Prefiero no decirlo",
+            "4- No aplica"
+        ],
+        "ROLES INSTITUCIONAL": [
+            "Madre Comunitaria",
+            "Directivo o personal administrativo",
+            "Profesional equipo interdisciplinario",
+            "Usuario beneficiario de la institución",
+            "Padre, Madre o Acudiente"
+        ]
+    }
+}

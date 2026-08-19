@@ -1,0 +1,833 @@
+{
+    "id": "ssc",
+    "nombre": "Sesiones Colectivas",
+    "code": "SSC",
+    "desc": "Registro de sesiones colectivas para todos los entornos",
+    "entornos": [
+        "laboral",
+        "educativo",
+        "comunitario",
+        "institucional"
+    ],
+    "rules": {
+        "Fecha_intervencion": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de intervención"
+        },
+        "Ficha_fic": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "numero",
+            "desc": "Número de ficha"
+        },
+        "Localidad_fic": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "codigo",
+            "valores": "$LOCALIDADES_VALIDAS",
+            "desc": "Localidad de la ficha"
+        },
+        ".Nombre de la Institución / Establecimiento educativo.": {
+            "obligatorio": [
+                "institucional"
+            ],
+            "tipo": "texto",
+            "desc": "Nombre institución/establecimiento"
+        },
+        ".Lugar de la actividad.": {
+            "obligatorio": [
+                "educativo",
+                "laboral",
+                "comunitario"
+            ],
+            "tipo": "texto",
+            "desc": "Lugar de la actividad",
+            "dependencia": {
+                "entornos": [
+                    "educativo"
+                ],
+                "campo": ".Tipo de Institución o Establecimiento educativo o Tipo de colectivo.",
+                "valores": [
+                    "Otra",
+                    "IETDH - Instituciones de Educación para el Trabajo y el Desarrollo Humano",
+                    "Ninguna",
+                    "Centros de Validación"
+                ],
+                "mensaje": "El lugar de la actividad es obligatorio cuando el tipo de institución es uno de los listados",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Actividad económica.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Actividad económica",
+            "exceptoSi": {
+                "campo": ".Tipo de Institución o Establecimiento educativo o Tipo de colectivo.",
+                "valor": "1. NNA Trabajadores/riesgo"
+            }
+        },
+        ".Tipo de Institución o Establecimiento educativo o Tipo de colectivo.": {
+            "obligatorio": [
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Tipo de institución/colectivo"
+        },
+        ".Barra futbolera.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto",
+            "desc": "Barra futbolera",
+            "reglasPorEntorno": {
+                "laboral": {
+                    "valorFijo": " No aplica"
+                },
+                "educativo": {
+                    "valorFijo": " No aplica"
+                },
+                "institucional": {
+                    "valorFijo": " No aplica"
+                }
+            }
+        },
+        ".Nombre del Grupo.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo"
+            ],
+            "opcional": [
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Nombre del grupo",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".Zona.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "codigo",
+            "desc": "Zona (1-Urbana, 2-Rural)"
+        },
+        ".Localidad.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "codigo",
+            "desc": "Localidad"
+        },
+        ".UPZ/UPR.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "UPZ/UPR"
+        },
+        ".Sector catastral.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Sector catastral"
+        },
+        ".Barrio.": {
+            "tipo": "texto",
+            "desc": "Barrio",
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1",
+                    "1-Urbana",
+                    "1- Urbana"
+                ],
+                "mensaje": "El Barrio es obligatorio cuando la Zona es Urbana",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Manzana del cuidado.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Manzana del cuidado"
+        },
+        ".Número de Manzana del cuidado.": {
+            "tipo": "texto",
+            "desc": "Número de manzana del cuidado",
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Manzana del cuidado.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Si marcó \"Si\" en Manzana del cuidado, el número es obligatorio"
+            }
+        },
+        ".Vereda.": {
+            "tipo": "texto",
+            "desc": "Vereda",
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2-Rural",
+                    "2- Rural"
+                ],
+                "mensaje": "La Vereda es obligatoria cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Coordenada X.": {
+            "tipo": "numero",
+            "desc": "Coordenada X",
+            "regex": "^-6[6-9]\\.\\d+|-7[0-9]\\.\\d+|-8[0-1]\\.\\d+$",
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2-Rural",
+                    "2- Rural"
+                ],
+                "mensaje": "La Coordenada X es obligatoria cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Coordenada Y.": {
+            "tipo": "numero",
+            "desc": "Coordenada Y",
+            "regex": "^-?[0-4]\\.\\d+|^[5-9]\\.\\d+|^1[0-3]\\.\\d+$",
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2-Rural",
+                    "2- Rural"
+                ],
+                "mensaje": "La Coordenada Y es obligatoria cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Tipo de Ruralidad.": {
+            "tipo": "texto",
+            "desc": "Tipo de ruralidad",
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2-Rural",
+                    "2- Rural"
+                ],
+                "mensaje": "El Tipo de Ruralidad es obligatorio cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Modalidad de la Sesión.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "codigo",
+            "desc": "Modalidad de la sesión"
+        },
+        ".Fecha de sesión.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "fecha_sesion",
+            "desc": "Fecha de sesión",
+            "maxHoy": true,
+            "comparar": {
+                "campoRef": "Fecha_intervencion",
+                "operacion": ">=",
+                "mensaje": "La fecha de sesión no puede ser anterior a la de intervención"
+            }
+        },
+        ".Número de Sesión.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 50,
+            "desc": "Número de sesión (1-50)"
+        },
+        ".Línea Operativa.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Línea operativa"
+        },
+        ".Componente.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Componente"
+        },
+        ".Proceso.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Proceso"
+        },
+        ".Tema.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema"
+        },
+        ".Hombres.": {
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Componente.",
+                "valores": [
+                    "272",
+                    "273",
+                    "274"
+                ],
+                "mensaje": "El número de hombres es obligatorio cuando el componente es 272, 273 o 274",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            },
+            "tipo": "numero",
+            "desc": "Número de hombres"
+        },
+        ".Mujeres.": {
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Componente.",
+                "valores": [
+                    "272",
+                    "273",
+                    "274"
+                ],
+                "mensaje": "El número de mujeres es obligatorio cuando el componente es 272, 273 o 274"
+            },
+            "tipo": "numero",
+            "desc": "Número de mujeres"
+        },
+        ".Intersexuales.": {
+            "dependencia": {
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "campo": ".Componente.",
+                "valores": [
+                    "272",
+                    "273",
+                    "274"
+                ],
+                "mensaje": "El número de intersexuales es obligatorio cuando el componente es 272, 273 o 274"
+            },
+            "tipo": "numero",
+            "desc": "Número de intersexuales"
+        },
+        ".Perfil 1.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Perfil 1"
+        },
+        ".Nombres.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Nombres",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".Apellidos.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Apellidos",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".Tipo de documento.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "codigo",
+            "desc": "Tipo de documento",
+            "dependenciasMultiples": [
+                {
+                    "campo": ".Nacionalidad.",
+                    "valores": [
+                        "COL"
+                    ],
+                    "mensaje": "Para colombianos, verifique que el documento sea coherente con la edad (RC < 8, TI 8-17, CC > 18)."
+                }
+            ],
+            "reglasPorEntorno": {
+                "laboral": {},
+                "educativo": {},
+                "comunitario": {},
+                "institucional": {}
+            },
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "0-7"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "2",
+                        "2-RC",
+                        "2- RC",
+                        "8- Menor sin ID."
+                    ],
+                    "mensaje": "Para menores de 8 años (COL), debe ser Registro Civil."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "8-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "3",
+                        "3-TI",
+                        "3- TI",
+                        "8- Menor sin ID."
+                    ],
+                    "mensaje": "Para edades entre 8 y 17 años (COL), debe ser Tarjeta de Identidad."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "18-110"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "1",
+                        "1-CC",
+                        "1- CC",
+                        "7- Adulto sin ID."
+                    ],
+                    "mensaje": "Para mayores de 18 años (COL), debe ser Cédula de Ciudadanía."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "!COL"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "10- Salvoconducto",
+                        "11- Permiso Especial de permanencia",
+                        "12- Documento Nacional de Identidad (del país de origen)",
+                        "13- PPT Permiso por Protección Temporal",
+                        "6- Pasaporte",
+                        "4- CE",
+                        "8- Menor sin ID.",
+                        "7- Adulto sin ID."
+                    ],
+                    "mensaje": "Para extranjeros, el tipo de documento debe ser Pasaporte, PEP o Cédula de Extranjería."
+                }
+            ]
+        },
+        ".Número de Documento.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Número de documento"
+        },
+        ".Edad.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "numero",
+            "desc": "Edad",
+            "min": 0,
+            "max": 120
+        },
+        ".Sexo.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Sexo (1-Masculino, 2-Femenino, 3-Otro)"
+        },
+        ".Género.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Género",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "4- No aplica"
+                    ],
+                    "mensaje": "Para menores de 14 años, el género debe ser 'No aplica'."
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "14-110"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "1-Masculino",
+                        "2-Femenino",
+                        "3-Otro"
+                    ],
+                    "mensaje": "Para personas de 14 años o más, el género debe ser Masculino, Femenino u Otro."
+                }
+            ]
+        },
+        ".Orientación sexual.": {
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": ".Orientación sexual.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": "Para menores de 14 años, el género debe ser 'No aplica'."
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "14-110"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "Heterosexual",
+                        "Bisexual",
+                        "Gay",
+                        "Lesbiana",
+                        "No responde",
+                        "Otro",
+                        "Pansexual"
+                    ]
+                }
+            ]
+        },
+        ".Identidad de Género.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "identodad de Genero",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": " para menors de catorce años identidad debe ser No aplica"
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "14-110"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "Femenino",
+                        "Hombre Transgénero",
+                        "Masculino",
+                        "Mujer Transgénero",
+                        "No responde",
+                        "Persona no binaria"
+                    ],
+                    "mensaje": "identidad de genero no debe ser No aplica"
+                }
+            ]
+        },
+        ".Población Diferencial y de Inclusión.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "poblacion diferencial",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "!COL"
+                        ]
+                    },
+                    "contiene": [
+                        "Migrante"
+                    ],
+                    "mensaje": "Para extranjeros, poblacion diferencial deberia ser migrante"
+                }
+            ]
+        },
+        ".Canalización.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Canalizaciones"
+        },
+        ".Porque no se canalizó.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Porque no se canalizó",
+            "dependencia": {
+                "campo": ".Canalización.",
+                "valores": [
+                    "No"
+                ],
+                "mensaje": "El campo 'Porque no se canalizó' es obligatorio cuando la canalización es 'No'",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Categoría discapacidad.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Categoria Discapacidad",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Población Diferencial y de Inclusión.": [
+                            "*Discapacidad*"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": "Si poblacion difrencial contiene Discapacidad el valor de cateforia de discapacidad no puede estar vacia o no plaica"
+                }
+            ]
+        },
+        ".Etnia.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Etnia"
+        },
+        ".Pueblo.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Pueblo",
+            "dependencia": {
+                "campo": ".Etnia.",
+                "valores": [
+                    "Indígena"
+                ],
+                "mensaje": "El campo Pueblo es obligatorio cuando la Etnia es Indígena",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".No. Sesión de asistencia.": {
+            "obligatorio": [
+                "comunitario",
+                "educativo",
+                "institucional",
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Número de sesión de asistencia"
+        }
+    }
+}

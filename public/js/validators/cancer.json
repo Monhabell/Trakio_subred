@@ -1,0 +1,401 @@
+{
+  "id": "cancer",
+  "nombre": "Clasificación del Riesgo de Cáncer",
+  "code": "CRC",
+  "desc": "Tamizaje y clasificación del riesgo en cáncer — Entorno Laboral",
+  "entornos": ["laboral"],
+  "rules": {
+
+    "Id_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "desc": "ID de la ficha"
+    },
+    "Fecha_intervencion": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha de la caracterización"
+    },
+    "Ficha_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "desc": "Número de ficha"
+    },
+    "Localidad_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": "$LOCALIDADES_VALIDAS",
+      "desc": "Localidad de la ficha"
+    },
+    "Red_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Red de la subred"
+    },
+    "Usuario": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Usuario que registra"
+    },
+
+    ".Re caracterización.": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Indica si es una re-caracterización"
+    },
+
+    ".1er Nombre.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    ".2do. Nombre.": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Segundo nombre del usuario"
+    },
+    ".1er. Apellido.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    ".2do. Apellido.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Segundo apellido del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+
+    ".Tipo de Documento.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "desc": "Tipo de documento de identificación",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdNacionalidad": ["COL"], "Edad": ["0-6"] },
+          "valoresPermitidos": ["2", "2-RC", "2- RC", "5- NUIP", "8- Menor sin ID", "8 Menor sin ID"],
+          "mensaje": "Para menores de 7 años (COL), el documento debe ser RC, NUIP o Menor sin ID"
+        },
+        {
+          "condicion": { "IdNacionalidad": ["COL"], "Edad": ["7-17"] },
+          "valoresPermitidos": ["3", "3-TI", "3- TI", "5- NUIP", "8- Menor sin ID", "8 Menor sin ID"],
+          "mensaje": "Para edades entre 7 y 17 años (COL), el documento debe ser TI o NUIP"
+        },
+        {
+          "condicion": { "IdNacionalidad": ["COL"], "Edad": ["18-110"] },
+          "valoresPermitidos": ["1", "1-CC", "1- CC", "7- Adulto sin ID.", "7- Adulto sin ID"],
+          "mensaje": "Para mayores de 18 años (COL), el documento debe ser Cédula de Ciudadanía"
+        },
+        {
+          "condicion": { "IdNacionalidad": ["!COL"] },
+          "valoresPermitidos": [
+            "4- CE", "6- Pasaporte", "7- Adulto sin ID.", "7- Adulto sin ID",
+            "8- Menor sin ID.", "8 Menor sin ID",
+            "9..Carné Diplomático", "10 Salvoconducto", "10- Salvoconducto",
+            "11- Permiso especial de permanencia", "11. Permiso especial de permanencia",
+            "12- Documento Nacional de Identidad (del país de origen)",
+            "13- Permiso de protección temporal", "13. Permiso de proteccion temporal"
+          ],
+          "mensaje": "Para extranjeros, el tipo de documento debe ser Pasaporte, CE u otro documento válido"
+        }
+      ]
+    },
+    ".N° Documento.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Número del documento de identificación"
+    },
+
+    ".Cáncer de cuello uterino.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Tipo de cáncer seleccionado: cuello uterino",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdSexo": ["1", "1- Hombre", "1-Hombre", "Hombre", "Masculino"] },
+          "noPermitidos": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+          "mensaje": "El cáncer de cuello uterino no aplica para hombres"
+        }
+      ]
+    },
+    ".Cáncer de mama.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Tipo de cáncer seleccionado: mama",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdSexo": ["1", "1- Hombre", "1-Hombre", "Hombre", "Masculino"] },
+          "noPermitidos": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+          "mensaje": "El cáncer de mama no aplica para hombres"
+        }
+      ]
+    },
+    ".Cáncer de colon y recto.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Tipo de cáncer seleccionado: colon y recto"
+    },
+    ".Cáncer de Próstata.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Tipo de cáncer seleccionado: próstata",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdSexo": ["2", "2- Mujer", "2-Mujer", "Mujer", "Femenino"] },
+          "noPermitidos": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+          "mensaje": "El cáncer de próstata no aplica para mujeres"
+        }
+      ]
+    },
+
+    ".Población Objeto.": {
+      "tipo": "texto_nonempty",
+      "desc": "Población objeto del tipo de cáncer evaluado",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Cáncer de cuello uterino.",
+        "valores": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+        "mensaje": "La Población Objeto es obligatoria cuando se seleccionó un tipo de cáncer",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Signos de alerta.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Presencia de signos de alerta para el tipo de cáncer evaluado",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Cáncer de cuello uterino.",
+        "valores": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+        "mensaje": "Los Signos de alerta son obligatorios cuando se seleccionó un tipo de cáncer",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Adherente a tamizaje, diagnóstico y tratamiento.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Adherencia a tamizaje, diagnóstico y tratamiento",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Cáncer de cuello uterino.",
+        "valores": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+        "mensaje": "La adherencia a tamizaje es obligatoria cuando se seleccionó un tipo de cáncer",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Comportamientos de consumo y exposiciones ambientales.": {
+      "tipo": "codigo",
+      "valores": ["Con", "Sin"],
+      "desc": "Comportamientos de consumo y exposiciones ambientales de riesgo",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Cáncer de cuello uterino.",
+        "valores": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+        "mensaje": "Los comportamientos de riesgo son obligatorios cuando se seleccionó un tipo de cáncer",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Nivel de riesgo.": {
+      "tipo": "texto_nonempty",
+      "desc": "Nivel de riesgo resultante de la evaluación del tipo de cáncer",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Cáncer de cuello uterino.",
+        "valores": ["Población Sintomática", "Población asintomática en edad de tamizaje"],
+        "mensaje": "El nivel de riesgo es obligatorio cuando se seleccionó un tipo de cáncer",
+        "requeridoCuandoCumple": true
+      },
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Signos de alerta.": ["Si"] },
+          "valoresPermitidos": ["Riesgo Alto", "Alto"],
+          "mensaje": "Si hay signos de alerta, el nivel de riesgo debe ser Alto"
+        }
+      ]
+    },
+
+    ".Resultado Optenido.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Resultado global obtenido de la clasificación del riesgo",
+      "valores": ["SIN RIESGO", "Sin riesgo", "BAJO", "RIESGO BAJO", "Riesgo Bajo", "MODERADO", "RIESGO MODERADO", "Riesgo Moderado", "ALTO", "RIESGO ALTO", "Riesgo Alto"]
+    },
+
+    "IdTipoDocumento": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código tipo de documento"
+    },
+    "Documento": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Número de documento"
+    },
+    "PrimerNombre": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    "SegundoNombre": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Segundo nombre"
+    },
+    "PrimerApellido": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    "SegundoApellido": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Segundo apellido"
+    },
+    "IdNacionalidad": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código de nacionalidad"
+    },
+    "IdSexo": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Sexo biológico"
+    },
+    "IdGenero": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Género",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-13"] },
+          "valoresPermitidos": ["4- No aplica", "No aplica"],
+          "mensaje": "Para menores de 14 años el Género debe ser 'No aplica'"
+        },
+        {
+          "condicion": { "Edad": ["14-110"] },
+          "valoresPermitidos": ["1-Masculino", "2-Femenino", "3-Otro", "3- Transgénero"],
+          "mensaje": "Para mayores de 14 años el Género no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "IdEstadoCivil": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Estado civil",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-13"] },
+          "valoresPermitidos": ["6- No aplica", "No aplica"],
+          "mensaje": "Para menores de 14 años el Estado Civil debe ser 'No aplica'"
+        },
+        {
+          "condicion": { "Edad": ["14-110"] },
+          "valoresPermitidos": ["1- Soltero(a)", "2- Casado(a)", "3- Viudo(a)", "4- Separado(a)", "5- Unión Libre"],
+          "mensaje": "Para mayores de 14 años el Estado Civil no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "FechaNacimiento": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha de nacimiento"
+    },
+    "Edad": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 0,
+      "max": 120,
+      "desc": "Edad del usuario"
+    },
+    "MomentoCursoVida": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Momento del curso de vida"
+    },
+    "IdEtnia": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Pertenencia étnica"
+    },
+    "HablaEspaniol": {
+      "tipo": "texto_nonempty",
+      "desc": "Habla español — obligatorio cuando la etnia es Indígena",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdEtnia",
+        "valores": ["Indígena", "1- Indígena"],
+        "mensaje": "El campo Habla Español es obligatorio cuando la Etnia es Indígena",
+        "requeridoCuandoCumple": true
+      }
+    },
+    "IdVinculoJefeHogar": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Vínculo con el jefe de hogar"
+    },
+    "IdAfiliacionSGSSS": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Régimen de afiliación al SGSSS"
+    },
+    "NombreEAPB": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nombre de la EAPB"
+    },
+    "IdNivelEducativo": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nivel educativo"
+    },
+    "PoblacionDiferencialInclusion": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Población diferencial y de inclusión",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdNacionalidad": ["!COL"] },
+          "contiene": ["Migrante", "13- Migrante"],
+          "mensaje": "Para extranjeros, la población diferencial debe incluir 'Migrante'"
+        }
+      ]
+    },
+    "PoblacionInclusionOficio": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Población de inclusión por oficio"
+    },
+    "Ocupacion": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Ocupación del usuario"
+    },
+    "CategoriasDiscapacidad": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Categorías de discapacidad",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "PoblacionDiferencialInclusion": ["*Discapacidad*"] },
+          "noPermitidos": ["No aplica", "8- No aplica"],
+          "mensaje": "Si la población diferencial incluye Discapacidad, la categoría no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "RazonAbandonoEscolar": {
+      "tipo": "texto_nonempty",
+      "desc": "Razón de abandono escolar",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdNivelEducativo",
+        "valores": ["3. Básica primaria incompleta", "5. Básica secundaria incompleta", "12. Ninguno"],
+        "mensaje": "La razón de abandono escolar es obligatoria cuando el nivel educativo es incompleto o Ninguno",
+        "requeridoCuandoCumple": true
+      }
+    }
+  }
+}

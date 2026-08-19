@@ -1,0 +1,11 @@
+# Estos archivos se inyectan en producción vía extensión (Code Injector) y se
+# importan dinámicamente con import() desde varios dominios. No usamos cache-busting
+# por timestamp ni por versión manual: en su lugar forzamos al navegador a
+# revalidar con el servidor en cada carga (ETag/Last-Modified). Si el archivo no
+# cambió, el servidor responde 304 (rápido, sin reenviar el contenido). Si cambió,
+# se descarga la versión nueva automáticamente, sin que nadie tenga que tocar nada.
+<IfModule mod_headers.c>
+    <FilesMatch "\.js$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>

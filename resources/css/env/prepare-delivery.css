@@ -1,0 +1,571 @@
+/* ==========================================================================
+   PREPARE DELIVERY ("Entrega GESI") — usa los tokens --shell-* definidos en
+   resources/css/env/shell.css. Tema claro/oscuro via [data-theme].
+   Las clases consumidas por el JS inline del blade (DeliveryManager /
+   SortableJS) NO se renombran aquí: .search-results, .delivery-queue,
+   .search-input, .search-btn, .queue-count, .deliver-button,
+   .clear-queue-btn, .final-order, .delivery-form, .ficha-item,
+   .disabled-card, .selected, .remove-item-btn, .drag-handle,
+   .btn-section-toggle, .content-section, #ficha-template,
+   .empty-state, .delivery-queue-area.
+   ========================================================================== */
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--shell-border-strong); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--shell-red); }
+
+/* ── Page Header (extiende .env-page-header) ─────────────────────────── */
+.pd-page-header {
+    align-items: center;
+}
+
+.pd-header-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pd-header-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--shell-red-dim);
+    border: 1px solid rgba(230, 57, 70, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--shell-red);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.pd-page-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.15rem;
+}
+
+.shortcuts-hint {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.shortcut-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: var(--shell-muted);
+    background: var(--shell-surface-2);
+    border: 1px solid var(--shell-border);
+    border-radius: 5px;
+    padding: 2px 7px;
+    white-space: nowrap;
+}
+
+.shortcut-tag kbd {
+    font-size: 0.6rem;
+    background: var(--shell-surface);
+    border: 1px solid var(--shell-border-strong);
+    border-radius: 3px;
+    padding: 0 4px;
+    color: var(--shell-text);
+    font-family: inherit;
+}
+
+/* ── Tab Switcher ─────────────────────────────────────────── */
+.tab-switcher {
+    display: flex;
+    background: var(--shell-surface);
+    border: 1px solid var(--shell-border);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+button.btn-section-toggle {
+    flex: 1;
+    min-width: 140px;
+    background: transparent;
+    color: var(--shell-muted);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 7px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+button.btn-section-toggle:hover {
+    background: var(--shell-surface-2);
+    color: var(--shell-text);
+    border: none;
+}
+
+button.btn-section-toggle.active {
+    background: var(--shell-red);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 12px var(--shell-red-glow);
+}
+
+button.btn-section-toggle .tab-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+button.btn-section-toggle.active .tab-dot {
+    opacity: 1;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* ── Main Layout ──────────────────────────────────────────── */
+.pd-section {
+    padding: 1rem;
+}
+
+.content-section {
+    transition: opacity 0.25s ease;
+}
+
+/* Grid de 2 columnas (búsqueda | cola) + flecha divisora central,
+   colapsa a 1 columna en mobile/tablet. */
+.pd-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 0.5rem;
+}
+
+/* ── Panel (columna) ──────────────────────────────────────── */
+.panel-col {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 195px);
+    min-height: 400px;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--shell-surface-2);
+    border: 1px solid var(--shell-border);
+    border-radius: 9px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.panel-header-left {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.panel-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+}
+
+.panel-icon.search-icon {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.panel-icon.queue-icon {
+    background: var(--shell-red-dim);
+    border: 1px solid rgba(230, 57, 70, 0.2);
+    color: var(--shell-red);
+}
+
+.panel-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--shell-text);
+    margin: 0;
+}
+
+.panel-subtitle {
+    font-size: 0.65rem;
+    color: var(--shell-muted);
+    margin: 1px 0 0;
+}
+
+/* ── Search Input ─────────────────────────────────────────── */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    background: var(--shell-surface-2) !important;
+    border: 1px solid var(--shell-border-strong) !important;
+    border-right: none !important;
+    border-radius: 8px 0 0 8px !important;
+    color: var(--shell-text) !important;
+    font-size: 0.82rem;
+    padding: 8px 14px;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: none !important;
+    border-color: var(--shell-red) !important;
+}
+
+.search-input::placeholder {
+    color: var(--shell-muted-2);
+}
+
+.search-btn {
+    background: var(--shell-red) !important;
+    border: 1px solid var(--shell-red) !important;
+    border-radius: 0 8px 8px 0 !important;
+    color: white !important;
+    padding: 8px 16px;
+    transition: box-shadow 0.2s;
+    flex-shrink: 0;
+}
+
+.search-btn:hover {
+    box-shadow: 0 0 14px var(--shell-red-glow);
+}
+
+/* ── Search Results ───────────────────────────────────────── */
+.search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 10px;
+    color: var(--shell-muted);
+    text-align: center;
+    padding: 20px;
+}
+
+.empty-state-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--shell-surface-2);
+    border: 1px dashed var(--shell-border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: var(--shell-muted-2);
+    margin-bottom: 4px;
+}
+
+.empty-state p {
+    font-size: 0.78rem;
+    margin: 0;
+    color: var(--shell-muted);
+}
+
+.pd-empty-hint {
+    font-size: 0.7rem;
+    color: var(--shell-muted-2) !important;
+}
+
+/* ── Ficha Cards ──────────────────────────────────────────── */
+.ficha-item {
+    background: var(--shell-surface-2);
+    border: 1px solid var(--shell-border);
+    border-left: 3px solid var(--shell-red);
+    border-radius: 8px;
+    padding: 11px 13px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    user-select: none;
+    position: relative;
+}
+
+.ficha-item:hover {
+    transform: translateY(-1px);
+    border-color: rgba(230, 57, 70, 0.35);
+}
+
+[data-theme="dark"] .ficha-item:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="light"] .ficha-item:hover {
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+}
+
+.ficha-item.selected {
+    background: var(--shell-red-dim) !important;
+    border-color: rgba(230, 57, 70, 0.5);
+    outline: 1px solid rgba(230, 57, 70, 0.4);
+}
+
+.disabled-card {
+    opacity: 0.35;
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
+/* ── Ficha card inner content (no usado por el JS, solo visual) ──────── */
+.pd-ficha-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.pd-ficha-number {
+    color: var(--shell-text);
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
+.pd-ficha-status {
+    font-size: 0.65rem;
+}
+
+.pd-ficha-title {
+    display: block;
+    font-weight: 600;
+    color: var(--shell-text);
+    font-size: 0.82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pd-ficha-subtitle {
+    display: block;
+    color: var(--shell-muted);
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+}
+
+.pd-ficha-user-row {
+    margin-top: 0.5rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--shell-border);
+}
+
+.pd-ficha-user {
+    color: var(--shell-red);
+    font-size: 0.68rem;
+}
+
+/* ── Queue Area ───────────────────────────────────────────── */
+.queue-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border: 1.5px dashed var(--shell-border-strong);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.queue-panel.drag-over {
+    border-color: var(--shell-red);
+    background: var(--shell-red-dim);
+}
+
+.delivery-queue {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* ── Deliver Footer ───────────────────────────────────────── */
+.deliver-footer {
+    border-top: 1px solid var(--shell-border);
+    padding: 10px 12px;
+    background: var(--shell-surface-2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+.btn-red {
+    background: var(--shell-red);
+    color: white;
+    border: none;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.25s;
+    flex: 1;
+}
+
+.btn-red:hover:not(:disabled) {
+    box-shadow: 0 0 18px var(--shell-red-glow);
+    transform: translateY(-1px);
+    color: white;
+}
+
+.btn-red:disabled {
+    background: var(--shell-surface-2);
+    color: var(--shell-muted-2);
+    cursor: not-allowed;
+}
+
+.queue-count {
+    font-size: 0.7rem;
+    min-width: 20px;
+    text-align: center;
+}
+
+.btn-clear-queue {
+    background: transparent;
+    border: 1px solid var(--shell-border-strong);
+    color: var(--shell-muted);
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-clear-queue:hover:not(:disabled) {
+    border-color: var(--shell-danger);
+    color: var(--shell-danger);
+    background: var(--shell-red-dim);
+}
+
+.btn-clear-queue:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ── Drag handle ──────────────────────────────────────────── */
+.drag-handle {
+    cursor: grab;
+    color: var(--shell-muted-2);
+    transition: color 0.2s;
+}
+
+.drag-handle:hover {
+    color: var(--shell-muted);
+}
+
+.remove-item-btn {
+    color: var(--shell-muted-2) !important;
+    transition: color 0.2s;
+    line-height: 1;
+    padding: 0 !important;
+}
+
+.remove-item-btn:hover {
+    color: var(--shell-danger) !important;
+}
+
+/* ── Divider arrow hint ────────────────────────────────────── */
+.panel-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    flex-shrink: 0;
+    align-self: stretch;
+    padding-top: 160px;
+}
+
+.panel-divider-arrow {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--shell-surface-2);
+    border: 1px solid var(--shell-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--shell-red);
+    font-size: 0.7rem;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .pd-split {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .panel-divider {
+        width: 100%;
+        padding-top: 0;
+    }
+
+    .panel-divider-arrow {
+        transform: rotate(90deg);
+    }
+
+    .panel-col {
+        height: auto;
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pd-header-main {
+        gap: 10px;
+    }
+
+    .pd-page-title {
+        font-size: 1.1rem;
+    }
+
+    .tab-switcher {
+        flex-direction: column;
+    }
+
+    button.btn-section-toggle {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .deliver-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-clear-queue,
+    .btn-red {
+        width: 100%;
+        justify-content: center;
+    }
+}

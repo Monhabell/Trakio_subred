@@ -1,0 +1,59 @@
+/* ==========================================================================
+   DIG · Consecutivos — usa tokens --shell-* (resources/css/dig/shell.css)
+   ========================================================================== */
+
+.undocumented-container h4 {
+    text-align: center;
+    color: var(--shell-red);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--shell-border-strong);
+    padding-bottom: 10px;
+}
+
+.undocumented-container input.form-control,
+.undocumented-container select.form-select {
+    background-color: var(--shell-surface-2);
+    color: var(--shell-text);
+    border: 1px solid var(--shell-border-strong);
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.undocumented-container input.form-control:focus,
+.undocumented-container select.form-select:focus {
+    box-shadow: 0 0 5px var(--shell-red-glow);
+    border-color: var(--shell-red);
+}
+
+.undocumented-container .input-group-text {
+    background: linear-gradient(45deg, var(--shell-red), color-mix(in srgb, var(--shell-red) 70%, black));
+    color: #fff;
+    border: none;
+    border-radius: 8px 0 0 8px;
+}
+
+.input-group-text {
+    min-width: 30%;
+}
+
+.undocumented-container select.form-select {
+    cursor: pointer;
+}
+
+.list-consecutivos {
+    max-height: 60vh !important;
+    min-height: 60vh !important;
+}
+
+@media (max-width: 576px) {
+    .input-group-text {
+        min-width: 40%;
+        font-size: 0.78rem;
+    }
+
+    .list-consecutivos {
+        max-height: 50vh !important;
+        min-height: 50vh !important;
+    }
+}

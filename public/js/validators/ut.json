@@ -1,0 +1,2807 @@
+{
+    "id": "ut",
+    "nombre": "Unidades de Trabajo Informal",
+    "code": "UT",
+    "desc": "Registro de intervenciones en Unidades de Trabajo Informal - Entorno Laboral",
+    "entornos": [
+        "laboral"
+    ],
+    "rules": {
+        "Ficha_fic": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Número de ficha pre-asignado SDS"
+        },
+        "Fecha_intervencion": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de intervención"
+        },
+        "Localidad_fic": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": "$LOCALIDADES_VALIDAS",
+            "desc": "Localidad de la ficha"
+        },
+        ".Nombre de la UT.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Nombre de la Unidad de Trabajo Informal"
+        },
+        ".Tipo de UT.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Fija",
+                "Móvil",
+                "Compartido con la vivienda",
+                "Independiente"
+            ],
+            "desc": "Tipo de UTI"
+        },
+        ".UT Derivada a.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "UTI Alta ASP externalidad",
+                "UTI Alta ASP acción rutinaria",
+                "UTI ALTA",
+                "UTI MEDIA",
+                "UTI BAJA - Acompañamiento",
+                "UTI Alta Ruralidad",
+                "UTI - Individuo Monitoreo - Seguimiento"
+            ],
+            "desc": "Clasificación / derivación de la UTI. Eje principal de dependencias condicionales."
+        },
+        ".Zona.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1",
+                "1- Urbana",
+                "1-Urbana",
+                "2",
+                "2- Rural",
+                "2-Rural"
+            ],
+            "desc": "Zona (1-Urbana, 2-Rural)"
+        },
+        ".Especial.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Marcar X si la UTI no tiene dirección convencional (invasión o fuera de la ciudad)"
+        },
+        ".UPZ/UPR.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código UPZ o UPR"
+        },
+        ".Sector catastral.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Sector catastral"
+        },
+        ".Barrio.": {
+            "tipo": "texto",
+            "desc": "Código de barrio",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1",
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Barrio es obligatorio cuando la Zona es Urbana",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Manzana del cuidado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Pertenece a una Manzana del Cuidado?"
+        },
+        ".Número de Manzana del cuidado.": {
+            "tipo": "texto",
+            "desc": "Número de Manzana del Cuidado",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Manzana del cuidado.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Si marcó \"Si\" en Manzana del cuidado, el número es obligatorio"
+            }
+        },
+        ".Eje Principal.": {
+            "tipo": "codigo",
+            "valores": [
+                "Calle",
+                "Carrera",
+                "Diagonal",
+                "Transversal",
+                "Avenida Calle",
+                "Avenida Carrera",
+                "CL",
+                "KR",
+                "DG",
+                "TV",
+                "AC",
+                "AK"
+            ],
+            "desc": "Tipo de vía del eje principal",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1",
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Eje Principal es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Número 1.": {
+            "tipo": "texto",
+            "desc": "Número del eje principal",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1",
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Número del eje principal es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Letra 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra del eje principal"
+        },
+        ".Bis 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sufijo BIS eje principal"
+        },
+        ".Letra 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra complemento BIS eje principal"
+        },
+        ".Cuadrante 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cuadrante eje principal (Sur/Este)"
+        },
+        ".Eje Generador - Número 2.": {
+            "tipo": "texto",
+            "desc": "Número del eje generador",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1",
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Eje Generador es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Letra 3.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra eje generador"
+        },
+        ".Bis 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sufijo BIS eje generador"
+        },
+        ".Letra 4.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra complemento BIS eje generador"
+        },
+        ".Placa.": {
+            "tipo": "texto",
+            "desc": "Número de placa",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1",
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "La Placa es obligatoria en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Cuadrante 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cuadrante eje generador"
+        },
+        ".Complemento 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Complemento dirección 1"
+        },
+        ".Número (Complemento 1).": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Número complemento 1"
+        },
+        ".Complemento 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Complemento dirección 2"
+        },
+        ".Número (Complemento 2).": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Número complemento 2"
+        },
+        ".Vereda.": {
+            "tipo": "texto",
+            "desc": "Nombre de la vereda",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Vereda es obligatoria cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Coordenada X.": {
+            "tipo": "numero",
+            "desc": "Coordenada X / Longitud (zona Rural)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Coordenada X es obligatoria cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Coordenada Y.": {
+            "tipo": "numero",
+            "desc": "Coordenada Y / Latitud (zona Rural)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2",
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Coordenada Y es obligatoria cuando la Zona es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Teléfono 1.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Teléfono de contacto principal"
+        },
+        ".Teléfono 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Teléfono de contacto secundario"
+        },
+        ".Direccion concatenada.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Dirección concatenada (calculada por el sistema)"
+        },
+        ".Actividad económica.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Nombre o código de la actividad económica"
+        },
+        ".Código Actividad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código CIIU de la actividad económica (debe coincidir con Actividad económica)"
+        },
+        ".Continua en la implementación de gestión del riesgo en la UTI.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Continúa implementando gestión del riesgo?",
+            "dependencia": {
+                "campo": ".UT Derivada a.",
+                "valores": [
+                    "UTI - Individuo Monitoreo - Seguimiento"
+                ],
+                "mensaje": "Obligatorio para derivada Monitoreo-Seguimiento",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Fecha ultima caracterizacion.": {
+            "tipo": "fecha",
+            "desc": "Fecha de la caracterización inicial (mínimo 6 meses antes de la intervención)",
+            "dependencia": {
+                "campo": ".UT Derivada a.",
+                "valores": [
+                    "UTI - Individuo Monitoreo - Seguimiento"
+                ],
+                "mensaje": "Obligatorio para derivada Monitoreo-Seguimiento",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".N° Ficha anterior.": {
+            "tipo": "numero",
+            "desc": "Número de ficha de la intervención anterior",
+            "dependencia": {
+                "campo": ".UT Derivada a.",
+                "valores": [
+                    "UTI - Individuo Monitoreo - Seguimiento"
+                ],
+                "mensaje": "Obligatorio para derivada Monitoreo-Seguimiento",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Peligros.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código peligro priorizado 1 (lista unidad 49, máximo 5 peligros por UTI)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Factor.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Factor de riesgo asociado al peligro 1",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Nivel De Exposición.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Continua 100%",
+                "2 Frecuente 75%",
+                "3 Ocasional 50%",
+                "4 Esporádica 25%"
+            ],
+            "desc": "Nivel de exposición al peligro 1",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Nivel Del Daño.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Extremo 100%",
+                "2 Grave 50%",
+                "3 Leve 25%"
+            ],
+            "desc": "Nivel del daño del peligro 1",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Porcentaje (Semaforización).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Semaforización peligro 1 = (% Exposición + % Daño) / 2",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Medidas De Intervención - Información.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medidas de intervención peligro 1 (lista unidad 53, mínimo una por peligro)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Peligros..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código peligro priorizado 2"
+        },
+        ".Factor..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Factor de riesgo peligro 2"
+        },
+        ".Nivel De Exposición..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Continua 100%",
+                "2 Frecuente 75%",
+                "3 Ocasional 50%",
+                "4 Esporádica 25%"
+            ],
+            "desc": "Nivel de exposición peligro 2"
+        },
+        ".Nivel Del Daño..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Extremo 100%",
+                "2 Grave 50%",
+                "3 Leve 25%"
+            ],
+            "desc": "Nivel del daño peligro 2"
+        },
+        ".Porcentaje (Semaforización)..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Semaforización peligro 2"
+        },
+        ".Medidas De Intervención - Información..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medidas de intervención peligro 2"
+        },
+        ".Peligros..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código peligro priorizado 3"
+        },
+        ".Factor..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Factor de riesgo peligro 3"
+        },
+        ".Nivel De Exposición..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Continua 100%",
+                "2 Frecuente 75%",
+                "3 Ocasional 50%",
+                "4 Esporádica 25%"
+            ],
+            "desc": "Nivel de exposición peligro 3"
+        },
+        ".Nivel Del Daño..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Extremo 100%",
+                "2 Grave 50%",
+                "3 Leve 25%"
+            ],
+            "desc": "Nivel del daño peligro 3"
+        },
+        ".Porcentaje (Semaforización)..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Semaforización peligro 3"
+        },
+        ".Medidas De Intervención - Información..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medidas de intervención peligro 3"
+        },
+        ".Peligros..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código peligro priorizado 4"
+        },
+        ".Factor..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Factor de riesgo peligro 4"
+        },
+        ".Nivel De Exposición..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Continua 100%",
+                "2 Frecuente 75%",
+                "3 Ocasional 50%",
+                "4 Esporádica 25%"
+            ],
+            "desc": "Nivel de exposición peligro 4"
+        },
+        ".Nivel Del Daño..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Extremo 100%",
+                "2 Grave 50%",
+                "3 Leve 25%"
+            ],
+            "desc": "Nivel del daño peligro 4"
+        },
+        ".Porcentaje (Semaforización)..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Semaforización peligro 4"
+        },
+        ".Medidas De Intervención - Información..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medidas de intervención peligro 4"
+        },
+        ".Peligros..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código peligro priorizado 5"
+        },
+        ".Factor..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Factor de riesgo peligro 5"
+        },
+        ".Nivel De Exposición..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Continua 100%",
+                "2 Frecuente 75%",
+                "3 Ocasional 50%",
+                "4 Esporádica 25%"
+            ],
+            "desc": "Nivel de exposición peligro 5"
+        },
+        ".Nivel Del Daño..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 Extremo 100%",
+                "2 Grave 50%",
+                "3 Leve 25%"
+            ],
+            "desc": "Nivel del daño peligro 5"
+        },
+        ".Porcentaje (Semaforización)..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Semaforización peligro 5"
+        },
+        ".Medidas De Intervención - Información..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medidas de intervención peligro 5"
+        },
+        ".Valoracion inicial %.": {
+            "tipo": "numero",
+            "desc": "% Valoración inicial UTI (solo Monitoreo-Seguimiento)",
+            "dependencia": {
+                "campo": ".UT Derivada a.",
+                "valores": [
+                    "UTI - Individuo Monitoreo - Seguimiento"
+                ],
+                "mensaje": "Obligatorio para derivada Monitoreo-Seguimiento",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".1. Maquinas identificadas.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Máquina/equipo 1 identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".1. En buen estado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Máquina 1 en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".2. Maquinas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Máquina/equipo 2"
+        },
+        ".2. En buen estado.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Máquina 2 en buen estado?"
+        },
+        ".3. Maquinas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Máquina/equipo 3"
+        },
+        ".3. En buen estado.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Máquina 3 en buen estado?"
+        },
+        ".4. Maquinas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Máquina/equipo 4"
+        },
+        ".4. En buen estado.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Máquina 4 en buen estado?"
+        },
+        ".5. Maquinas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Máquina/equipo 5"
+        },
+        ".5. En buen estado.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Máquina 5 en buen estado?"
+        },
+        ".6. Maquinas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Máquina/equipo 6"
+        },
+        ".6. En buen estado.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Máquina 6 en buen estado?"
+        },
+        ".1.Herramientas identificadas.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Herramienta 1 identificada",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".1. En buen estado..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Herramienta 1 en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".2. Herramientas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Herramienta 2"
+        },
+        ".2.En buen estado.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Herramienta 2 en buen estado?"
+        },
+        ".3. Herramientas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Herramienta 3"
+        },
+        ".3. En buen estado..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Herramienta 3 en buen estado?"
+        },
+        ".4. Herramientas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Herramienta 4"
+        },
+        ".4. En buen estado..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Herramienta 4 en buen estado?"
+        },
+        ".5. Herramientas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Herramienta 5"
+        },
+        ".5. En buen estado..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Herramienta 5 en buen estado?"
+        },
+        ".6. Herramientas identificadas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Herramienta 6"
+        },
+        ".6. En buen estado..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Herramienta 6 en buen estado?"
+        },
+        ".Sustancias Químicas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sustancias químicas usadas (lista unidad 54)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".¿Realiza mezclas con las sustancias y productos químicos que utiliza en su actividad?.": {
+            "tipo": "texto_nonempty",
+            "desc": "¿Realiza mezclas con productos químicos?",
+            "dependencia": {
+                "campo": ".Sustancias Químicas.",
+                "valores": [
+                    "$NOT_EMPTY"
+                ],
+                "mensaje": "Obligatorio cuando Sustancias Químicas está diligenciado",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".¿Dónde se almacenan y mezclan los productos químicos?.": {
+            "tipo": "texto_nonempty",
+            "desc": "Lugar de almacenamiento de productos químicos (lista unidad 148)",
+            "dependencia": {
+                "campo": ".Sustancias Químicas.",
+                "valores": [
+                    "$NOT_EMPTY"
+                ],
+                "mensaje": "Obligatorio cuando Sustancias Químicas está diligenciado",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".¿En el lugar de trabajo se han presentado incidentes o emergencias?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1. Si, hace menos de 1 año",
+                "2. Si, hace de 1 a 3 años",
+                "3. Si, hace más de 3 años",
+                "4. No"
+            ],
+            "desc": "¿Se han presentado incidentes o emergencias?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".¿Qué originó el incidente o la emergencia?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Causas del incidente (lista unidad 133)"
+        },
+        ".¿Dónde se realiza el almacenamiento de agua para consumo humano en el lugar de trabajo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Almacenamiento agua para consumo humano (lista unidad 135)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".¿En el lugar donde realiza su ocupación u oficio cómo disponen los residuos sólidos?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Disposición de residuos sólidos (lista unidad 137)"
+        },
+        ".N° Días de trabajo a la Semana.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 7,
+            "desc": "Días de trabajo a la semana (1-7)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Jornada de trabajo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1. Diurna",
+                "2.Nocturna",
+                "3.Ambas"
+            ],
+            "desc": "Jornada de trabajo",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".¿Espacios libres de humo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Cuenta con espacios libres de humo?"
+        },
+        ".Forma de pago.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Forma de pago (Destajo / Remunerado fija)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".1. Protección a la Cabeza (cráneo).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP cabeza identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP cabeza en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP cabeza?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".2. Protección de Ojos y Cara.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP ojos/cara identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP ojos en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP ojos?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".3. Protección a los Oídos.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP oídos identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..2": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP oídos en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..2": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP oídos?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".4. Protección de las vías Respiratorias.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP respiratorio identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..3": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP respiratorio en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..3": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP respiratorio?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".6. Protección de cuerpo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP cuerpo identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..4": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP cuerpo en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..4": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP cuerpo?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".8. Protección de manos y brazos.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP manos/brazos identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..5": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP manos en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..5": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP manos?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".9. Protección de pies y piernas.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP pies/piernas identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..6": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿EPP pies en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..6": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa EPP pies?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".10. Cinturones de seguridad para trabajo en altura.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPP cinturón/arnés para altura identificado",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..7": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Cinturón de altura en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..7": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa cinturón de altura?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".11. Ropa de trabajo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Ropa de trabajo identificada",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".En buen estado..8": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Ropa de trabajo en buen estado?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Lo usa..8": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Usa ropa de trabajo?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".1. Sistemas para la contención de derrames (Kit antiderrames).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Tiene kit antiderrames?"
+        },
+        ".2. Extintor(es) (equipo contraincendios).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Tiene extintor(es)?"
+        },
+        ".3. Botiquín de primeros auxilios.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Tiene botiquín de primeros auxilios?"
+        },
+        ".4.Red contraincendios (ducha o fuente).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Tiene red contraincendios?"
+        },
+        ".1. Simulacros en casos de emergencia?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Realizó simulacros de emergencia?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".2. Mantenimiento de maquinaria para evitar accidentes?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Realizó mantenimiento preventivo de maquinaria?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".3. Educación a los trabajadores para evitar accidentes?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Realizó educación preventiva a trabajadores?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".4. Control de los Factores de riesgo prioritarios.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Realizó control de factores de riesgo prioritarios?",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Trabajadores abordados.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Número de trabajadores en jornada 1"
+        },
+        ".Jornadas.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código de jornada 1 (lista 52 o 199)"
+        },
+        ".Perfil UT ASP externalidad.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Perfil del profesional (UTI ASP externalidad)"
+        },
+        ".N° de trabajador (inicia con el encargado de la UTI).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 5,
+            "desc": "Número del trabajador (1=dueño/representante, 2-5=adicionales)"
+        },
+        ".1er Nombre.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer nombre del trabajador",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2 do Nombre.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo nombre del trabajador"
+        },
+        ".1 er apellido.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer apellido del trabajador",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2 do Apellido.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo apellido del trabajador"
+        },
+        ".Tipo de Documento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "desc": "Tipo de documento del trabajador",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "18-110"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "1- CC",
+                        "1-CC",
+                        "7- Adulto sin ID",
+                        "7-Adulto sin ID"
+                    ],
+                    "mensaje": "Para colombianos mayores de 18 años, debe ser Cédula de Ciudadanía o Adulto sin ID."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "0-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "2- RC",
+                        "2-RC",
+                        "3- TI",
+                        "3-TI",
+                        "8- Menor sin ID",
+                        "8-Menor sin ID"
+                    ],
+                    "mensaje": "Para colombianos menores de 18 años, debe ser RC, TI o Menor sin ID."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "!COL"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "4- CE",
+                        "4-CE",
+                        "6- Pasaporte",
+                        "6-Pasaporte",
+                        "7- Adulto sin ID",
+                        "8- Menor sin ID",
+                        "9- Carné Diplomático",
+                        "10- Salvoconducto",
+                        "11- Permiso especial de permanencia",
+                        "12- Documento Nacional de Identidad (del país de origen)",
+                        "13- PPT Permiso por Protección Temporal"
+                    ],
+                    "mensaje": "Para extranjeros, el tipo de documento debe ser CE, Pasaporte, PEP, PPT, Doc. Nacional u otro documento de extranjero."
+                }
+            ]
+        },
+        ".Número Documento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Número del documento de identificación"
+        },
+        ".Nacionalidad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código de nacionalidad (ej: COL, VEN)"
+        },
+        ".Sexo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Hombre",
+                "2- Mujer",
+                "3- Intersexual"
+            ],
+            "desc": "Sexo biológico del trabajador (lista unidad 6)"
+        },
+        ".Genero.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Masculino",
+                "2- Femenino",
+                "3- Transgénero"
+            ],
+            "desc": "Género del trabajador (lista unidad 7)"
+        },
+        ".Estado Civil.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Soltero(a)",
+                "2- Casado(a)",
+                "3- Viudo(a)",
+                "4- Separado(a)",
+                "5- Unión Libre",
+                "6- No aplica"
+            ],
+            "desc": "Estado civil del trabajador (lista unidad 8)"
+        },
+        ".Fecha De Nacimiento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de nacimiento del trabajador. Debe ser coherente con la Edad registrada."
+        },
+        ".Edad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "max": 100,
+            "desc": "Edad del trabajador en años. Para UTI debe ser ≥18 (salvo NNA Trabajadores/riesgo)."
+        },
+        ".Etnia.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Indígena",
+                "2- ROM-gitano",
+                "3- Raizal",
+                "4- Palenquero",
+                "5- Negro/Afrodescendiente",
+                "6- Ninguno",
+                "7- Negro / Afrocolombiano"
+            ],
+            "desc": "Etnia del trabajador (lista unidad 9)"
+        },
+        ".Población Diferencial y de Inclusión.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Población diferencial e inclusión (lista unidad 11)",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "!COL"
+                        ]
+                    },
+                    "contiene": [
+                        "17- Migrante Internacional",
+                        "Migrante"
+                    ],
+                    "mensaje": "Para extranjeros, Población Diferencial debe incluir '17- Migrante Internacional'."
+                }
+            ]
+        },
+        ".Ocupación.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Ocupación del trabajador (lista unidad 13)"
+        },
+        ".Categorías de la discapacidad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Categoría de discapacidad del trabajador (lista unidad 81)",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Población Diferencial y de Inclusión.": [
+                            "*Discapacidad*"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": "Si Población Diferencial contiene Discapacidad, la categoría no puede ser 'No aplica'."
+                }
+            ]
+        },
+        ".Habla español.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El trabajador habla español? (aplica para indígenas)"
+        },
+        ".Pueblo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Pueblo indígena al que pertenece (lista unidad 10)",
+            "dependencia": {
+                "campo": ".Etnia.",
+                "valores": [
+                    "1- Indígena",
+                    "Indígena"
+                ],
+                "mensaje": "El campo Pueblo es obligatorio cuando la Etnia es Indígena",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Vínculo con el Jefe de Hogar.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Vínculo con el jefe del hogar (lista unidad 12)"
+        },
+        ".Afiliación Al SGSSS.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Subsidiado",
+                "2- Contributivo",
+                "3- Régimen de excepción/especial",
+                "4- Vinculados",
+                "5- No asegurado"
+            ],
+            "desc": "Afiliación al SGSSS del trabajador (lista unidad 15)"
+        },
+        ".Nombre EAPB.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Nombre o código de la EAPB",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Afiliación Al SGSSS.": [
+                            "1- Subsidiado",
+                            "2- Contributivo",
+                            "3- Régimen de excepción/especial"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "0000",
+                        "0"
+                    ],
+                    "mensaje": "Subsidiado, Contributivo o Régimen especial requieren una EAPB válida, no '0000'."
+                }
+            ]
+        },
+        ".N° personas con las que vive? (personas de 0 a 10).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 10,
+            "desc": "Número de personas con las que convive el trabajador (0-10)"
+        },
+        ".Tiempo de trabajo en esta actividad MM_AA.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tiempo en la actividad en formato MM_AA (ej: 06_02)",
+            "regex": "^\\d{2}_\\d{2}$"
+        },
+        ".Promedio horas trabajo día.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 24,
+            "desc": "Promedio de horas trabajadas al día (máximo 24)"
+        },
+        ".Oficio.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código del oficio del trabajador (lista de oficios UTIS)"
+        },
+        ".Nivel Educativo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Preescolar",
+                "2- Básica primaria completa",
+                "3- Básica primaria incompleta",
+                "4- Básica secundaria completa",
+                "5- Básica secundaria incompleta",
+                "6- Técnica completa",
+                "7- Técnica incompleta",
+                "8- Tecnológica completa",
+                "9- Tecnológica incompleta",
+                "10- Superior completa",
+                "11- Superior incompleta",
+                "12- Ninguno"
+            ],
+            "desc": "Nivel educativo del trabajador (lista unidad 16)"
+        },
+        ".¿Cómo se desplaza al lugar de trabajo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medio de transporte al trabajo (lista unidad 143)"
+        },
+        ".Sospecha de enfermedad laboral.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Síntomas de sospecha de enfermedad laboral (lista unidad 47)"
+        },
+        ".Accidente relacionado con el trabajo (último año).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Tuvo accidente de trabajo en el último año?"
+        },
+        ".¿Que tipo de accidente?\t\t\t\t\t\t\t\".": {
+            "tipo": "texto",
+            "desc": "Tipo de accidente (lista unidad 48)",
+            "dependencia": {
+                "campo": ".Accidente relacionado con el trabajo (último año).",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El tipo de accidente es obligatorio cuando hubo accidente de trabajo",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".¿Qué tipo de secuela?.": {
+            "tipo": "texto",
+            "desc": "Tipo de secuela del accidente (lista unidad 55)",
+            "dependencia": {
+                "campo": ".Accidente relacionado con el trabajo (último año).",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El tipo de secuela es obligatorio cuando hubo accidente de trabajo",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Conducta  en caso de accidente relacionado con el trabajo.": {
+            "tipo": "texto",
+            "desc": "Conducta tomada tras el accidente (lista unidad 92)",
+            "dependencia": {
+                "campo": ".Accidente relacionado con el trabajo (último año).",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La conducta ante el accidente es obligatoria cuando hubo accidente de trabajo",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Actos inseguros.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Actos inseguros identificados (lista unidad 73). Código NO APLICA exclusivo para ASP.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".UT Derivada a.": [
+                            "!UTI Alta ASP externalidad",
+                            "!UTI Alta ASP acción rutinaria"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "No Aplica"
+                    ],
+                    "mensaje": "El valor 'No Aplica' en Actos Inseguros es exclusivo para UTIs de tipo ASP."
+                }
+            ]
+        },
+        ".¿Qué hace con la ropa o indumentaria de trabajo después de terminada su actividad?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Manejo de ropa de trabajo (lista unidad 144)"
+        },
+        ".Condiciones inseguras.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Condiciones inseguras identificadas (lista unidad 74). Código NO APLICA exclusivo para ASP.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".UT Derivada a.": [
+                            "!UTI Alta ASP externalidad",
+                            "!UTI Alta ASP acción rutinaria"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "No Aplica"
+                    ],
+                    "mensaje": "El valor 'No Aplica' en Condiciones Inseguras es exclusivo para UTIs de tipo ASP."
+                }
+            ]
+        },
+        ".Condiciones Crónicas.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Condiciones crónicas identificadas en el trabajador (lista general 18)"
+        },
+        ".¿Cumple con esquema de vacunacion de acuerdo a curso de vida?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El trabajador cumple con el esquema de vacunación?"
+        },
+        ".Decálogo Compromiso.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Compromisos del decálogo de salud (lista unidad 244). Diligenciar en la PRIMERA sesión."
+        },
+        ".Decálogo cumplimiento.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cumplimiento del decálogo (lista unidad 245). Diligenciar en la ÚLTIMA sesión."
+        },
+        ".Indique  cuantos  cigarrillos, y/o derivados consume en el dia.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Número de cigarrillos o derivados consumidos al día"
+        },
+        ".Esta expuesto a humo de segunda mano?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Está expuesto a humo de segunda mano?"
+        },
+        ".Cuantas veces a la semana consume frutas?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 7,
+            "desc": "Consumo de frutas (veces por semana)"
+        },
+        ".Cuantas veces a la semana consume verduras?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 7,
+            "desc": "Consumo de verduras (veces por semana)"
+        },
+        ".Cuantas veces a la semana consume alcohol?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 7,
+            "desc": "Consumo de alcohol (veces por semana)"
+        },
+        ".¿Cuántos minutos de actividad física realizó en promedio diariamente durante los últimos 5 días?minutos.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Minutos de actividad física diaria promedio (últimos 5 días)"
+        },
+        ".Realiza pausas activas en el trabajo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Realiza pausas activas en el trabajo?"
+        },
+        ".¿Utiliza sal en la mesa?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Agrega sal a las comidas ya servidas?"
+        },
+        ".¿consume productos de paquete?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Consume productos de paquete?"
+        },
+        ".¿Cuantas gaseosas consume a la semana?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Número de gaseosas consumidas por semana"
+        },
+        ".Consume dispositivos electrónicos - vapeadores?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Consume dispositivos electrónicos o vapeadores?"
+        },
+        ".Riesgo cardiaco según circunferencia de cintura /cm.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 30,
+            "max": 200,
+            "desc": "Circunferencia de cintura en cm (riesgo: Hombre ≥90, Mujer ≥80)"
+        },
+        ".Alertas Psicosociales.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas psicosociales identificadas en el trabajador (lista unidad 21)"
+        },
+        ".Alertas en mujeres.": {
+            "tipo": "texto_nonempty",
+            "desc": "Alertas gineco-obstétricas (lista unidad 24)",
+            "dependencia": {
+                "campo": ".Sexo.",
+                "valores": [
+                    "2- Mujer"
+                ],
+                "mensaje": "Alertas en mujeres es obligatorio para trabajadoras (Sexo = Mujer)",
+                "requeridoCuandoCumple": true
+            },
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Sexo.": [
+                            "1- Hombre"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "| 32- No aplica",
+                        "| 32- No aplica",
+                        "32- No aplica"
+                    ],
+                    "mensaje": "Para hombres, Alertas en mujeres solo puede ser '32- No aplica'."
+                }
+            ]
+        },
+        ".Etapa de gestación.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Primer trimestre",
+                "2- Segundo Trimestre",
+                "3- Tercer Trimestre",
+                "4- Puerperio",
+                "5- No aplica",
+                "6- Lactante"
+            ],
+            "desc": "Etapa de gestación (lista unidad 25, solo aplica para mujeres)"
+        },
+        ".Canalización.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El trabajador fue canalizado?"
+        },
+        ".Porque no se canalizó.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Razón de no canalización (lista unidad 213)",
+            "dependencia": {
+                "campo": ".Canalización.",
+                "valores": [
+                    "No"
+                ],
+                "mensaje": "El campo 'Porque no se canalizó' es obligatorio cuando la Canalización es 'No'",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Modalidad de Canalización.": {
+            "tipo": "texto",
+            "desc": "Modalidad de canalización (lista 214)",
+            "dependencia": {
+                "campo": ".Canalización.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La Modalidad de Canalización es obligatoria cuando Canalización = Si",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Prescripción Social.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Oferta social institucional (lista 215)"
+        },
+        ".Tema.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas abordados en la asesoría (lista 52). No repetir temas entre asesorías."
+        },
+        ".Tema Educación transformadora (IEC).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC transversal (lista 199). No repetir temas entre asesorías."
+        },
+        ".Frecuencia cardiaca LPM.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 30,
+            "max": 250,
+            "desc": "Frecuencia cardíaca en latidos por minuto"
+        },
+        ".Tension arterial mmHg.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tensión arterial en formato Sistólica/Diastólica (ej: 120/80)",
+            "regex": "^\\d{2,3}\\/\\d{2,3}$"
+        },
+        ".Spo2.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Saturación de oxígeno (%). Rango normal 95-100%"
+        },
+        ".Tamizaje aplicado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tamizajes aplicados (lista unidad 147): OMS, Findrisc, Assist, RQC/SRQ, VIH, Sifilis, Hepatitis B, Ninguno, Glucometría, EPOC, Disnea, Audit",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Tamizaje aplicado.": [
+                            "*Cancer*"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "*Cancer*"
+                    ],
+                    "mensaje": "'Cancer' no existe en la lista de tamizajes válidos (unidad 147). Retirar del campo."
+                },
+                {
+                    "condicion": {
+                        ".Tamizaje aplicado.": [
+                            "*SQR*"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "*SQR*"
+                    ],
+                    "mensaje": "'SQR' no es un código válido. El correcto es 'RQC/SRQ' (lista unidad 147)."
+                }
+            ]
+        },
+        ".Resultado de glucometria.": {
+            "tipo": "numero",
+            "min": 20,
+            "max": 800,
+            "desc": "Resultado numérico de la glucometría (mg/dL)",
+            "dependencia": {
+                "campo": ".Tamizaje aplicado.",
+                "valores": [
+                    "*Glucometr*"
+                ],
+                "mensaje": "El resultado de glucometría es obligatorio cuando ese tamizaje fue aplicado",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Decálogo en salud Cumplimiento.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Decálogo cumplimiento — segunda aplicación al cierre"
+        },
+        ".Cuántos cigarrillos, y/o derivados consume en el dia?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Cigarrillos al día — monitoreo/cierre"
+        },
+        ".Esta expuesto a humo de segunda mano?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Humo de segunda mano — monitoreo"
+        },
+        ".Cuantas veces a la semana consume frutas?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 7,
+            "desc": "Frutas por semana — monitoreo"
+        },
+        ".Cuantas veces a la semana consume verduras?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 7,
+            "desc": "Verduras por semana — monitoreo"
+        },
+        ".Cuantas veces a la semana consume alcohol?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 7,
+            "desc": "Alcohol por semana — monitoreo"
+        },
+        ".¿Cuántos minutos de actividad física realizó en promedio diariamente durante los últimos 5 días? __ horas :___ minutos.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Actividad física diaria — monitoreo"
+        },
+        ".Realiza pausas activas en el trabajo?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Pausas activas — monitoreo"
+        },
+        ".¿Utiliza sal en la mesa?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Sal en mesa — monitoreo"
+        },
+        ".¿consume productos de paquete?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Paquetes — monitoreo"
+        },
+        ".¿Cuantas gaseosas consume a la semana?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Gaseosas por semana — monitoreo"
+        },
+        ".N° trabajadores.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Número de trabajadores en asesoría de enfermería"
+        },
+        ".N° trabajadores..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Número de trabajadores en asesoría de psicología"
+        },
+        ".Identificacion de riesgos.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código riesgo priorizado 1 en el plan de trabajo",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Primer Seguimiento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha primer seguimiento (máximo 1 mes después de la caracterización)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Numero de trabajador.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Número de trabajadores abordados en el seguimiento 1"
+        },
+        ".Segundo Seguimiento.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha segundo seguimiento"
+        },
+        ".Numero de trabajador..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Número de trabajadores en el seguimiento 2"
+        },
+        ".Tercer Seguimiento.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha tercer seguimiento"
+        },
+        ".Numero de trabajador..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Número de trabajadores en el seguimiento 3"
+        },
+        ".Monitoreo Seguimiento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha del monitoreo / cierre",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Numero de trabajador..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Número de trabajadores en el monitoreo"
+        },
+        ".Medidas De Intervención.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Medidas de intervención pendientes en el plan de trabajo (lista unidad 53)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Plan de Mejoramiento.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Descripción y fecha del plan de mejoramiento"
+        },
+        ".Reposición.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Descripción y fecha de la reposición (sesión adicional)"
+        },
+        ".Identificacion de riesgos..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código riesgo priorizado 2 en el plan de trabajo"
+        },
+        ".Identificacion de riesgos..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código riesgo priorizado 3 en el plan de trabajo"
+        },
+        ".Identificacion de riesgos..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código riesgo priorizado 4 en el plan de trabajo"
+        },
+        ".Identificacion de riesgos..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código riesgo priorizado 5 en el plan de trabajo"
+        },
+        ".Elementos de protección individual recomendados.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "EPIs recomendados al cierre (lista unidad 95)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Durante el tiempo comprendido entre la identificación del perfil de riesgo y el cierre se favoreció la prevención de accidentes relacionados con el trabajo o se ha realizado el reporte de accidentes relacionados con el trabajo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se favoreció la prevención de accidentes durante el proceso?"
+        },
+        ".Al finalizar el proceso o al seguimiento cuantos trabajadores se afiliaron a ARL.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Número de trabajadores afiliados a ARL al finalizar el proceso"
+        },
+        ".¿Considera que la unidad de trabajo informal es?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1. Un lugar seguro para trabajar",
+                "2. Un lugar poco seguro para trabajar",
+                "3. Un lugar inseguro para trabajar"
+            ],
+            "desc": "Percepción de seguridad de la UTI por el trabajador (lista unidad 139)"
+        },
+        ".Reporte a Vigilancia Sanitaria.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿La UTI requiere visita de Vigilancia Sanitaria?"
+        },
+        ".UTI termina el proceso desarrollado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿La UTI completó el proceso completo (caracterización + 4 asesorías + cierre)?"
+        },
+        ".Porcentaje de trabajadores que apropian la practicas saludables en las UTI.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "max": 100,
+            "desc": "Porcentaje de trabajadores que apropiaron prácticas saludables",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI - Individuo Monitoreo - Seguimiento"
+            }
+        },
+        ".% Valoración Inicial de la UTI.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "max": 100,
+            "desc": "Porcentaje de valoración inicial de la UTI (calculado con semaforización de peligros)",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".% Valoración Final de la UTI - Monitoreo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "max": 100,
+            "desc": "Porcentaje de valoración final en el monitoreo",
+            "exceptoSi": {
+                "campo": ".UT Derivada a.",
+                "valor": "UTI Alta ASP externalidad"
+            }
+        },
+        ".Fecha de caracterizacion del trabajador.": {
+            "tipo": "fecha",
+            "desc": "Fecha de caracterización del trabajador",
+            "obligatorio": [
+                "laboral"
+            ],
+            "maxHoy": true
+        },
+        ".Nombre digitador.": {
+            "tipo": "texto",
+            "desc": "Nombre del digitador",
+            "obligatorio": [
+                "laboral"
+            ]
+        },
+        ".Localidad.": {
+            "tipo": "codigo",
+            "desc": "Localidad donde se ubica la UTI",
+            "obligatorio": [
+                "laboral"
+            ],
+            "valores": "$LOCALIDADES_VALIDAS_NAME"
+        },
+        ".Identidad de género.": {
+            "tipo": "codigo",
+            "desc": "Identidad de género (lista 205). NO usar Masculino/Femenino — esos valores corresponden al campo Género.",
+            "obligatorio": [
+                "laboral"
+            ],
+            "valores": [
+                "1- Hombre transgénero",
+                "2- Mujer Transgénero",
+                "3- Persona no binaria",
+                "4- No responde",
+                "Femenino",
+                "Masculino"
+            ]
+        }
+    }
+}

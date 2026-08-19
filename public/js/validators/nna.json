@@ -1,0 +1,3057 @@
+{
+    "id": "nna",
+    "nombre": "Niños, Niñas y Adolescentes Trabajadores",
+    "code": "NNA",
+    "desc": "Registro de caracterización y seguimiento de NNA identificados como trabajadores - Entorno Laboral",
+    "entornos": [
+        "laboral"
+    ],
+    "rules": {
+        "Ficha_fic": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "desc": "Número de ficha pre-asignado (Subred + Localidad + Espacio de vida + Consecutivo)"
+        },
+        "Fecha_intervencion": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de intervención. No puede ser posterior a la fecha actual ni anterior a la fecha de nacimiento del NNA."
+        },
+        ".Perfil.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Psicólogo",
+                "Trabajador social",
+                "Especialista en salud ocupacional",
+                "Tecnólogo en Salud Ocupacional"
+            ],
+            "desc": "Perfil acompañamiento 2 (lista 115). Inactivo si tipo de intervención = 5 o NNA no termina el proceso."
+        },
+        ".Tipo Intervención.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Niños-Niñas",
+                "Adolescentes",
+                "Seguimiento al efecto"
+            ],
+            "desc": "Tipo de intervención (lista 76). Niños-Niñas: 0-14 años. Adolescentes: 15-17 años.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-14"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "Niños-Niñas"
+                    ],
+                    "mensaje": "Para NNA menores de 15 años el tipo de intervención debe ser Niños-Niñas."
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "15-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "Adolescentes"
+                    ],
+                    "mensaje": "Para NNA de 15 a 17 años el tipo de intervención debe ser Adolescentes."
+                }
+            ]
+        },
+        ".Desvinculado seguimineto al efecto.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Campo auxiliar para seguimiento al efecto de NNA desvinculado"
+        },
+        ".Tipo de Documento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "desc": "Tipo de documento del NNA (lista 5). Nunca CC ni Adulto sin ID para menores de 18 años.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "0-7"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "2- RC",
+                        "5- NUIP",
+                        "8- Menor sin ID."
+                    ],
+                    "mensaje": "Para colombianos de 0 a 7 años: Registro Civil, NUIP o Menor sin ID."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "COL"
+                        ],
+                        ".Edad.": [
+                            "8-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "3- TI",
+                        "8- Menor sin ID."
+                    ],
+                    "mensaje": "Para colombianos de 8 a 17 años: Tarjeta de Identidad o Menor sin ID."
+                },
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "!COL"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "4- CE",
+                        "6- Pasaporte",
+                        "8- Menor sin ID.",
+                        "9- Carné Diplomático",
+                        "10- Salvoconducto",
+                        "11- Permiso especial de permanencia",
+                        "12- Documento Nacional de Identidad (del país de origen)",
+                        "13- PPT Permiso por Protección Temporal"
+                    ],
+                    "mensaje": "Para extranjeros: CE, Pasaporte, PPT, Doc. Nacional u otro documento de extranjero. Nunca CC ni TI."
+                }
+            ]
+        },
+        ".Numero Documento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Número del documento del NNA. Si no tiene identificación: número de ficha + localidad + UPZ + iniciales + 4 consecutivos."
+        },
+        ".1er. NOMBRE.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer nombre del NNA tal como aparece en el documento",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2do. NOMBRE.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo nombre del NNA"
+        },
+        ".1er. APELLIDO.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer apellido del NNA tal como aparece en el documento",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2do. APELLIDO.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo apellido del NNA"
+        },
+        ".Nacionalidad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código de nacionalidad del NNA (anexo GESI). Ej: COL, VEN."
+        },
+        ".Sexo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Hombre",
+                "2- Mujer",
+                "3- Intersexual"
+            ],
+            "desc": "Sexo biológico del NNA (lista 6)"
+        },
+        ".Genero.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Masculino",
+                "2- Femenino",
+                "3- Transgénero"
+            ],
+            "desc": "Género del NNA (lista 7)",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "4- No aplica"
+                    ],
+                    "mensaje": "Para menores de 14 años, el Género debe ser 'No aplica'."
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "14-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "1- Masculino",
+                        "2- Femenino",
+                        "3- Transgénero"
+                    ],
+                    "mensaje": "Para NNA de 14 años o más, el Género debe ser Masculino, Femenino o Transgénero."
+                }
+            ]
+        },
+        ".Identidad de género.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Hombre transgénero",
+                "2- Mujer Transgénero",
+                "3- Persona no binaria",
+                "4- No responde",
+                "No aplica"
+            ],
+            "desc": "Identidad de género del NNA (lista 205). NO usar Masculino/Femenino — esos son valores del campo Género.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": "Para menores de 14 años, la Identidad de Género debe ser 'No aplica'."
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "14-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "1- Hombre transgénero",
+                        "2- Mujer Transgénero",
+                        "3- Persona no binaria",
+                        "4- No responde"
+                    ],
+                    "mensaje": "Para NNA de 14 años o más, la Identidad de Género no puede ser 'No aplica'."
+                }
+            ]
+        },
+        ".Estado Civil.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Soltero(a)",
+                "2- Casado(a)",
+                "3- Viudo(a)",
+                "4- Separado(a)",
+                "5- Unión Libre",
+                "6- No aplica",
+                "7- Divorciado"
+            ],
+            "desc": "Estado civil del NNA (lista 8). 'No aplica' para menores de 14 años.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "6- No aplica"
+                    ],
+                    "mensaje": "Para NNA menores de 14 años, el Estado Civil debe ser 'No aplica'."
+                }
+            ]
+        },
+        ".Fecha De Nacimiento.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de nacimiento del NNA. La edad no puede ser superior a 17 años 8 meses 29 días."
+        },
+        ".Edad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 0,
+            "max": 17,
+            "desc": "Edad del NNA en años. Máximo 17 años (población NNA trabajadora)."
+        },
+        ".Etnia.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Indígena",
+                "2- ROM-gitano",
+                "3- Raizal",
+                "4- Palenquero",
+                "5- Negro/Afrodescendiente",
+                "6- Ninguno",
+                "7- Negro / Afrocolombiano"
+            ],
+            "desc": "Etnia del NNA (lista 9)"
+        },
+        ".Poblacion Diferencial y de Inclusion.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Población diferencial e inclusión del NNA (lista 11). Selección múltiple.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Nacionalidad.": [
+                            "!COL"
+                        ]
+                    },
+                    "contiene": [
+                        "17- Migrante Internacional",
+                        "Migrante"
+                    ],
+                    "mensaje": "Para NNA extranjeros, Población Diferencial debe incluir '17- Migrante Internacional'."
+                }
+            ]
+        },
+        ".Orientacion Sexual.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Lesbiana",
+                "Gay",
+                "Bisexual",
+                "Heterosexual",
+                "Pansexual",
+                "No responde",
+                "Otro",
+                "No aplica"
+            ],
+            "desc": "Orientación sexual del NNA (lista 6). 'No aplica' para primera infancia (menores de 14 años).",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "0-13"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": "Para menores de 14 años, la Orientación Sexual debe ser 'No aplica'."
+                },
+                {
+                    "condicion": {
+                        ".Edad.": [
+                            "14-17"
+                        ]
+                    },
+                    "valoresPermitidos": [
+                        "Lesbiana",
+                        "Gay",
+                        "Bisexual",
+                        "Heterosexual",
+                        "Pansexual",
+                        "No responde",
+                        "Otro"
+                    ],
+                    "mensaje": "Para NNA de 14 años o más, la Orientación Sexual no puede ser 'No aplica'."
+                }
+            ]
+        },
+        ".Ocupacion.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Ocupación del NNA (lista 13)"
+        },
+        ".Categorias de la discapacidad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Categoría de discapacidad (lista 81). 'No aplica' cuando no hay discapacidad.",
+            "validacionesCruzadas": [
+                {
+                    "condicion": {
+                        ".Poblacion Diferencial y de Inclusion.": [
+                            "*Discapacidad*"
+                        ]
+                    },
+                    "noPermitidos": [
+                        "No aplica"
+                    ],
+                    "mensaje": "Si Población Diferencial incluye Discapacidad, la Categoría no puede ser 'No aplica'."
+                }
+            ]
+        },
+        ".Habla español.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA habla español? Solo aplica cuando la Etnia es Indígena."
+        },
+        ".Pueblo.": {
+            "tipo": "texto",
+            "desc": "Pueblo indígena al que pertenece el NNA (lista 10). Obligatorio cuando Etnia = Indígena.",
+            "dependencia": {
+                "campo": ".Etnia.",
+                "valores": [
+                    "1- Indígena",
+                    "Indígena"
+                ],
+                "mensaje": "El campo Pueblo es obligatorio cuando la Etnia es Indígena",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Vinculo con el Jefe de Hogar.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Vínculo del NNA con el jefe del hogar (lista 12)"
+        },
+        ".Afiliacion Al SGSSS.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Subsidiado",
+                "2- Contributivo",
+                "3- Régimen de excepción/especial",
+                "4- Vinculados",
+                "5- No asegurado"
+            ],
+            "desc": "Afiliación al SGSSS del NNA (lista 15)"
+        },
+        ".Nombre EAPB.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código de la EAPB del NNA. Para No asegurado usar '0000'."
+        },
+        ".Dirección de La Vivienda.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Dirección concatenada de la vivienda (calculada por el sistema)"
+        },
+        ".Zona.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Urbana",
+                "2- Rural"
+            ],
+            "desc": "Zona donde se ubica la VIVIENDA del NNA (lista 4)"
+        },
+        ".Localidad.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Localidad de la vivienda del NNA (lista 1, incluye opción 21-Fuera de Bogotá)"
+        },
+        ".UPZ/UPR.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "UPZ o UPR de la vivienda. Si vive fuera de Bogotá registrar 'NA'."
+        },
+        ".Sector catastral.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Sector catastral de la vivienda del NNA"
+        },
+        ".Barrio.": {
+            "tipo": "texto",
+            "desc": "Barrio de la vivienda del NNA (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Barrio es obligatorio cuando la Zona de vivienda es Urbana",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Manzana del cuidado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿La vivienda pertenece a una Manzana del Cuidado?"
+        },
+        ".Numero de Manzana del cuidado.": {
+            "tipo": "texto",
+            "desc": "Número de Manzana del Cuidado (lista 50001)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Manzana del cuidado.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Si marcó 'Si' en Manzana del cuidado, el número es obligatorio"
+            }
+        },
+        ".Eje Principal.": {
+            "tipo": "codigo",
+            "valores": [
+                "Calle",
+                "Carrera",
+                "Diagonal",
+                "Transversal",
+                "Avenida Calle",
+                "Avenida Carrera"
+            ],
+            "desc": "Tipo de vía del eje principal de la vivienda (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Eje Principal es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Numero 1.": {
+            "tipo": "texto",
+            "desc": "Número del eje principal (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Número del eje principal es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Letra 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra del eje principal"
+        },
+        ".Bis 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sufijo BIS eje principal"
+        },
+        ".Letra 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra complemento BIS eje principal"
+        },
+        ".Cuadrante 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cuadrante eje principal (Sur/Este)"
+        },
+        ".Eje Generador - Numero 2.": {
+            "tipo": "texto",
+            "desc": "Número del eje generador (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Eje Generador es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Letra 3.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra eje generador"
+        },
+        ".Bis 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sufijo BIS eje generador"
+        },
+        ".Letra 4.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra complemento BIS eje generador"
+        },
+        ".Placa.": {
+            "tipo": "texto",
+            "desc": "Número de placa de la vivienda (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "La Placa es obligatoria en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Cuadrante 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cuadrante eje generador"
+        },
+        ".Complemento 1.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Complemento dirección 1 (lista 3)"
+        },
+        ".Numero (Complemento 1).": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Número complemento 1"
+        },
+        ".Complemento 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Complemento dirección 2 (lista 3)"
+        },
+        ".Numero (Complemento 2).": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Número complemento 2"
+        },
+        ".Coordenada X.": {
+            "tipo": "numero",
+            "desc": "Coordenada X / Longitud vivienda (obligatoria en zona Rural, rango -73 a -74)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Coordenada X es obligatoria en zona Rural",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Coordenada Y.": {
+            "tipo": "numero",
+            "desc": "Coordenada Y / Latitud vivienda (obligatoria en zona Rural, valor aproximado 4)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Coordenada Y es obligatoria en zona Rural",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Estrato.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 6,
+            "desc": "Estrato socioeconómico de la vivienda (1-6). Zona rural sin estrato oficial."
+        },
+        ".Subgrupo nivel sisben.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Subgrupo Sisbén del NNA (A1-A5, B1-B7, C1-C18, D1-D21)"
+        },
+        ".Teléfono 1.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Teléfono de contacto de la vivienda. 7 dígitos para fijo, 10 para celular."
+        },
+        ".Teléfono 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo teléfono de contacto de la vivienda"
+        },
+        ".Vereda.": {
+            "tipo": "texto",
+            "desc": "Nombre de la vereda (obligatoria en zona Rural de la vivienda)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona.",
+                "valores": [
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Vereda es obligatoria cuando la Zona de vivienda es Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Direccion concatenada.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Dirección concatenada de la vivienda (calculada automáticamente por el sistema)"
+        },
+        ".1er. NOMBRE..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer nombre del acudiente. Para adolescentes sin acudiente, registrar sus propios datos.",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2do. NOMBRE..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo nombre del acudiente"
+        },
+        ".1er. APELLIDO..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer apellido del acudiente",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2do. APELLIDO..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo apellido del acudiente"
+        },
+        ".Tipo de Documento..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "desc": "Tipo de documento del acudiente (lista 5). Puede ser CC, TI, CE, Pasaporte, etc."
+        },
+        ".Numero Documento..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Número del documento del acudiente"
+        },
+        ".Nacionalidad..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código de nacionalidad del acudiente (anexo GESI)"
+        },
+        ".Sexo..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Hombre",
+                "2- Mujer",
+                "3- Intersexual"
+            ],
+            "desc": "Sexo biológico del acudiente (lista 6)"
+        },
+        ".Etnia..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Indígena",
+                "2- ROM-gitano",
+                "3- Raizal",
+                "4- Palenquero",
+                "5- Negro/Afrodescendiente",
+                "6- Ninguno",
+                "7- Negro / Afrocolombiano"
+            ],
+            "desc": "Etnia del acudiente (lista 9)"
+        },
+        ".Población de inclusión por oficio.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Población de inclusión por oficio del acudiente (lista 14). Selección múltiple."
+        },
+        ".Afiliacion Al SGSSS..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Subsidiado",
+                "2- Contributivo",
+                "3- Régimen de excepción/especial",
+                "4- Vinculados",
+                "5- No asegurado"
+            ],
+            "desc": "Afiliación al SGSSS del acudiente (lista 15)"
+        },
+        ".Nombre EAPB..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código de la EAPB del acudiente. Para No asegurado usar '0000'."
+        },
+        ".Estrato socioeconomico.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 6,
+            "desc": "Estrato socioeconómico del acudiente (1-6)"
+        },
+        ".Teléfono 1..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Teléfono de contacto del acudiente. 7 dígitos para fijo, 10 para celular."
+        },
+        ".Teléfono 2..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo teléfono del acudiente"
+        },
+        ".Dirección del trabajo.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Dirección concatenada del lugar de trabajo del NNA (calculada por el sistema)"
+        },
+        ".Zona..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1- Urbana",
+                "2- Rural"
+            ],
+            "desc": "Zona donde se ubica el LUGAR DE TRABAJO del NNA (lista 4)"
+        },
+        ".Especial.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Marcar X si el lugar de trabajo no tiene dirección convencional o está fuera de la ciudad"
+        },
+        ".Localidad..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Localidad del lugar de trabajo del NNA (lista 1)"
+        },
+        ".UPZ/UPR..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "UPZ o UPR del lugar de trabajo. Si está fuera de Bogotá registrar 'NA'."
+        },
+        ".Sector catastral..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Sector catastral del lugar de trabajo del NNA"
+        },
+        ".Barrio..1": {
+            "tipo": "texto",
+            "desc": "Barrio del lugar de trabajo (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Barrio del trabajo es obligatorio cuando la Zona del trabajo es Urbana",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Eje Principal..1": {
+            "tipo": "codigo",
+            "valores": [
+                "Calle",
+                "Carrera",
+                "Diagonal",
+                "Transversal",
+                "Avenida Calle",
+                "Avenida Carrera"
+            ],
+            "desc": "Tipo de vía del eje principal del trabajo (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Eje Principal del trabajo es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Numero.": {
+            "tipo": "texto",
+            "desc": "Número del eje principal del trabajo (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Número del eje principal del trabajo es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Letra.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra eje principal (trabajo)"
+        },
+        ".Bis.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sufijo BIS eje principal (trabajo)"
+        },
+        ".Letra..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra complemento BIS eje principal (trabajo)"
+        },
+        ".Cuadrante.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cuadrante eje principal (trabajo)"
+        },
+        ".Eje Generador - Numero.": {
+            "tipo": "texto",
+            "desc": "Número del eje generador del trabajo (obligatorio en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "El Eje Generador del trabajo es obligatorio en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Letra..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra eje generador (trabajo)"
+        },
+        ".Bis..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Sufijo BIS eje generador (trabajo)"
+        },
+        ".Letra..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Letra complemento BIS eje generador (trabajo)"
+        },
+        ".Placa..1": {
+            "tipo": "texto",
+            "desc": "Placa del trabajo (obligatoria en zona Urbana)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "1- Urbana",
+                    "1-Urbana"
+                ],
+                "mensaje": "La Placa del trabajo es obligatoria en zona Urbana",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Cuadrante..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Cuadrante eje generador (trabajo)"
+        },
+        ".Complemento.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Complemento dirección 1 (trabajo, lista 3)"
+        },
+        ".Numero..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Número complemento 1 (trabajo)"
+        },
+        ".Complemento..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Complemento dirección 2 (trabajo)"
+        },
+        ".Numero..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Número complemento 2 (trabajo)"
+        },
+        ".Vereda..1": {
+            "tipo": "texto",
+            "desc": "Vereda del lugar de trabajo (obligatoria en zona Rural del trabajo)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Vereda del trabajo es obligatoria en zona Rural",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Coordenada X..1": {
+            "tipo": "numero",
+            "desc": "Coordenada X del trabajo (obligatoria en zona Rural, rango -73 a -74)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Coordenada X del trabajo es obligatoria en zona Rural",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Coordenada Y..1": {
+            "tipo": "numero",
+            "desc": "Coordenada Y del trabajo (obligatoria en zona Rural, valor aproximado 4)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Zona..1",
+                "valores": [
+                    "2- Rural",
+                    "2-Rural"
+                ],
+                "mensaje": "La Coordenada Y del trabajo es obligatoria en zona Rural",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Direccion concatenada..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Dirección concatenada del trabajo (calculada por el sistema)"
+        },
+        ".Manzana del cuidado..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El lugar de trabajo pertenece a una Manzana del Cuidado?"
+        },
+        ".Numero de Manzana del cuidado..1": {
+            "tipo": "texto",
+            "desc": "Número de Manzana del Cuidado del trabajo (lista 50001)",
+            "dependencia": {
+                "entornos": [
+                    "laboral"
+                ],
+                "campo": ".Manzana del cuidado..1",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Si marcó 'Si' en Manzana del cuidado del trabajo, el número es obligatorio"
+            }
+        },
+        ".Nombre de la UT.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Nombre de la Unidad de Trabajo donde labora el NNA"
+        },
+        ".¿En donde realiza principalmente su trabajo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Lugar principal de trabajo del NNA (lista 126). Selección múltiple."
+        },
+        ".Hace cuanto tiempo empezó a trabajar (meses).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Meses que lleva trabajando el NNA. Mínimo 1 (si es menos de un mes registrar 1)."
+        },
+        ".¿En la actividad que realiza esta expuesto a contaminación ambiental?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA está expuesto a contaminación ambiental en su trabajo? (Pregunta 1 del Decálogo)"
+        },
+        ".Actividad económica 1.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Actividad económica principal del NNA (lista de actividades económicas GESI)"
+        },
+        ".Exposición a riesgos 1.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Exposición a riesgos asociada a la actividad económica 1 (lista exposición a riesgos)"
+        },
+        ".Actividad económica 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segunda actividad económica (incluye oficios del hogar ≥15 horas/semana)"
+        },
+        ".Exposición a riesgos 2.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Exposición a riesgos de la segunda actividad económica"
+        },
+        ".Número de horas que dedicó  a oficios en el hogar o cuidado de otros.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "1 a 14 horas",
+                "15 horas en adelante",
+                "No aplica"
+            ],
+            "desc": "Horas semanales dedicadas a oficios del hogar o cuidado de otros. Si hay ≥15 horas, diligenciar Actividad 2 y Riesgos 2."
+        },
+        ".Número de horas al día que realiza la actividad economica.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 24,
+            "desc": "Horas diarias en la actividad económica (para tipos de intervención 2 y 3). Inferior a 24 horas."
+        },
+        ".Número de días a la semana que realiza la actividad economica.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "rango",
+            "min": 1,
+            "max": 7,
+            "desc": "Días semanales en la actividad económica. Inferior a 7 días."
+        },
+        ".Jornada de trabajo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Diurno",
+                "Nocturno",
+                "Ambas"
+            ],
+            "desc": "Jornada de trabajo del NNA (lista 127)"
+        },
+        ".Periodo de trabajo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Por temporada",
+                "Permanente",
+                "Fines de semana",
+                "Trabajo por dias"
+            ],
+            "desc": "Período de trabajo del NNA (lista 128)"
+        },
+        ".Modo de pago.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Modo de pago al NNA (lista 129). Selección múltiple: Dinero, Especie, Sin pago."
+        },
+        ".¿Cuáles son las razones por las que trabaja?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Razones por las que trabaja el NNA (lista 130). Selección múltiple."
+        },
+        ".¿Actualmente estudia?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA se encuentra estudiando al momento de la caracterización?"
+        },
+        ".Razón del abandono escolar.": {
+            "tipo": "texto",
+            "desc": "Razón de inasistencia escolar (lista 17). Obligatorio cuando No estudia. No aplica para primera infancia.",
+            "dependencia": {
+                "campo": ".¿Actualmente estudia?.",
+                "valores": [
+                    "No"
+                ],
+                "mensaje": "La Razón del abandono escolar es obligatoria cuando el NNA no estudia",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Institución o jardín donde actualmente estudia.": {
+            "tipo": "texto",
+            "desc": "Código de la institución educativa (lista de colegios). Obligatorio cuando Sí estudia.",
+            "dependencia": {
+                "campo": ".¿Actualmente estudia?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La Institución es obligatoria cuando el NNA estudia",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Otro.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Nombre de la institución cuando no aparece en la lista de colegios"
+        },
+        ".En que curso esta o último año cursado.": {
+            "tipo": "texto",
+            "desc": "Año que cursa o último año aprobado. 0 para NNA no integrados al sistema. Activo cuando estudia.",
+            "dependencia": {
+                "campo": ".¿Actualmente estudia?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El curso actual es requerido cuando el NNA estudia",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".¿Falto al colegio o jardín en el último mes académico?.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA faltó al colegio en el último mes? Activo solo cuando Sí estudia.",
+            "dependencia": {
+                "campo": ".¿Actualmente estudia?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Campo activo solo cuando el NNA estudia",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Semanalmente realiza actividades recreativas.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA realiza actividades recreativas semanalmente?"
+        },
+        ".Qué actividades realiza.": {
+            "tipo": "texto",
+            "desc": "Tipo de actividades recreativas (lista 116). Activo cuando Sí realiza actividades.",
+            "dependencia": {
+                "campo": ".Semanalmente realiza actividades recreativas.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Qué actividades es obligatorio cuando el NNA sí realiza actividades recreativas",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Ha sufrido alguna lesión relacionada probablemente con el trabajo?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿El NNA ha sufrido accidente o enfermedad relacionada con el trabajo?"
+        },
+        ".Hace cuanto fue la lesion.": {
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Meses desde la lesión (obligatorio cuando hubo lesión)",
+            "dependencia": {
+                "campo": ".Ha sufrido alguna lesión relacionada probablemente con el trabajo?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El tiempo de la lesión es obligatorio cuando hubo lesión",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Accidente en el trabajo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tipo de accidente en el trabajo (lista 48). 'No aplica' cuando no hubo accidente.",
+            "dependencia": {
+                "campo": ".Ha sufrido alguna lesión relacionada probablemente con el trabajo?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El tipo de accidente es obligatorio cuando hubo lesión",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Tipo de consecuencia.": {
+            "tipo": "codigo",
+            "valores": [
+                "1 Permanente",
+                "2 Temporal",
+                "3 Ninguna"
+            ],
+            "desc": "Tipo de consecuencia del accidente (lista 55)",
+            "dependencia": {
+                "campo": ".Ha sufrido alguna lesión relacionada probablemente con el trabajo?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El tipo de consecuencia es obligatorio cuando hubo lesión",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Hace cuanto fue la última vez que asistió al servicio de salud?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 1,
+            "desc": "Meses desde la última visita a servicio de salud. Usar 01 si fue hace menos de un mes."
+        },
+        ".1. Dolor de cabeza.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó dolor de cabeza en el último año?"
+        },
+        ".2. Nauseas, vómito, diarrea.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó náuseas, vómito o diarrea en el último año?"
+        },
+        ".3. Tos frecuente o expectoración.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó tos frecuente o expectoración en el último año?"
+        },
+        ".4. Sensación continua de cansancio.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó sensación continua de cansancio en el último año?"
+        },
+        ".5. Dificultad en el aprendizaje relacionado con falta para concentrarse o memorizar.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó dificultad en el aprendizaje / concentración en el último año?"
+        },
+        ".6. Secreción, ardor, cansancio de ojos, ojo rojo.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó problemas oculares en el último año?"
+        },
+        ".7. Enrojecimiento, ampollas, comezón, cambio de color de la piel.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó afectaciones de piel en el último año?"
+        },
+        ".8. Dolor articular en cuello y espalda, miembros inferiores, brazos, manos o muñeca.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó dolor articular/osteomuscular en el último año?"
+        },
+        ".9. Dolor, supuración, zumbidos o pitos en el oído.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó problemas auditivos en el último año?"
+        },
+        ".10. Problemas de la voz (ronquera).": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Presentó problemas de voz / ronquera en el último año?"
+        },
+        ".¿Cuántas porciones de frutas esta consumiendo al dia?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Porciones de frutas consumidas al día (Condiciones crónicas — valoración inicial)"
+        },
+        ".Cuantas veces al dia  consume verduras?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Veces al día que consume verduras (Condiciones crónicas — valoración inicial)"
+        },
+        ".¿Cuántos minutos de actividad física realizó en promedio diariamente durante los últimos 5 días?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Minutos de actividad física diaria promedio en los últimos 5 días (valoración inicial)"
+        },
+        ".¿consume productos de paquete?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Consume productos de paquete? (valoración inicial)"
+        },
+        ".¿Utiliza sal en la mesa?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Agrega sal a las comidas ya servidas? (valoración inicial)"
+        },
+        ".¿Consume bebidas azucaradas semanalmente?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Consume bebidas azucaradas semanalmente? (valoración inicial)"
+        },
+        ".¿Utiliza medidas de  proteccion  solar?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Utiliza medidas de protección solar? (valoración inicial)"
+        },
+        ".El motivo por el cual asistió al servicio médico esta relacionado con alguna de las situaciones mencionadas anteriormente?.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El motivo de consulta médica está relacionado con alguna de las situaciones de salud listadas?",
+            "dependencia": {
+                "campo": ".1. Dolor de cabeza.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Campo activo cuando hay al menos una situación de salud marcada como Si",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".¿Cree que el trabajo ha afectado su estado de salud?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA considera que el trabajo ha afectado su salud?"
+        },
+        ".¿Realiza lavado de manos con agua y jabón antes de cada comida antes y después de ir al baño?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA lava las manos correctamente? (Pregunta 8 del Decálogo)"
+        },
+        ".¿En la actividad que realiza esta expuesto a cambios frecuentes de temperatura?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA está expuesto a cambios frecuentes de temperatura? (Pregunta 9 del Decálogo)"
+        },
+        ".¿ Se  evitan los  daños al cuerpo del NNA  que puedan ser ocasionados por la actividad que realiza (manipulación de cargas, exposición a a agentes químicos, uso de herramientas o maquinas entre otros ?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA evita daños corporales por la actividad que realiza? (Pregunta 10 del Decálogo)"
+        },
+        ".Niña o Adolescente trabajadora gestante.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿La niña o adolescente trabajadora está en estado de gestación? (Solo para sexo Mujer)",
+            "dependencia": {
+                "campo": ".Sexo.",
+                "valores": [
+                    "2- Mujer"
+                ],
+                "mensaje": "Este campo aplica solo para trabajadoras (sexo Mujer)",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Niña o Adolescente trabajadora Lactante.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿La niña o adolescente trabajadora está lactando? (Solo para sexo Mujer)",
+            "dependencia": {
+                "campo": ".Sexo.",
+                "valores": [
+                    "2- Mujer"
+                ],
+                "mensaje": "Este campo aplica solo para trabajadoras (sexo Mujer)",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Fecha del Plan.": {
+            "tipo": "fecha",
+            "desc": "Fecha del plan de mejoramiento para trabajo protegido. Solo para adolescentes de 15-17 años. No aplica para tipo de intervención 2 ni 5.",
+            "dependencia": {
+                "campo": ".Tipo Intervención.",
+                "valores": [
+                    "Adolescentes"
+                ],
+                "mensaje": "El Plan de trabajo protegido solo aplica para adolescentes (tipo 3)",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".1. Gestion para asignacion de cupo escolar.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: gestión cupo escolar (lista 117 - Estudio)"
+        },
+        ".2. El trabajo no interfiere en el desarrollo de las actividades escolares.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: trabajo no interfiere en estudio (lista 117 - Estudio)"
+        },
+        ".3. Se debe sensibilizar para que el adolescente trabajador continue sus estudios.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: sensibilizar para continuar estudios (lista 117 - Estudio)"
+        },
+        ".CUMPLE.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Cumple con las condiciones de estudio del plan de trabajo protegido?"
+        },
+        ".1. Gestion para asignacion de cupo escolar..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: entre 15-16 años máximo 30 horas/semana (lista 117 - Horas de Trabajo)"
+        },
+        ".2. Tiene 17 años realiza su actividad laboral sin exceder 40 horas semanales, maximo 8 horas diarias.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: 17 años máximo 40 horas/semana (lista 117 - Horas de Trabajo)"
+        },
+        ".CUMPLE..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Cumple con las condiciones de horas de trabajo del plan?"
+        },
+        ".1.Se establecen mecanismos de control en el trabajo para mitigar la exposicion a riesgos en el adolescente trabajador.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: mecanismos control de riesgos (lista 117 - Condiciones de Trabajo)"
+        },
+        ".2. Afiliacion al servicios de salud y hace uso de sus servicios.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: afiliación y uso del sistema de salud"
+        },
+        ".3. Las horas de trabajo no pueden afectar su proceso educativo.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: horas de trabajo no afectan estudio"
+        },
+        ".4. Se evita o se tiene control frente al uso de maquinas o herramientas para el desarrollo de la labor.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: control uso de máquinas/herramientas"
+        },
+        ".CUMPLE..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Cumple con condiciones de trabajo del plan?"
+        },
+        ".1. Deportes.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: actividades deportivas en tiempo libre (lista 117)"
+        },
+        ".2. Ludicas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: actividades lúdicas en tiempo libre"
+        },
+        ".3. Artes - Culturales.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: actividades artístico-culturales en tiempo libre"
+        },
+        ".4. Sociofamiliares.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: actividades sociofamiliares en tiempo libre"
+        },
+        ".5. Lectura.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: actividades de lectura en tiempo libre"
+        },
+        ".6. Pasatiempos, aficiones o hobbies.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "Plan protegido: pasatiempos/hobbies en tiempo libre"
+        },
+        ".COMPROMISO.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 1: Disminuir exposición a contaminación ambiental. Si la exposición es 'Si', el NNA se compromete o no a modificar la práctica."
+        },
+        ".CUMPLIMIENTO.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 1: ¿Cumplió el compromiso de contaminación ambiental? Solo en el cierre del proceso."
+        },
+        ".COMPROMISO..1": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 2: Consumir verduras o frutas todos los días"
+        },
+        ".CUMPLIMIENTO..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 2: consumo de frutas/verduras. Solo en cierre."
+        },
+        ".COMPROMISO..2": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 3: Aumentar la actividad física"
+        },
+        ".CUMPLIMIENTO..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 3: actividad física. Solo en cierre."
+        },
+        ".COMPROMISO..3": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 4: No agregar sal a las comidas cuando ya están servidas"
+        },
+        ".CUMPLIMIENTO..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 4: uso de sal. Solo en cierre."
+        },
+        ".COMPROMISO..4": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 5: Disminuir el consumo diario de bebidas azucaradas"
+        },
+        ".CUMPLIMIENTO..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 5: bebidas azucaradas. Solo en cierre."
+        },
+        ".COMPROMISO..5": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 6: Usar medidas de protección a rayos solares"
+        },
+        ".CUMPLIMIENTO..5": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 6: protección solar. Solo en cierre."
+        },
+        ".COMPROMISO..6": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 7: Disminuir la exposición a humo de segunda mano"
+        },
+        ".CUMPLIMIENTO..6": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 7: humo segunda mano. Solo en cierre."
+        },
+        ".COMPROMISO..7": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 8: Aumentar hábito de lavado de manos con agua y jabón"
+        },
+        ".CUMPLIMIENTO..7": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 8: lavado de manos. Solo en cierre."
+        },
+        ".COMPROMISO..8": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 9: Disminuir la exposición a cambios frecuentes de temperatura"
+        },
+        ".CUMPLIMIENTO..8": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 9: cambios de temperatura. Solo en cierre."
+        },
+        ".COMPROMISO..9": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Compromiso 10: Eliminar el riesgo de daños al cuerpo por la actividad laboral"
+        },
+        ".CUMPLIMIENTO..9": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Decálogo Cumplimiento 10: daños corporales. Solo en cierre."
+        },
+        ".¿Cuántasporciones de frutas esta consumiendo al dì­a?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: porciones de frutas al día. Solo en cierre del proceso."
+        },
+        ".Cuantas veces a la semana consume verduras?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: consumo de verduras. Solo en cierre."
+        },
+        ".¿Cuántosminutos de actividad fi­sica realizo en promedio diariamente durante los ultimos 5 di­as?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: minutos de actividad física. Solo en cierre."
+        },
+        ".¿consume productos de paquete?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: productos de paquete. Solo en cierre."
+        },
+        ".¿Utiliza sal en la mesa?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: sal en la mesa. Solo en cierre."
+        },
+        ".¿Consume bebidas azucaradas semanalmente?..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: bebidas azucaradas. Solo en cierre."
+        },
+        ".¿Utiliza medidas de proteccion solar?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "Condiciones crónicas — VALORACIÓN FINAL: protección solar. Solo en cierre."
+        },
+        ".¿Se socializa politica LEO?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se socializó la política LEO con el NNA?"
+        },
+        ".¿Participa en espacios de Bibliored?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA participa en espacios de Bibliored?"
+        },
+        ".¿Esta afiliado en servicios de Bibliored?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA está afiliado a servicios de Bibliored?"
+        },
+        ".ACOMPAÑAMIENTO 1 - Perfil.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Psicólogo",
+                "Trabajador social",
+                "Especialista en salud ocupacional",
+                "Tecnólogo en Salud Ocupacional"
+            ],
+            "desc": "Perfil del profesional en el acompañamiento 1 (lista 115)"
+        },
+        ".TEMA TRATADOS.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas tratados en el acompañamiento 1 (lista 52). Selección múltiple."
+        },
+        ".IEC.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC transversal del acompañamiento 1 (lista 199). Selección múltiple."
+        },
+        ".Fecha.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha del acompañamiento 1. No puede ser anterior a la fecha de caracterización."
+        },
+        ".Alertas psicosociales.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas psicosociales identificadas en el acompañamiento 1 (lista 21). Se activa con perfil Trabajador social o Psicólogo."
+        },
+        ".Cumplió.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿El NNA cumplió el compromiso del acompañamiento 1? 'No aplica' en tipo de intervención 5."
+        },
+        ".Temas tratados.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas tratados acompañamiento 2 (lista 52)"
+        },
+        ".IEC..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC acompañamiento 2 (lista 199)"
+        },
+        ".Fecha..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha acompañamiento 2. No anterior a fecha de caracterización."
+        },
+        ".Alertas psicosociales..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas psicosociales acompañamiento 2 (lista 21)"
+        },
+        ".Cumplió..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Cumplió compromiso del acompañamiento 2?"
+        },
+        ".Perfil..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Psicólogo",
+                "Trabajador social",
+                "Especialista en salud ocupacional",
+                "Tecnólogo en Salud Ocupacional"
+            ],
+            "desc": "Perfil acompañamiento 3 (lista 115)"
+        },
+        ".Temas tratados..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas tratados acompañamiento 3 (lista 52)"
+        },
+        ".IEC..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC acompañamiento 3 (lista 199)"
+        },
+        ".Fecha..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha acompañamiento 3"
+        },
+        ".Alertas psicosociales..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas psicosociales acompañamiento 3 (lista 21)"
+        },
+        ".Cumplió..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Cumplió compromiso del acompañamiento 3?"
+        },
+        ".Perfil..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Enfermero",
+                "Especialista en salud ocupacional",
+                "Tecnólogo en Salud Ocupacional"
+            ],
+            "desc": "Perfil acompañamiento 4 — Enfermería (lista 115)"
+        },
+        ".Temas tratados..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas tratados acompañamiento 4 (lista 52)"
+        },
+        ".IEC..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC acompañamiento 4 (lista 199)"
+        },
+        ".Fecha..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha acompañamiento 4"
+        },
+        ".Cumplió..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No",
+                "No aplica"
+            ],
+            "desc": "¿Cumplió compromiso del acompañamiento 4?"
+        },
+        ".Condiciones crónicas.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Condiciones crónicas identificadas en acompañamiento 4 (lista 18)"
+        },
+        ".Enfermedades transmisibles y ETV.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas de enfermedades transmisibles y ETV en acompañamiento 4 (lista 19)"
+        },
+        ".Alertas en nutrición.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Alertas en nutrición en acompañamiento 4 (lista 20). Depende de si acudiente autoriza toma de peso/talla."
+        },
+        ".Alertas psicosociales..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas psicosociales en acompañamiento 4 (lista 21)"
+        },
+        ".Alertas salud bucal.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas de salud bucal en acompañamiento 4 (lista 22)"
+        },
+        ".Alertas infancia.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Alertas de infancia en acompañamiento 4 (lista 23)"
+        },
+        ".Alertas en mujeres.": {
+            "tipo": "texto",
+            "desc": "Alertas gineco-obstétricas en acompañamiento 4 (lista 24). Solo para sexo Mujer.",
+            "dependencia": {
+                "campo": ".Sexo.",
+                "valores": [
+                    "2- Mujer"
+                ],
+                "mensaje": "Alertas en mujeres aplica solo para NNA de sexo Mujer",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Etapa de gestación.": {
+            "tipo": "codigo",
+            "valores": [
+                "1- Primer trimestre",
+                "2- Segundo Trimestre",
+                "3- Tercer Trimestre",
+                "4- Puerperio",
+                "5- No aplica",
+                "6- Lactante"
+            ],
+            "desc": "Etapa de gestación (lista 25). Activo cuando NNA Mujer es gestante.",
+            "dependencia": {
+                "campo": ".Niña o Adolescente trabajadora gestante.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Etapa de gestación es obligatoria cuando la NNA está gestante",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Acudiente autoriza verificación o toma de peso y talla.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El acudiente autoriza la toma de medidas antropométricas? No aplica para tipos de intervención 4, 5 y 6."
+        },
+        ".Peso.": {
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Peso del NNA. En gramos para menores de 1 año, en kilogramos para mayores (máx. 2 decimales).",
+            "dependencia": {
+                "campo": ".Acudiente autoriza verificación o toma de peso y talla.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El peso es obligatorio cuando el acudiente autorizó la toma de medidas",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".TALLA_cm.": {
+            "tipo": "numero",
+            "min": 0,
+            "desc": "Talla del NNA en centímetros.",
+            "dependencia": {
+                "campo": ".Acudiente autoriza verificación o toma de peso y talla.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La talla es obligatoria cuando el acudiente autorizó la toma de medidas",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Clasificación nutricional.": {
+            "tipo": "codigo",
+            "desc": "Clasificación nutricional según curso de vida (lista 230)",
+            "dependencia": {
+                "campo": ".Acudiente autoriza verificación o toma de peso y talla.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La clasificación nutricional es obligatoria cuando se tomaron medidas",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Requiere asesoría de nutrición.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA requiere asesoría de nutrición? Depende de toma de peso/talla.",
+            "dependencia": {
+                "campo": ".Acudiente autoriza verificación o toma de peso y talla.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Campo activo cuando se autorizó y tomaron medidas antropométricas",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".¿Articulacion con PAI ?.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se requiere articular con el PAI (Programa Ampliado de Inmunizaciones)?"
+        },
+        ".Alteracion Visual.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se identificó alteración visual en el NNA durante la intervención?"
+        },
+        ".Alteracion Auditiva.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se identificó alteración auditiva en el NNA durante la intervención?"
+        },
+        ".Acompañamiento Reposición 1 - Perfil.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Psicólogo",
+                "Trabajador social",
+                "Enfermero",
+                "Nutricionista",
+                "Especialista en salud ocupacional",
+                "Tecnólogo en Salud Ocupacional"
+            ],
+            "desc": "Perfil en la reposición/acompañamiento colectivo 1 (lista 115)"
+        },
+        ".Temas tratados..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas tratados en reposición 1 (lista 52)"
+        },
+        ".IEC..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC reposición 1 (lista 199)"
+        },
+        ".Fecha..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la reposición 1. No anterior a la fecha de caracterización."
+        },
+        ".Acompañamiento Reposición 2 - Perfil.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Psicólogo",
+                "Trabajador social",
+                "Enfermero",
+                "Nutricionista",
+                "Especialista en salud ocupacional",
+                "Tecnólogo en Salud Ocupacional"
+            ],
+            "desc": "Perfil en la reposición 2 (lista 115)"
+        },
+        ".Temas tratados..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Temas tratados en reposición 2 (lista 52)"
+        },
+        ".IEC..5": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Tema IEC reposición 2 (lista 199)"
+        },
+        ".Fecha..5": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la reposición 2"
+        },
+        ".Intervención de Niño, Niña o Adolescente que termina el proceso.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA completó las 6 sesiones del proceso (caracterización + 4 acompañamientos + cierre)? Solo para tipos 2 y 3.",
+            "dependencia": {
+                "campo": ".Tipo Intervención.",
+                "valores": [
+                    "Niños-Niñas",
+                    "Adolescentes"
+                ],
+                "mensaje": "Campo obligatorio para tipo de intervención 2 (Niños-Niñas) y 3 (Adolescentes)",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Fecha - Seguimiento Cierre.": {
+            "tipo": "fecha",
+            "desc": "Fecha del seguimiento de cierre del proceso. No anterior a la fecha de caracterización.",
+            "dependencia": {
+                "campo": ".Intervención de Niño, Niña o Adolescente que termina el proceso.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La fecha de cierre es obligatoria cuando el NNA terminó el proceso",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".NNA desvinculado de la actividad laboral.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA se desvinculó del trabajo? Solo para tipos 2 y 3 sin plan de trabajo protegido.",
+            "dependencia": {
+                "campo": ".Fecha - Seguimiento Cierre.",
+                "valores": [
+                    "$NOT_EMPTY"
+                ],
+                "mensaje": "NNA desvinculado es obligatorio cuando hay fecha de cierre",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Adolescente de Trabajo Protegido.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El adolescente logró las condiciones de trabajo protegido? Solo tipo 3 con plan habilitado.",
+            "dependencia": {
+                "campo": ".Fecha del Plan.",
+                "valores": [
+                    "$NOT_EMPTY"
+                ],
+                "mensaje": "Campo activo cuando hay plan de trabajo protegido diligenciado",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Cierre de proceso. Descripción de los resultados de las canalizaciones realizadas a.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Descripción de resultados de canalizaciones y hallazgos del cierre (no se digita en el aplicativo)"
+        },
+        ".Canalización.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El NNA fue canalizado? (lista 991)"
+        },
+        ".Porque no se canalizó.": {
+            "tipo": "texto_nonempty",
+            "desc": "Razón de no canalización (lista 213)",
+            "dependencia": {
+                "campo": ".Canalización.",
+                "valores": [
+                    "No"
+                ],
+                "mensaje": "El campo 'Porque no se canalizó' es obligatorio cuando la Canalización es 'No'",
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        },
+        ".Modalidad de Canalización.": {
+            "tipo": "texto",
+            "desc": "Modalidad de canalización (lista 214). Obligatorio cuando Canalización = Si.",
+            "dependencia": {
+                "campo": ".Canalización.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "La Modalidad de Canalización es obligatoria cuando se canalizó",
+                "requeridoCuandoCumple": true
+            }
+        },
+        ".Prescripción Social.": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Oferta social institucional (lista 215). Activo cuando la modalidad incluye 'oferta distrital e intersectorial'."
+        },
+        ".Se aplicó tamizaje SRQ durante el proceso de intervención?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se aplicó el tamizaje SRQ (Salud Mental) durante el proceso?"
+        },
+        ".Resultado Tamizaje SRQ.": {
+            "tipo": "texto",
+            "desc": "Resultado numérico del tamizaje SRQ (preguntas positivas). ≥7 en preguntas 1-20: canalizar.",
+            "dependencia": {
+                "campo": ".Se aplicó tamizaje SRQ durante el proceso de intervención?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El resultado del tamizaje SRQ es obligatorio cuando se aplicó",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Canalizado por resultado de tamizaje SRQ.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Fue canalizado por el resultado del tamizaje SRQ?",
+            "dependencia": {
+                "campo": ".Se aplicó tamizaje SRQ durante el proceso de intervención?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Campo activo cuando se aplicó el tamizaje SRQ",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Se aplicó tamizaje RQC durante el proceso de intervención?.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Se aplicó el tamizaje RQC durante el proceso? Cualquier positivo en RQC implica canalización inmediata."
+        },
+        ".Resultado tamizaje RQC.": {
+            "tipo": "texto",
+            "desc": "Resultado del tamizaje RQC (preguntas positivas). Una sola pregunta positiva = canalizar.",
+            "dependencia": {
+                "campo": ".Se aplicó tamizaje RQC durante el proceso de intervención?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "El resultado del tamizaje RQC es obligatorio cuando se aplicó",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Tamizaje RQC con resultado positivo.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿El tamizaje RQC resultó positivo?",
+            "dependencia": {
+                "campo": ".Se aplicó tamizaje RQC durante el proceso de intervención?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Campo activo cuando se aplicó el tamizaje RQC",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Canalizado por resultado de tamizaje RQC.": {
+            "tipo": "codigo",
+            "valores": [
+                "Si",
+                "No"
+            ],
+            "desc": "¿Fue canalizado por el resultado del tamizaje RQC?",
+            "dependencia": {
+                "campo": ".Se aplicó tamizaje RQC durante el proceso de intervención?.",
+                "valores": [
+                    "Si"
+                ],
+                "mensaje": "Campo activo cuando se aplicó el tamizaje RQC",
+                "requeridoCuandoCumple": false
+            }
+        },
+        ".Tema socilizado - Jornadas socializado.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código del tema socializado en jornada 1 (lista 52 o 199)"
+        },
+        ".Fecha..6": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la jornada socializada 1"
+        },
+        ".Tema socilizado - Jornadas socializado..1": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código del tema socializado en jornada 2"
+        },
+        ".Fecha..7": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la jornada socializada 2"
+        },
+        ".Tema socilizado - Jornadas socializado..2": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código del tema socializado en jornada 3"
+        },
+        ".Fecha..8": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la jornada socializada 3"
+        },
+        ".Tema socilizado - Jornadas socializado..3": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código del tema socializado en jornada 4"
+        },
+        ".Fecha..9": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la jornada socializada 4"
+        },
+        ".Tema socilizado - Jornadas socializado..4": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Código del tema socializado en jornada 5"
+        },
+        ".Fecha..10": {
+            "opcional": [
+                "laboral"
+            ],
+            "tipo": "fecha",
+            "desc": "Fecha de la jornada socializada 5"
+        }
+    }
+}

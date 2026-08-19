@@ -1,0 +1,47 @@
+{
+    "id": "conexion_nocturna",
+    "nombre": "Conexión Nocturna (Oct 2025 - Jul 2027)",
+    "code": "Conexión Nocturna",
+    "desc": "Formato de ejemplo para pruebas",
+    "entornos": [
+        "laboral"
+    ],
+    "rules": {
+        ".1er. Nombre.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer nombre",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2do. Nombre.": {
+            "tipo": "texto",
+            "desc": "Segundo nombre",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".1er. Apellido.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto_nonempty",
+            "desc": "Primer apellido",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".2do. Apellido.": {
+            "obligatorio": [
+                "laboral"
+            ],
+            "tipo": "texto",
+            "desc": "Segundo apellido",
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".Nombre del establecimiento.": {
+            "tipo": "texto_nonempty",
+            "desc": "Nombre del establecimiento",
+            "obligatorio": [
+                "laboral"
+            ]
+        }
+    }
+}

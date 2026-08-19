@@ -1,0 +1,462 @@
+/* ==========================================================================
+   ENV COMPONENTS — bloques de UI reutilizables para el contenido de `env`
+   (page-header, cards, kpis, filtros, tablas, botones, estados vacíos),
+   construidos sobre los tokens --shell-* definidos en resources/css/env/shell.css.
+   ========================================================================== */
+
+/* ── PAGE HEADER ── */
+.env-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--shell-border);
+}
+
+.env-page-tag {
+  font-family: var(--shell-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--shell-red);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.env-page-title {
+  font-family: var(--shell-head);
+  font-size: 1.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  color: var(--shell-text);
+}
+
+.env-page-subtitle {
+  font-size: 0.85rem;
+  color: var(--shell-muted);
+  margin-top: 0.35rem;
+}
+
+.env-page-badge {
+  font-family: var(--shell-mono);
+  font-size: 11px;
+  color: var(--shell-muted);
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.env-page-badge .pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2ecc71;
+  box-shadow: 0 0 8px #2ecc71;
+}
+
+@media (max-width: 768px) {
+  .env-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .env-page-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* ── CARD ── */
+.env-card {
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all .25s ease;
+  color: var(--shell-text);
+}
+
+[data-theme="dark"] .env-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.568), 0 1px 2px rgba(0, 0, 0, 0.644);
+}
+
+[data-theme="light"] .env-card {
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.158), 0 8px 24px rgba(15, 23, 42, 0.151);
+}
+
+.env-card:hover {
+  border-color: var(--shell-border-strong);
+}
+
+.env-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.env-card-title {
+  font-family: var(--shell-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--shell-red);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.env-card-note {
+  font-size: 0.78rem;
+  color: var(--shell-muted-2);
+  margin: -0.5rem 0 1rem;
+}
+
+.env-card-foot {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--shell-border);
+  font-size: 0.75rem;
+  color: var(--shell-muted-2);
+}
+
+@media (max-width: 768px) {
+  .env-card {
+    padding: 1.1rem;
+  }
+}
+
+/* ── KPI ── */
+.env-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.env-kpi {
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: 10px;
+  padding: 1.5rem 1.75rem;
+  transition: all .25s ease;
+}
+
+[data-theme="dark"] .env-kpi {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .20), 0 8px 24px rgba(0, 0, 0, .15);
+}
+
+[data-theme="light"] .env-kpi {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 8px 24px rgba(15, 23, 42, .06);
+}
+
+.env-kpi:hover {
+  transform: translateY(-4px);
+  border-color: rgba(230, 57, 70, 0.35);
+}
+
+.env-kpi.is-accent {
+  border-color: rgba(230, 57, 70, 0.3);
+  background: linear-gradient(180deg, var(--shell-red-dim), transparent);
+}
+
+.env-kpi-label {
+  font-family: var(--shell-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+  margin-bottom: 0.75rem;
+}
+
+.env-kpi-value {
+  font-family: var(--shell-head);
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--shell-text);
+}
+
+.env-kpi.is-accent .env-kpi-value {
+  color: var(--shell-red);
+}
+
+@media (max-width: 576px) {
+  .env-kpi-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .env-kpi-value {
+    font-size: 1.7rem;
+  }
+}
+
+/* ── FILTER BAR ── */
+.env-filter-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.env-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.env-filter-label {
+  font-family: var(--shell-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+}
+
+.env-filter-input {
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border-strong);
+  border-radius: 6px;
+  color: var(--shell-text);
+  font-family: var(--shell-sans);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.85rem;
+  width: 165px;
+}
+
+.env-filter-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+}
+
+[data-theme="light"] .env-filter-input::-webkit-calendar-picker-indicator {
+  filter: none;
+}
+
+@media (max-width: 768px) {
+  .env-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+  }
+
+  .env-filter-group,
+  .env-filter-input {
+    width: 100%;
+  }
+}
+
+/* ── BUTTONS ── */
+.env-btn {
+  font-family: var(--shell-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.env-btn-primary {
+  background: var(--shell-red);
+  color: #fff;
+}
+
+.env-btn-primary:hover {
+  box-shadow: 0 0 16px var(--shell-red-glow);
+  color: #fff;
+}
+
+.env-btn-ghost {
+  background: transparent;
+  border-color: var(--shell-border-strong);
+  color: var(--shell-muted);
+}
+
+.env-btn-ghost:hover {
+  color: var(--shell-text);
+  border-color: var(--shell-text);
+}
+
+@media (max-width: 576px) {
+  .env-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── TABLES ── */
+.env-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.env-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  color: var(--shell-text);
+}
+
+.env-table th {
+  font-family: var(--shell-mono);
+  color: var(--shell-muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--shell-border);
+  white-space: nowrap;
+}
+
+.env-table td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--shell-border);
+}
+
+.env-table tbody tr:hover {
+  background: var(--shell-surface-2);
+}
+
+/* ── BADGES / CHIPS ── */
+.env-badge {
+  font-family: var(--shell-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  display: inline-block;
+}
+
+.env-badge-red {
+  color: var(--shell-red);
+  background: var(--shell-red-dim);
+  border-color: rgba(230, 57, 70, 0.3);
+}
+
+.env-chip {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.env-chip-ok { background: rgba(46, 204, 113, .12); color: #2ecc71; border: 1px solid rgba(46, 204, 113, .25); }
+.env-chip-high { background: var(--shell-red-dim); color: var(--shell-red); border: 1px solid rgba(230, 57, 70, .25); }
+.env-chip-low { background: rgba(241, 196, 15, .1); color: #f1c40f; border: 1px solid rgba(241, 196, 15, .2); }
+
+/* ── EMPTY STATE ── */
+.env-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 3rem 1.5rem;
+  color: var(--shell-muted);
+}
+
+.env-empty-state i {
+  font-size: 2rem;
+  color: var(--shell-muted-2);
+}
+
+.env-empty-state .env-empty-title {
+  font-family: var(--shell-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--shell-text);
+}
+
+.env-empty-state .env-empty-text {
+  font-size: 0.85rem;
+  max-width: 360px;
+}
+
+/* ── CHART WRAPPERS ── */
+.chart-wrap-sm {
+  position: relative;
+  height: 180px;
+}
+
+.chart-wrap-md {
+  position: relative;
+  height: 320px;
+}
+
+@media (max-width: 576px) {
+  .chart-wrap-md {
+    height: 240px;
+  }
+}
+
+/* ── FORM INPUTS (Bootstrap form-control/select dentro de .env-shell) ── */
+.env-shell .form-control,
+.env-shell .form-select {
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border-strong);
+  color: var(--shell-text);
+}
+
+.env-shell .form-control:focus,
+.env-shell .form-select:focus {
+  background: var(--shell-surface-2);
+  color: var(--shell-text);
+  border-color: var(--shell-red);
+  box-shadow: 0 0 0 0.15rem var(--shell-red-dim);
+}
+
+.env-shell .form-control::placeholder {
+  color: var(--shell-muted-2);
+}
+
+.env-shell label,
+.env-shell .form-label {
+  color: var(--shell-muted);
+}
+
+/* ── PANELES DE DOS COLUMNAS (recibir fichas, entrega GESI) ── */
+.env-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .env-split {
+    grid-template-columns: 1fr;
+  }
+}

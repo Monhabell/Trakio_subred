@@ -1,0 +1,452 @@
+{
+  "id": "findrisc",
+  "nombre": "Prueba FINDRISC - Tamizaje de Diabetes",
+  "code": "FDR",
+  "desc": "Tamizaje FINDRISC para detección de riesgo de diabetes u otras anormalidades de la regulación de glucosa — mayores de 18 años — Entorno Laboral",
+  "entornos": ["laboral"],
+  "rules": {
+
+    "Id_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "desc": "ID de la ficha"
+    },
+    "Ficha_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "desc": "Número de ficha"
+    },
+    "Fecha_intervencion": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha de la intervención"
+    },
+    "Localidad_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": "$LOCALIDADES_VALIDAS",
+      "desc": "Localidad de la ficha"
+    },
+    "Red_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Red de la subred"
+    },
+    "Usuario": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Usuario que registra"
+    },
+
+    ".Re caracterización.": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Indica si es una re-caracterización"
+    },
+
+    ".1er. Nombre.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    ".2do. Nombre.": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Segundo nombre del usuario"
+    },
+    ".1er. Apellido.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    ".2do. Apellido.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Segundo apellido del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+
+    ".Tipo de Documento.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "desc": "Tipo de documento del usuario",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdNacionalidad": ["COL"], "Edad": ["18-110"] },
+          "valoresPermitidos": ["1", "1-CC", "1- CC", "7- Adulto sin ID.", "7- Adulto sin ID"],
+          "mensaje": "Para mayores de 18 años (COL), el documento debe ser Cédula de Ciudadanía"
+        },
+        {
+          "condicion": { "IdNacionalidad": ["!COL"] },
+          "valoresPermitidos": [
+            "4- CE", "6- Pasaporte", "7- Adulto sin ID.", "7- Adulto sin ID",
+            "9..Carné Diplomático", "10 Salvoconducto", "10- Salvoconducto",
+            "11- Permiso especial de permanencia",
+            "12- Documento Nacional de Identidad (del país de origen)",
+            "13- PPT Permiso por Protección Temporal",
+            "13- Permiso de protección temporal"
+          ],
+          "mensaje": "Para extranjeros, el tipo de documento debe ser Pasaporte, CE u otro documento válido"
+        }
+      ]
+    },
+    ".Documento.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Número del documento de identificación"
+    },
+
+    ".Edad.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Rango de edad FINDRISC con puntaje",
+      "valores": [
+        "Menos de 45 años (0 p.)",
+        "45-54 años (2 p.)",
+        "55-64 años (3 p.)",
+        "Más de 64 años (4 p.)"
+      ],
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-17"] },
+          "noPermitidos": ["Menos de 45 años (0 p.)", "45-54 años (2 p.)", "55-64 años (3 p.)", "Más de 64 años (4 p.)"],
+          "mensaje": "El FINDRISC aplica solo para mayores de 18 años"
+        },
+        {
+          "condicion": { "Edad": ["18-44"] },
+          "valoresPermitidos": ["Menos de 45 años (0 p.)"],
+          "mensaje": "Para edades entre 18 y 44 años, la categoría FINDRISC debe ser 'Menos de 45 años'"
+        },
+        {
+          "condicion": { "Edad": ["45-54"] },
+          "valoresPermitidos": ["45-54 años (2 p.)"],
+          "mensaje": "Para edades entre 45 y 54 años, la categoría FINDRISC debe ser '45-54 años'"
+        },
+        {
+          "condicion": { "Edad": ["55-64"] },
+          "valoresPermitidos": ["55-64 años (3 p.)"],
+          "mensaje": "Para edades entre 55 y 64 años, la categoría FINDRISC debe ser '55-64 años'"
+        },
+        {
+          "condicion": { "Edad": ["65-110"] },
+          "valoresPermitidos": ["Más de 64 años (4 p.)"],
+          "mensaje": "Para personas mayores de 64 años, la categoría FINDRISC debe ser 'Más de 64 años'"
+        }
+      ]
+    },
+
+    ".Peso (kg).": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 10,
+      "max": 300,
+      "desc": "Peso del usuario en kilogramos"
+    },
+    ".Talla (cm).": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 50,
+      "max": 250,
+      "desc": "Talla del usuario en centímetros"
+    },
+    ".IMC (kg/m2).": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 10,
+      "max": 70,
+      "desc": "Índice de Masa Corporal calculado (peso kg / talla m²)"
+    },
+    ".Categoria.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": [
+        "< 25 kg/m² (0 p.)",
+        "Entre 25-30 kg/m²(1 p.)",
+        "> 30 kg/ m²(3 p.)"
+      ],
+      "desc": "Categoría IMC con puntaje FINDRISC",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".IMC (kg/m2).": ["0-24"] },
+          "valoresPermitidos": ["< 25 kg/m² (0 p.)"],
+          "mensaje": "Con IMC menor de 25, la categoría debe ser '< 25 kg/m²'"
+        },
+        {
+          "condicion": { ".IMC (kg/m2).": ["25-30"] },
+          "valoresPermitidos": ["Entre 25-30 kg/m²(1 p.)"],
+          "mensaje": "Con IMC entre 25 y 30, la categoría debe ser 'Entre 25-30 kg/m²'"
+        },
+        {
+          "condicion": { ".IMC (kg/m2).": ["30-110"] },
+          "valoresPermitidos": ["> 30 kg/ m²(3 p.)"],
+          "mensaje": "Con IMC mayor de 30, la categoría debe ser '> 30 kg/m²'"
+        }
+      ]
+    },
+
+    ".Perímetro de cintura (cm).": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 40,
+      "max": 200,
+      "desc": "Perímetro de cintura en centímetros"
+    },
+    ".Hombres.": {
+      "tipo": "codigo",
+      "valores": [
+        "< 94 cm (0 p.)",
+        "94-102 cm (3 p.)",
+        "> 102 cm (4 p.)"
+      ],
+      "desc": "Categoría perímetro de cintura hombres con puntaje FINDRISC",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdSexo",
+        "valores": ["1", "1- Hombre", "1-Hombre", "Hombre", "Masculino"],
+        "mensaje": "La categoría de perímetro de cintura para hombres es obligatoria cuando el sexo es Hombre",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Mujeres.": {
+      "tipo": "codigo",
+      "valores": [
+        "< 80 cm (0 p.)",
+        "80 -88 cm. (3 p.)",
+        ">88 cm. (4 p.)"
+      ],
+      "desc": "Categoría perímetro de cintura mujeres con puntaje FINDRISC",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdSexo",
+        "valores": ["2", "2- Mujer", "2-Mujer", "Mujer", "Femenino"],
+        "mensaje": "La categoría de perímetro de cintura para mujeres es obligatoria cuando el sexo es Mujer",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    ".¿Hace habitualmente (a diario) al menos 30 minutos de actividad física en el trabajo o durante su tiempo libre?.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": ["Sí (0 p.)", "No (2 p.)"],
+      "desc": "Actividad física diaria ≥ 30 minutos"
+    },
+    ".¿Con qué frecuencia come verduras o frutas?.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": ["Todos los días (0 p.)", "No todos los días (1 p.)"],
+      "desc": "Frecuencia de consumo de verduras o frutas"
+    },
+    ".¿Toma regularmente medicación para la hipertensión?.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": ["No (0)", "No (0 p.)", "Si (2)", "Sí (2 p.)"],
+      "desc": "Medicación regular para hipertensión"
+    },
+    ".¿Le han encontrado alguna vez valores de glucosa altos? (Por ejemplo, en un control médico, durante una enfermedad, durante el embarazo).": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": ["No (0 p.)", "Sí (5 p.)"],
+      "desc": "Antecedente de glucosa alta detectada alguna vez"
+    },
+    ".¿Se le ha diagnosticado diabetes (tipo 1 o tipo 2) a alguno de sus familiares?.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": [
+        "No (0)",
+        "No (0 p.)",
+        "Sí: abuelos, tía, tío, primo (no padres, hermanos o hijos (3 p.)",
+        "Sí: padres, hermanos o hijos (5 p.)"
+      ],
+      "desc": "Antecedente familiar de diabetes tipo 1 o tipo 2"
+    },
+    ".Puntaje total - Evaluación.": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 0,
+      "max": 26,
+      "desc": "Puntaje total FINDRISC — tamizaje positivo si ≥ 12"
+    },
+    ".Nombre Digitador.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nombre del digitador que registra la prueba"
+    },
+
+    "IdTipoDocumento": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código tipo de documento"
+    },
+    "Documento": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Número de documento"
+    },
+    "PrimerNombre": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    "SegundoNombre": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Segundo nombre"
+    },
+    "PrimerApellido": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    "SegundoApellido": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Segundo apellido"
+    },
+    "IdNacionalidad": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código de nacionalidad"
+    },
+    "IdSexo": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Sexo biológico"
+    },
+    "IdGenero": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Género",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-13"] },
+          "valoresPermitidos": ["4- No aplica", "No aplica"],
+          "mensaje": "Para menores de 14 años el Género debe ser 'No aplica'"
+        },
+        {
+          "condicion": { "Edad": ["14-110"] },
+          "valoresPermitidos": ["1-Masculino", "2-Femenino", "3-Otro", "3- Transgénero"],
+          "mensaje": "Para mayores de 14 años el Género no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "IdEstadoCivil": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Estado civil",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-13"] },
+          "valoresPermitidos": ["6- No aplica", "No aplica"],
+          "mensaje": "Para menores de 14 años el Estado Civil debe ser 'No aplica'"
+        },
+        {
+          "condicion": { "Edad": ["14-110"] },
+          "valoresPermitidos": ["1- Soltero(a)", "2- Casado(a)", "3- Viudo(a)", "4- Separado(a)", "5- Unión Libre"],
+          "mensaje": "Para mayores de 14 años el Estado Civil no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "FechaNacimiento": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha de nacimiento"
+    },
+    "Edad": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 18,
+      "max": 120,
+      "desc": "Edad del usuario — FINDRISC aplica solo para mayores de 18 años"
+    },
+    "MomentoCursoVida": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Momento del curso de vida"
+    },
+    "IdEtnia": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Pertenencia étnica"
+    },
+    "HablaEspaniol": {
+      "tipo": "texto_nonempty",
+      "desc": "Habla español — obligatorio cuando la etnia es Indígena",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdEtnia",
+        "valores": ["Indígena", "1- Indígena"],
+        "mensaje": "El campo Habla Español es obligatorio cuando la Etnia es Indígena",
+        "requeridoCuandoCumple": true
+      }
+    },
+    "IdVinculoJefeHogar": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Vínculo con el jefe de hogar"
+    },
+    "IdAfiliacionSGSSS": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Régimen de afiliación al SGSSS"
+    },
+    "NombreEAPB": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nombre de la EAPB"
+    },
+    "IdNivelEducativo": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nivel educativo"
+    },
+    "PoblacionDiferencialInclusion": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Población diferencial y de inclusión",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdNacionalidad": ["!COL"] },
+          "contiene": ["Migrante", "13- Migrante"],
+          "mensaje": "Para extranjeros, la población diferencial debe incluir 'Migrante'"
+        }
+      ]
+    },
+    "PoblacionInclusionOficio": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Población de inclusión por oficio"
+    },
+    "Ocupacion": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Ocupación del usuario"
+    },
+    "CategoriasDiscapacidad": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Categorías de discapacidad",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "PoblacionDiferencialInclusion": ["*Discapacidad*"] },
+          "noPermitidos": ["No aplica", "8- No aplica"],
+          "mensaje": "Si la población diferencial incluye Discapacidad, la categoría no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "RazonAbandonoEscolar": {
+      "tipo": "texto_nonempty",
+      "desc": "Razón de abandono escolar",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdNivelEducativo",
+        "valores": ["3. Básica primaria incompleta", "5. Básica secundaria incompleta", "12. Ninguno"],
+        "mensaje": "La razón de abandono escolar es obligatoria cuando el nivel educativo es incompleto o Ninguno",
+        "requeridoCuandoCumple": true
+      }
+    }
+  }
+}

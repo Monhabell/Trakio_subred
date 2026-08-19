@@ -1,0 +1,957 @@
+{
+  "id": "spacios_bienestar",
+  "nombre": "SPAcios de Bienestar Comunitario",
+  "code": "SBC",
+  "desc": "Ficha de identificación SPAcios de Bienestar - Entorno Comunitario",
+  "entornos": ["comunitario"],
+  "rules": {
+
+    "Fecha_intervencion": {
+      "obligatorio": ["comunitario"],
+      "tipo": "fecha",
+      "desc": "Fecha de intervención"
+    },
+    "Ficha_fic": {
+      "obligatorio": ["comunitario"],
+      "tipo": "numero",
+      "desc": "Número de ficha"
+    },
+    "Localidad_fic": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": "$LOCALIDADES_VALIDAS",
+      "desc": "Localidad de la ficha"
+    },
+    "Red_fic": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Red de la subred"
+    },
+    "Usuario": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Usuario que registra"
+    },
+
+    ".Primer Nombre.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    ".Segundo Nombre.": {
+      "opcional": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Segundo nombre del usuario"
+    },
+    ".Primer Apellido.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido del usuario",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    ".Segundo Apellido.": {
+      "opcional": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Segundo apellido del usuario"
+    },
+
+    ".Tipo de documento.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "desc": "Tipo de documento de identificación",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Nacionalidad.": ["COL"], ".Edad.": ["0-6"] },
+          "valoresPermitidos": ["2- RC", "5- NUIP", "8- Menor sin ID"],
+          "mensaje": "Para menores de 7 años (COL), el documento debe ser RC, NUIP o Menor sin ID"
+        },
+        {
+          "condicion": { ".Nacionalidad.": ["COL"], ".Edad.": ["7-17"] },
+          "valoresPermitidos": ["3- TI", "5- NUIP", "8- Menor sin ID"],
+          "mensaje": "Para edades entre 7 y 17 años (COL), el documento debe ser TI o NUIP"
+        },
+        {
+          "condicion": { ".Nacionalidad.": ["COL"], ".Edad.": ["18-110"] },
+          "valoresPermitidos": ["1- CC", "7- Adulto sin ID"],
+          "mensaje": "Para mayores de 18 años (COL), el documento debe ser Cédula de Ciudadanía"
+        },
+        {
+          "condicion": { ".Nacionalidad.": ["!COL"] },
+          "valoresPermitidos": ["4- CE", "6- Pasaporte", "7- Adulto sin ID", "8- Menor sin ID", "10- Salvoconducto", "11- Permiso especial de permanencia", "12- Documento Nacional de Identidad (del país de origen)", "13- Permiso de protección temporal"],
+          "mensaje": "Para extranjeros, el tipo de documento debe ser Pasaporte, CE u otro documento válido"
+        }
+      ]
+    },
+    ".Número Documento.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Número del documento de identificación"
+    },
+    ".Nacionalidad.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Código de nacionalidad"
+    },
+    ".Estado Civil.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Estado civil del usuario",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-13"] },
+          "valoresPermitidos": ["6- No aplica"],
+          "mensaje": "Para menores de 14 años el Estado Civil debe ser 'No aplica'"
+        },
+        {
+          "condicion": { ".Edad.": ["14-110"] },
+          "valoresPermitidos": ["1- Soltero(a)", "2- Casado(a)", "3- Viudo(a)", "4- Separado(a)", "5- Unión Libre"],
+          "mensaje": "Para mayores de 14 años el Estado Civil no puede ser 'No aplica'"
+        }
+      ]
+    },
+    ".Fecha de Nacimiento.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "fecha",
+      "desc": "Fecha de nacimiento del usuario"
+    },
+    ".Edad.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "numero",
+      "min": 0,
+      "max": 120,
+      "desc": "Edad del usuario"
+    },
+    ".Sexo.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Sexo biológico del usuario"
+    },
+    ".Genero.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Género con el que se autoidentifica",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-13"] },
+          "valoresPermitidos": ["No aplica"],
+          "mensaje": "Para menores de 14 años el Género debe ser 'No aplica'"
+        },
+        {
+          "condicion": { ".Edad.": ["14-110"] },
+          "valoresPermitidos": ["1- Masculino", "2- Femenino", "3- Transgénero"],
+          "mensaje": "Para mayores de 14 años el Género no puede ser 'No aplica'"
+        }
+      ]
+    },
+    ".Etnia.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Pertenencia étnica del usuario"
+    },
+    ".Habla español.": {
+      "tipo": "texto_nonempty",
+      "desc": "Indica si el usuario habla español",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Etnia.",
+        "valores": ["Indígena", "1- Indígena"],
+        "mensaje": "El campo Habla Español es obligatorio cuando la Etnia es Indígena",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Pueblo.": {
+      "tipo": "texto_nonempty",
+      "desc": "Pueblo indígena al que pertenece",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Etnia.",
+        "valores": ["Indígena", "1- Indígena"],
+        "mensaje": "El campo Pueblo es obligatorio cuando la Etnia es Indígena",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Población Diferencial y de Inclusión.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Población diferencial y de inclusión",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Nacionalidad.": ["!COL"] },
+          "contiene": ["Migrante", "13- Migrante"],
+          "mensaje": "Para extranjeros, la población diferencial debe incluir 'Migrante'"
+        }
+      ]
+    },
+    ".Categorías de la discapacidad.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Categoría(s) de discapacidad — '8- No aplica' si no aplica",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Población Diferencial y de Inclusión.": ["*Discapacidad*"] },
+          "noPermitidos": ["No aplica", "8- No aplica"],
+          "mensaje": "Si la población diferencial incluye Discapacidad, la categoría no puede ser 'No aplica'"
+        }
+      ]
+    },
+    ".Ocupación.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Ocupación del usuario"
+    },
+    ".Población Inclusión por oficio.": {
+      "opcional": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Población de inclusión por oficio"
+    },
+    ".Afiliación Al SGSSS.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Régimen de afiliación al SGSSS"
+    },
+    ".Nombre EAPB.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Nombre de la EAPB"
+    },
+    ".Vínculo con el Jefe de Hogar.": {
+      "opcional": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Vínculo con el jefe de hogar"
+    },
+    ".Nivel Educativo.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Nivel educativo del usuario"
+    },
+    ".Razón del abandono escolar.": {
+      "tipo": "texto_nonempty",
+      "desc": "Razón de inasistencia escolar",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Nivel Educativo.",
+        "valores": ["3. Básica primaria incompleta", "5. Básica secundaria incompleta", "12. Ninguno"],
+        "mensaje": "La razón del abandono escolar es obligatoria cuando el nivel educativo es incompleto o Ninguno",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Motivo de ingreso:.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Motivo de ingreso a la intervención"
+    },
+
+    ".Zona.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "desc": "Zona urbana o rural"
+    },
+    ".Localidad.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": "$LOCALIDADES_VALIDAS",
+      "desc": "Localidad de residencia"
+    },
+    ".UPZ/UPR.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Unidad de Planeación Zonal o Rural"
+    },
+    ".Sector Catastral.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Sector catastral",
+      "exceptoSi": {
+        "campo": ".Zona.",
+        "valor": "2- Rural"
+      }
+    },
+    ".Barrio.": {
+      "tipo": "texto",
+      "desc": "Barrio de residencia",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["1", "1-Urbana", "1- Urbana"],
+        "mensaje": "El Barrio es obligatorio cuando la Zona es Urbana",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Vereda.": {
+      "tipo": "texto",
+      "desc": "Vereda de residencia — solo zona rural",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["2", "2-Rural", "2- Rural"],
+        "mensaje": "La Vereda es obligatoria cuando la Zona es Rural",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Coordenadas X.": {
+      "tipo": "numero",
+      "desc": "Coordenada X",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["2", "2-Rural", "2- Rural"],
+        "mensaje": "La Coordenada X es obligatoria cuando la Zona es Rural",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Coordenadas Y.": {
+      "tipo": "numero",
+      "desc": "Coordenada Y",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["2", "2-Rural", "2- Rural"],
+        "mensaje": "La Coordenada Y es obligatoria cuando la Zona es Rural",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Eje Principal.": {
+      "tipo": "texto",
+      "desc": "Tipo de vía principal",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["1", "1-Urbana", "1- Urbana"],
+        "mensaje": "El Eje Principal es obligatorio en zona Urbana",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Eje Generador.": {
+      "tipo": "texto",
+      "desc": "Número de la vía generadora",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["1", "1-Urbana", "1- Urbana"],
+        "mensaje": "El Eje Generador es obligatorio en zona Urbana",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Placa.": {
+      "tipo": "texto",
+      "desc": "Número de placa de la dirección",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Zona.",
+        "valores": ["1", "1-Urbana", "1- Urbana"],
+        "mensaje": "La Placa es obligatoria en zona Urbana",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Teléfono 1.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "numero",
+      "desc": "Teléfono de contacto principal"
+    },
+    ".Teléfono 2.": {
+      "opcional": ["comunitario"],
+      "tipo": "numero",
+      "desc": "Teléfono de contacto secundario"
+    },
+    ".Manzana de Cuidado.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "¿La intervención se desarrolla en una Manzana de Cuidado?",
+      "exceptoSi": {
+        "campo": ".Zona.",
+        "valor": "2- Rural"
+      }
+    },
+    ".Numero de Manzana del cuidado.": {
+      "tipo": "texto",
+      "desc": "Número de la Manzana del Cuidado",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Manzana de Cuidado.",
+        "valores": ["Si"],
+        "mensaje": "Si marcó 'Si' en Manzana de Cuidado, el número es obligatorio",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    ".Primer Nombre(ACUDIENTE).": {
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre del acudiente",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-17"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El primer nombre del acudiente es obligatorio para menores de 18 años"
+        }
+      ]
+    },
+    ".Primer Apellido(ACUDIENTE).": {
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido del acudiente",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-17"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El primer apellido del acudiente es obligatorio para menores de 18 años"
+        }
+      ]
+    },
+    ".Segundo Nombre(ACUDIENTE).": {
+      "opcional": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Segundo nombre del acudiente"
+    },
+    ".Segundo Apellido(ACUDIENTE).": {
+      "opcional": ["comunitario"],
+      "tipo": "texto",
+      "desc": "Segundo apellido del acudiente"
+    },
+    ".Vínculo con el Jefe de Hogar(ACUDIENTE).": {
+      "tipo": "texto_nonempty",
+      "desc": "Vínculo del acudiente con el jefe de hogar",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-17"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El vínculo del acudiente es obligatorio para menores de 18 años"
+        }
+      ]
+    },
+    ".Ocupación(ACUDIENTE).": {
+      "tipo": "texto_nonempty",
+      "desc": "Ocupación del acudiente",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-17"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "La ocupación del acudiente es obligatoria para menores de 18 años"
+        }
+      ]
+    },
+    ".Teléfono(ACUDIENTE).": {
+      "tipo": "numero",
+      "desc": "Teléfono del acudiente",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-17"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El teléfono del acudiente es obligatorio para menores de 18 años"
+        }
+      ]
+    },
+    ".La persona tiene evidencia de consumo de SPA(ACUDIENTE).": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿El acudiente tiene evidencia de consumo de SPA?"
+    },
+
+    ".Condición Crónica.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Alertas por condición crónica"
+    },
+    ".Enfermedad transmisible y ETV.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Alertas por enfermedad transmisible y ETV"
+    },
+    ".Alertas Nutrición.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Alertas nutricionales"
+    },
+    ".Alertas psicosociales.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Alertas psicosociales"
+    },
+    ".Alerta Salud Oral.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Alertas de salud oral"
+    },
+    ".Alerta Infancia.": {
+      "tipo": "texto_nonempty",
+      "desc": "Alertas de infancia — obligatorio para menores de 18 años",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["0-17"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "Las alertas de infancia son obligatorias para menores de 18 años"
+        }
+      ]
+    },
+    ".Alertas en Mujeres.": {
+      "tipo": "texto_nonempty",
+      "desc": "Alertas en mujeres — obligatorio cuando el sexo es Mujer",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Sexo.": ["2- Mujer", "2-Mujer"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "Las alertas en mujeres son obligatorias cuando el sexo es Mujer"
+        }
+      ]
+    },
+    ".Alertas en población LGBTI.": {
+      "tipo": "texto_nonempty",
+      "desc": "Alertas en población LGBTI",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Población Diferencial y de Inclusión.": ["*Lesbiana*", "*Gay*", "*Bisexual*", "*Transgénero*"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "Las alertas LGBTI son obligatorias cuando la población diferencial incluye diversidad sexual"
+        }
+      ]
+    },
+    ".Tipología y alerta discapacidad.": {
+      "tipo": "texto_nonempty",
+      "desc": "Tipología y alerta de discapacidad",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Población Diferencial y de Inclusión.": ["*Discapacidad*"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "La tipología de discapacidad es obligatoria cuando la población diferencial incluye discapacidad"
+        }
+      ]
+    },
+
+    ".Psicología.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Recibió intervención de Psicología?"
+    },
+    ".Trabajo Social.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Recibió intervención de Trabajo Social?"
+    },
+    ".Enfermería.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Recibió intervención de Enfermería? (solo Jornadas)"
+    },
+    ".Tamizaje VIH.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Se realizó Tamizaje de VIH? (solo Jornadas y ZOU)"
+    },
+    ".Confirmatoria de VIH.": {
+      "tipo": "texto_nonempty",
+      "desc": "Resultado de prueba confirmatoria de VIH",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Tamizaje VIH.",
+        "valores": ["SI"],
+        "mensaje": "La prueba confirmatoria de VIH es obligatoria cuando se realizó tamizaje",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".Tamizaje SIFILIS.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Se realizó Tamizaje de Sífilis? (solo Jornadas y ZOU)"
+    },
+    ".Tamizaje Hepatitis B.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Se realizó Tamizaje de Hepatitis B? (solo Jornadas y ZOU)"
+    },
+    ".Sintomático respiratorio.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Se identificó sintomático respiratorio?"
+    },
+    ".Asesoría en Salud Sexual y Reproductiva.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Recibió asesoría en Salud Sexual y Reproductiva?"
+    },
+    ".Consejería breve en cesación de consumo de tabaco.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿Recibió consejería breve en cesación de tabaco?"
+    },
+
+    ".Geográficas.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "Barrera de acceso geográfica"
+    },
+    ".Aseguramiento.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "Barrera de acceso por aseguramiento"
+    },
+    ".Culturales.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "Barrera de acceso cultural"
+    },
+    ".Administrativa.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "Barrera de acceso administrativa"
+    },
+    ".Marginalidad.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "Barrera de acceso por marginalidad"
+    },
+    ".Económica.": {
+      "opcional": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "Barrera de acceso económica"
+    },
+    ".Tipo de familia.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Tipo de familia"
+    },
+
+    ".Estoy satisfecho(a) con la ayuda que recibo de mi familia cuando tengo algún problema o necesidad..": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "APGAR P1: Ayuda ante problemas"
+    },
+    ".Estoy satisfecho(a) con la forma como mi familia me involucra y me permite participar en los planes y decisiones que se toman..": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "APGAR P2: Participación en decisiones"
+    },
+    ".Estoy satisfecho(a) con la manera como mi familia respeta, apoya y estimula mis planes y proyectos personales..": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "APGAR P3: Apoyo a planes personales"
+    },
+    ".Estoy satisfecho(a) con la manera como en mi familia expresamos las emociones como rabia, dolor o tristeza..": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "APGAR P4: Expresión de emociones"
+    },
+    ".Me satisface como compartimos en familia: a) El tiempo para estar juntos, b) Los espacios en la casa, c) El dinero.'": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "APGAR P5: Compartir en familia"
+    },
+    ".Puntuación.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "numero",
+      "min": 0,
+      "max": 20,
+      "desc": "Puntuación total APGAR familiar (0-20)"
+    },
+
+    ".1 -A lo largo de su vida, ¿cuál de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO-MÉDICOS).": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P1: Consumo de sustancias alguna vez",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?.": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P2: Frecuencia de consumo últimos 3 meses",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?.": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P3: Ansias de consumo",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?.": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P4: Problemas derivados del consumo",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".5 - En los últimos tres meses, ¿con qué frecuencia dejó de hacer lo que se esperaba de usted habitualmente por el consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?.": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P5: Impacto en responsabilidades",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".6. ¿Un amigo, un familiar o alguien más alguna vez ha mostrado preocupación por su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?.": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P6: Preocupación de terceros",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".7. ¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?.": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P7: Intento de control",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".8 - ¿Ha consumido alguna vez alguna droga por vía inyectada? (ÚNICAMENTE PARA USOS NO MÉDICOS).": {
+      "tipo": "texto_nonempty",
+      "desc": "ASSIST P8: Consumo por vía inyectada",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El ASSIST es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".PUNTUACIÓN ESPECÍFICA DEL PACIENTE PARA CADA SUSTANCIA.": {
+      "tipo": "texto_nonempty",
+      "desc": "Puntuación ASSIST por sustancia",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "La puntuación ASSIST es obligatoria para mayores de 16 años"
+        }
+      ]
+    },
+
+    ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P1: Frecuencia de consumo de alcohol",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".2. ¿Cuántos tragos se toma por sentada en un día de consumo normal?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P2: Cantidad por ocasión",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".3. ¿Con que frecuencia toma 6 o mas bebidas alcohólicas en un solo día?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P3: Episodios de consumo excesivo",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".4. ¿Con que frecuencia en el curso del ultimo año ha sido incapaz de parar de beber una vez ha empezado?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P4: Incapacidad de parar",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".5. ¿Con que frecuencia en el curso del ultimo año no pudo hacer lo que se esperaba de usted por que había bebido?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P5: Incumplimiento de obligaciones",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".6. ¿Con que frecuencia en el curso del ultimo año ha necesitado beber en ayunas para recuperarse después de haber bebido mucho en el día anterior?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P6: Beber en ayunas",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".7. ¿Con que frecuencia en el curso del ultimo año ha tenido remordimientos o sentimientos de culpa después de haber bebido?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P7: Remordimientos",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".8. ¿Con que frecuencia en el curso del ultimo año no ha podido recordar lo que sucedió la noche anterior?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P8: Amnesia",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ],
+      "exceptoSi": {
+        "campo": ".1. ¿Con que frecuencia consume alguna bebida alcohólica?.",
+        "valor": "0"
+      }
+    },
+    ".9. ¿Usted o alguna otra persona ha resultado herida porque usted ha bebido?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P9: Lesiones por consumo",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".10. ¿Algún familiar, amigo, médico o profesional sanitario ha mostrado preocupación por su consumo de bebidas alcohólicas o le han sugerido que deje de beber?.": {
+      "tipo": "texto_nonempty",
+      "desc": "AUDIT P10: Preocupación de terceros",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El AUDIT es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+    ".Puntuación Total.": {
+      "tipo": "numero",
+      "min": 0,
+      "max": 40,
+      "desc": "Puntuación total AUDIT (0-40)",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "La puntuación total del AUDIT es obligatoria para mayores de 16 años"
+        }
+      ]
+    },
+    ".Nivel de Riesgo.": {
+      "tipo": "texto_nonempty",
+      "desc": "Nivel de riesgo AUDIT",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["16-110"] },
+          "valoresPermitidos": ["__nonempty__"],
+          "mensaje": "El nivel de riesgo AUDIT es obligatorio para mayores de 16 años"
+        }
+      ]
+    },
+
+    ".Canalización.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "codigo",
+      "valores": ["SI", "NO"],
+      "desc": "¿El usuario fue canalizado?"
+    },
+    ".Tipo de canalización.": {
+      "tipo": "texto_nonempty",
+      "desc": "Tipo de canalización realizada",
+      "dependencia": {
+        "entornos": ["comunitario"],
+        "campo": ".Canalización.",
+        "valores": ["SI"],
+        "mensaje": "El tipo de canalización es obligatorio cuando se realizó canalización",
+        "requeridoCuandoCumple": true,
+        "errorSiNoCumpleTieneValor": true
+      }
+    },
+    ".Plan de manejo.": {
+      "obligatorio": ["comunitario"],
+      "tipo": "texto_nonempty",
+      "desc": "Plan de manejo del usuario"
+    }
+  }
+}

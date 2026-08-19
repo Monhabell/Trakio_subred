@@ -1,0 +1,93 @@
+#data-user-form .flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#data-user-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#data-user-form label {
+    font-weight: bold;
+}
+
+#data-user-form input[type="text"],
+#data-user-form input[type="number"],
+#data-user-form input[type="file"],
+#data-user-form input[type="date"],
+#data-user-form input[type="email"],
+#data-user-form select {
+    width: 100%;
+    padding: 2px;
+    margin: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#data-user-form input[type="submit"] {
+    background-color: #0070bb;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+#data-user-form input[type="submit"]:hover {
+    background-color: #0554e7;
+}
+/* Estilos para el contenedor de la foto de perfil */
+#photo-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: #dbdbdb;
+    border-radius: 50%;
+    /* margin: 0 auto 20px; */
+    position: relative;
+    overflow: hidden;
+}
+#photo-container img {
+    /* max-width: 100%; */
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#photo-container .placeholder {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.camera-icon {
+    z-index: 255;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background: url('https://s3-alpha.figma.com/hub/file/2347352283/ef0d971a-f33b-4fbe-ad77-92e58816d62f-cover.png') no-repeat center center;
+    background-size: 60%;
+    background-color: #e6e6e6;
+    cursor: pointer;
+  }
+
+#foto {
+display: none;
+}
+
+.btn_img_perfil{
+    position: absolute; 
+    bottom: 0; 
+    right: 0;
+
+}
+

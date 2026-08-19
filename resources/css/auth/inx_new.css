@@ -1,0 +1,428 @@
+/* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
+
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --auth-bg: #050608;
+    --auth-surface: rgba(20, 20, 24, 0.55);
+    --auth-surface-strong: rgba(24, 24, 28, 0.75);
+    --auth-border: rgba(255, 255, 255, 0.09);
+    --auth-text: #f1f3f6;
+    --auth-muted: #9aa0ab;
+    --auth-red: #e63946;
+    --auth-red-soft: #ff5c66;
+    --auth-red-dim: rgba(230, 57, 70, 0.16);
+    --auth-red-glow: rgba(230, 57, 70, 0.35);
+}
+
+body {
+    background: var(--auth-bg) !important;
+    color: var(--auth-text);
+    height: 100vh !important;
+}
+
+a {
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    color: var(--auth-red-soft);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--auth-red);
+}
+
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 1000px #1a1a1f inset !important;
+}
+
+input:-moz-autofill {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--auth-text) !important;
+}
+
+input {
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 14px;
+    color: var(--auth-text);
+}
+
+.bg-register-section {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid var(--auth-border);
+    color: var(--auth-text);
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.bg-register-section:hover {
+    border-color: rgba(230, 57, 70, 0.3);
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.bg-register-section a {
+    color: var(--auth-red-soft);
+    font-weight: 600;
+}
+
+/* ── HERO / FONDO ── */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(230, 57, 70, 0.16), transparent 45%),
+        radial-gradient(circle at 82% 78%, rgba(230, 57, 70, 0.10), transparent 50%),
+        radial-gradient(circle at 50% 50%, #0b0c10 0%, #050608 70%);
+}
+
+.hero__title {
+    color: var(--auth-red);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    z-index: 1;
+}
+
+#canvas-bg {
+    opacity: 0.9;
+}
+
+/* ── TARJETA PRINCIPAL (glass card) ── */
+.wrapper {
+    position: relative;
+    z-index: 3;
+    width: clamp(320px, 28vw, 430px);
+    padding: 2.75rem 2.25rem 2.25rem;
+    background: linear-gradient(155deg, var(--auth-surface-strong) 0%, var(--auth-surface) 100%);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid var(--auth-border);
+    border-radius: 26px;
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+        0 0 60px rgba(230, 57, 70, 0.08);
+    animation: auth-card-in 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes auth-card-in {
+    0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo img {
+    height: 84px;
+    width: 84px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 0 0 6px rgba(255, 255, 255, 0.03),
+        0 0 35px rgba(230, 57, 70, 0.35);
+    transition: box-shadow 0.3s ease;
+}
+
+.name {
+    margin: 0;
+    color: var(--auth-text);
+    font-weight: 800;
+}
+
+.name h1 {
+    font-family: 'Space Grotesk', 'Poppins', sans-serif;
+    font-size: 1.7rem;
+    letter-spacing: 0.4px;
+    background: linear-gradient(90deg, #fff 35%, var(--auth-red-soft) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.auth-subtitle {
+    color: var(--auth-muted);
+    font-size: 0.82rem;
+    text-align: center;
+    margin-top: 0.35rem;
+    letter-spacing: 0.2px;
+}
+
+/* ── CAMPOS DE FORMULARIO ── */
+.form-field {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.form-field span.icon {
+    position: absolute;
+    color: var(--auth-muted);
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color 0.2s ease;
+    z-index: 1;
+}
+
+.form-field input {
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--auth-text);
+    border: 1px solid var(--auth-border);
+    border-radius: 16px;
+    padding: 0.85rem 50px;
+    width: 100%;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input::placeholder {
+    color: rgba(170, 170, 170, 0.45);
+}
+
+.form-field input:focus {
+    outline: none;
+    border-color: rgba(230, 57, 70, 0.55);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 3px var(--auth-red-dim);
+}
+
+.form-field:has(input:focus) span.icon {
+    color: var(--auth-red-soft);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0px 1000px #1a1a1f inset !important;
+    color: #fff !important;
+}
+
+input:-internal-autofill-selected {
+    background-color: #1a1a1f !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 0 0px 1000px #1a1a1f inset !important;
+}
+
+#viewPassIcon.fa,
+#viuPasseyesConfirmation.fa {
+    color: var(--auth-muted);
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color 0.2s ease;
+}
+
+#viewPassIcon.fa:hover,
+#viuPasseyesConfirmation.fa:hover {
+    color: var(--auth-red-soft);
+}
+
+/* ── BOTONES ── */
+.btn {
+    border: none !important;
+    padding: 0.85rem 20px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.25s ease, background 0.3s ease, opacity 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--auth-red-soft), #9c0d18);
+    color: white;
+    box-shadow: 0 10px 25px rgba(230, 57, 70, 0.25);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ff707a, var(--auth-red));
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(230, 57, 70, 0.38);
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn.disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.wrapper .btn:hover {
+    background-color: transparent;
+}
+
+/* ── ALERTAS ── */
+.red-alert {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(230, 57, 70, 0.08);
+    border: 1px solid rgba(230, 57, 70, 0.35);
+    color: var(--auth-text);
+    padding: 0.6rem 0.75rem;
+    border-radius: 12px;
+}
+
+.red-alert h3 {
+    font-size: 0.8rem;
+}
+
+.fade-out {
+    opacity: 0 !important;
+    transition: opacity 1s !important;
+    -webkit-transition: opacity 1s !important;
+    -moz-transition: opacity 1s !important;
+    -ms-transition: opacity 1s !important;
+    -o-transition: opacity 1s !important;
+}
+
+.alert-success,
+.alert-capcha,
+.alert-danger {
+    position: absolute;
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(18, 18, 22, 0.9) !important;
+    color: #fcfcfc !important;
+    border: 1px solid var(--auth-border) !important;
+    border-radius: 14px !important;
+    padding: 0.65rem 1.1rem !important;
+    text-align: center !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(12px);
+    animation: auth-alert-in 0.4s ease;
+}
+
+@keyframes auth-alert-in {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 12px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.alert-success {
+    border-color: rgba(46, 204, 113, 0.4) !important;
+}
+
+.alert-capcha {
+    border-color: rgba(230, 57, 70, 0.5) !important;
+}
+
+.alert-danger {
+    border-color: rgba(230, 57, 70, 0.5) !important;
+}
+
+.alert-danger li {
+    list-style: none;
+}
+
+#viewPassIcon,
+#viuPasseyesConfirmation {
+    top: 50%;
+}
+
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    h6 {
+        font-size: 0.7rem;
+    }
+
+    p,
+    textarea {
+        font-size: 0.8rem !important;
+    }
+
+    label,
+    span {
+        font-size: 0.875rem;
+    }
+
+    input {
+        font-size: 0.875rem !important;
+        height: auto;
+        padding: 0.4rem 40px !important;
+    }
+
+    button {
+        font-size: 0.875rem !important;
+    }
+
+    .wrapper {
+        width: 88%;
+        padding: 2.25rem 1.5rem;
+        border-radius: 22px;
+    }
+
+    .logo img {
+        height: 64px;
+        width: 64px;
+    }
+
+    .form-field span.icon {
+        left: 15px;
+    }
+
+    .bg-register-section small,
+    .bg-register-section a {
+        font-size: 12px !important;
+    }
+}

@@ -1,0 +1,47 @@
+/* =========================================================
+========================RECEPCIONES=========================
+==========================================================*/
+
+.table-deliver {
+    height: 72vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background-color: #000000;
+}
+
+#tableDevolution input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+    -webkit-transition: all ease-in-out 0.2s;
+    -moz-transition: all ease-in-out 0.2s;
+    -ms-transition: all ease-in-out 0.2s;
+    -o-transition: all ease-in-out 0.2s;
+}
+
+#tableDevolution input[type="checkbox"]:hover {
+    transform: scale(1.1);
+}
+
+.table-receptions,
+.traceability-table {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.table-receptions{
+    height: 70vh;
+}
+
+#tableDevolution thead th {
+    position: sticky;
+    top: -10px;
+    z-index: 100;
+}
+
+.traceability-table{
+    height: 70vh !important;
+}

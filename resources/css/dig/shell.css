@@ -1,0 +1,366 @@
+/* ==========================================================================
+   DIG SHELL — navbar + contenido, mismo lenguaje visual que adm/env (shell.css)
+   (tokens --shell-*, tema claro/oscuro vía [data-theme]).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Superficies y Fondos */
+  --shell-bg: #f5f7fa;
+  --shell-surface: #ffffff;
+  --shell-surface-2: #f8fafc;
+
+  /* Bordes */
+  --shell-border: rgba(15, 23, 42, 0.08);
+  --shell-border-strong: rgba(15, 23, 42, 0.16);
+
+  /* Variaciones de Rojo / Primario */
+  --shell-red: #d62839;
+  --shell-red-dim: rgba(214, 40, 57, 0.10);
+  --shell-red-glow: rgba(214, 40, 57, 0.20);
+
+  /* Textos */
+  --shell-text: #111827;
+  --shell-muted: #6b7280;
+  --shell-muted-2: #9ca3af;
+
+  /* Estados globales */
+  --shell-success: #16a34a;
+  --shell-warning: #d97706;
+  --shell-danger: #dc2626;
+  --shell-info: #2563eb;
+
+  /* Tipografías y Estructura */
+  --shell-head: 'Space Grotesk', sans-serif;
+  --shell-sans: 'Inter', sans-serif;
+  --shell-mono: 'JetBrains Mono', monospace;
+  --shell-nav-h: 68px;
+}
+
+[data-theme="dark"] {
+  --shell-bg: #050608;
+  --shell-surface: #0d0f13;
+  --shell-surface-2: #14171d;
+
+  --shell-border: rgba(255, 255, 255, 0.08);
+  --shell-border-strong: rgba(255, 255, 255, 0.16);
+
+  --shell-red: #e63946;
+  --shell-red-dim: rgba(230, 57, 70, 0.12);
+  --shell-red-glow: rgba(230, 57, 70, 0.35);
+
+  --shell-text: #f1f3f6;
+  --shell-muted: #8b93a1;
+  --shell-muted-2: #565d6b;
+}
+
+.dig-shell,
+.dig-shell * {
+  box-sizing: border-box;
+}
+
+.dig-shell {
+  background: var(--shell-bg);
+  color: var(--shell-text);
+  font-family: var(--shell-sans);
+  min-height: 100vh;
+}
+
+/* commom.css fuerza overflow-y:hidden en body (heredado del sidebar viejo),
+   lo que bloquea el scroll real del usuario (rueda del mouse / scrollbar).
+   "visible" hace que el navegador lo propague al viewport como "auto",
+   permitiendo el scroll normal sin romper el contenedor de referencia de
+   position:sticky en .dig-nav (que sí se rompe si se usa "auto" aquí). */
+body.dig-body {
+  overflow-y: visible !important;
+}
+
+/* ── NAVBAR ── */
+.dig-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  height: var(--shell-nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  background: color-mix(in srgb, var(--shell-surface) 88%, transparent);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--shell-border);
+}
+
+.dig-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--shell-head);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--shell-text);
+  flex-shrink: 0;
+}
+
+.dig-nav-brand img {
+  width: 28px;
+  height: 28px;
+}
+
+.dig-nav-brand span {
+  color: var(--shell-red);
+}
+
+.dig-nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--shell-border-strong);
+  color: var(--shell-text);
+  border-radius: 6px;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dig-nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.dig-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  font-family: var(--shell-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--shell-muted);
+  white-space: nowrap;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+  position: relative;
+}
+
+.dig-nav-link i {
+  font-size: 12px;
+}
+
+.dig-nav-link:hover {
+  color: var(--shell-text);
+  background: var(--shell-surface-2);
+}
+
+.dig-nav-link.is-active {
+  color: var(--shell-red);
+  background: var(--shell-red-dim);
+}
+
+.dig-nav-link .caret {
+  font-size: 9px;
+  margin-left: 0.1rem;
+  opacity: 0.7;
+}
+
+.dig-nav-dropdown {
+  position: relative;
+}
+
+.dig-nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border-strong);
+  border-radius: 8px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
+  padding: 0.4rem;
+  display: none;
+  z-index: 1040;
+}
+
+.dig-nav-dropdown.open .dig-nav-dropdown-menu {
+  display: block;
+}
+
+.dig-nav-dropdown-header {
+  font-family: var(--shell-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--shell-muted-2);
+  padding: 0.5rem 0.7rem 0.3rem;
+}
+
+.dig-nav-dropdown-item {
+  display: block;
+  padding: 0.5rem 0.7rem;
+  font-size: 13px;
+  color: var(--shell-muted);
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.dig-nav-dropdown-item:hover {
+  background: var(--shell-surface-2);
+  color: var(--shell-text);
+}
+
+.dig-nav-dropdown-item.is-active {
+  color: var(--shell-red);
+}
+
+.dig-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.dig-nav-bell {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--shell-border);
+  border-radius: 6px;
+  color: var(--shell-muted);
+  cursor: pointer;
+}
+
+.dig-nav-bell:hover {
+  color: var(--shell-text);
+  border-color: var(--shell-border-strong);
+}
+
+.dig-nav-bell .badge-counter,
+.dig-nav-bell .dot {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  min-width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--shell-red);
+}
+
+.dig-nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.dig-nav-user:hover {
+  background: var(--shell-surface-2);
+}
+
+.dig-nav-user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--shell-border-strong);
+}
+
+.dig-nav-user-info {
+  display: none;
+  flex-direction: column;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.dig-nav-user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--shell-text);
+}
+
+.dig-nav-user-role {
+  font-family: var(--shell-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--shell-muted-2);
+}
+
+@media (min-width: 992px) {
+  .dig-nav-user-info {
+    display: flex;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .dig-nav-toggle {
+    display: flex;
+  }
+
+  .dig-nav-links {
+    position: fixed;
+    top: var(--shell-nav-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--shell-surface);
+    border-bottom: 1px solid var(--shell-border);
+    padding: 0.6rem;
+    max-height: calc(100vh - var(--shell-nav-h));
+    overflow-y: auto;
+    display: none;
+  }
+
+  .dig-nav-links.open {
+    display: flex;
+  }
+
+  .dig-nav-dropdown-menu {
+    position: static;
+    margin-top: 0.25rem;
+  }
+}
+
+/* ── MAIN ── */
+.dig-main {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 2.25rem clamp(1.5rem, 4vw, 4rem) 4rem;
+}
+
+/* ── TOGGLE DE TEMA ── */
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border-strong);
+  color: var(--shell-muted);
+  font-family: var(--shell-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 13px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+
+.theme-btn:hover {
+  border-color: var(--shell-red);
+  color: var(--shell-text);
+}

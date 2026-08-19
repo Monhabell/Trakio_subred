@@ -1,0 +1,544 @@
+{
+  "id": "asma",
+  "nombre": "Tamizaje Identificación de Riesgo ERC - Asma / EPOC",
+  "code": "ERC",
+  "desc": "Ficha de tamizaje de identificación de riesgo para Enfermedades Respiratorias Crónicas (Asma 0-17, Asma 18-39, EPOC 40+) — Entorno Laboral",
+  "entornos": ["laboral"],
+  "rules": {
+
+    "Id_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "desc": "ID de la ficha"
+    },
+    "Ficha_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "desc": "Número de ficha"
+    },
+    "Fecha_intervencion": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha de intervención"
+    },
+    "Localidad_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": "$LOCALIDADES_VALIDAS",
+      "desc": "Localidad de la ficha"
+    },
+    "Red_fic": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Red de la subred"
+    },
+    "Usuario": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Usuario que registra"
+    },
+
+    ".Re caracterización.": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Indica si es una re-caracterización"
+    },
+    ".Localidad.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "valores": "$LOCALIDADES_VALIDAS",
+      "desc": "Localidad donde se realiza la intervención"
+    },
+    ".UPZ / UPR.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "UPZ o UPR donde se realiza la intervención"
+    },
+    ".Nacionalidad.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código de nacionalidad (ISO 3166)"
+    },
+    ".Sexo.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Sexo biológico del usuario"
+    },
+    ".Edad.": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 0,
+      "max": 120,
+      "desc": "Edad del usuario"
+    },
+    ".Nombre Completo.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nombre completo del usuario"
+    },
+    ".Tipo de Documento.": {
+      "obligatorio": ["laboral"],
+      "tipo": "codigo",
+      "desc": "Tipo de documento del usuario",
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Nacionalidad.": ["COL"], ".Edad.": ["0-6"] },
+          "valoresPermitidos": ["2", "2-RC", "2- RC", "5- NUIP", "8- Menor sin ID", "8 Menor sin ID"],
+          "mensaje": "Para menores de 7 años (COL), el documento debe ser RC, NUIP o Menor sin ID"
+        },
+        {
+          "condicion": { ".Nacionalidad.": ["COL"], ".Edad.": ["7-17"] },
+          "valoresPermitidos": ["3", "3-TI", "3- TI", "5- NUIP", "8- Menor sin ID", "8 Menor sin ID"],
+          "mensaje": "Para edades entre 7 y 17 años (COL), el documento debe ser TI o NUIP"
+        },
+        {
+          "condicion": { ".Nacionalidad.": ["COL"], ".Edad.": ["18-110"] },
+          "valoresPermitidos": ["1", "1-CC", "1- CC", "7- Adulto sin ID.", "7- Adulto sin ID"],
+          "mensaje": "Para mayores de 18 años (COL), el documento debe ser Cédula de Ciudadanía"
+        },
+        {
+          "condicion": { ".Nacionalidad.": ["!COL"] },
+          "valoresPermitidos": [
+            "4- CE", "6- Pasaporte", "7- Adulto sin ID.", "7- Adulto sin ID",
+            "8- Menor sin ID.", "8 Menor sin ID",
+            "9..Carné Diplomático", "10 Salvoconducto", "10- Salvoconducto",
+            "11- Permiso especial de permanencia",
+            "12- Documento Nacional de Identidad (del país de origen)",
+            "13- PPT Permiso por Protección Temporal",
+            "13- Permiso de protección temporal"
+          ],
+          "mensaje": "Para extranjeros, el tipo de documento debe ser Pasaporte, CE u otro documento válido"
+        }
+      ]
+    },
+    ".Número Documento.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Número de documento del usuario"
+    },
+    ".Laboral.": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Entorno laboral de la intervención"
+    },
+    ".Tamizaje de Identificación de Riesgo para Enfermedades Respiratorias Crónicas.": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha del tamizaje de ERC"
+    },
+
+    ".Menor de 10 años acompañado por acudiente o cuidador.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Menor de 10 años acompañado por acudiente o cuidador — obligatorio para menores de 18 años",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["0-17"],
+        "mensaje": "El campo acudiente/cuidador es obligatorio para menores de 18 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    ".1. ¿Ha tenido silbidos en el pecho o en los últimos 12 meses?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 0-17 P1: Silbidos en el pecho en últimos 12 meses",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["0-17"],
+        "mensaje": "Pregunta 1 (Asma 0-17) es obligatoria para menores de 18 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".2. ¿Se ha despertado en la noche por tos en los últimos 12 meses?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 0-17 P2: Despertar nocturno por tos en últimos 12 meses",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["0-17"],
+        "mensaje": "Pregunta 2 (Asma 0-17) es obligatoria para menores de 18 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".3. ¿Ha tenido tos, silbidos o dificultad para respirar con el ejercicio o con la actividad física o ha tenido que parar por estos síntomas en los últimos 12 meses?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 0-17 P3: Tos/silbidos con ejercicio en últimos 12 meses",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["0-17"],
+        "mensaje": "Pregunta 3 (Asma 0-17) es obligatoria para menores de 18 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".4. ¿Cuándo ha tenido gripa, le dura usualmente más de 10 días?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 0-17 P4: Gripa que dura más de 10 días",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["0-17"],
+        "mensaje": "Pregunta 4 (Asma 0-17) es obligatoria para menores de 18 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    ".Nombre de acudiente o cuidador.": {
+      "tipo": "texto_nonempty",
+      "desc": "Nombre del acudiente o cuidador — obligatorio para menores de 18 años",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["0-17"],
+        "mensaje": "El nombre del acudiente o cuidador es obligatorio para menores de 18 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    ".5. ¿Ha tenido alguna vez ?pitos o silbidos? en el pecho?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P5: Pitos o silbidos en el pecho alguna vez",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 5 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".6. ¿Ha tenido tos, sobre todo por las noches?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P6: Tos nocturna",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 6 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".7. ¿Ha tenido tos, ?pitos o silbidos? en el pecho, dificultad al respirar en algunas épocas del año o en contacto con animales, plantas, tabaco o en su trabajo?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P7: Tos/silbidos estacionales o por exposición",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 7 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".8. ¿Ha tenido tos, ?pitos o silbidos?, dificultad al respirar después de hacer ejercicios moderados o intensos?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P8: Dificultad respiratoria post-ejercicio",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 8 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".9. ¿Ha padecido resfriados que le duren más de 10 días o le ?bajan al pecho??.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P9: Resfriados prolongados",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 9 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".10. ¿Ha utilizado medicamentos inhalados que le alivian o que le disminuyen estos síntomas?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P10: Uso de medicamentos inhalados",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 10 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".11. ¿Tiene usted algún tipo de alergia?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P11: Presencia de alergias",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 11 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".12. ¿Tiene algún familiar con asma o alergia?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "Asma 18-39 P12: Antecedente familiar de asma o alergia",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["18-39"],
+        "mensaje": "Pregunta 12 (Asma 18-39) es obligatoria para personas entre 18 y 39 años",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    ".13. ¿Tose muchas veces la mayoría de los días?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "EPOC 40+ P13: Tos frecuente la mayoría de los días",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["40-110"],
+        "mensaje": "Pregunta 13 (EPOC 40+) es obligatoria para personas de 40 años o más",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".14. ¿Tiene flemas o mocos la mayoría de los días?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "EPOC 40+ P14: Flemas frecuentes la mayoría de los días",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["40-110"],
+        "mensaje": "Pregunta 14 (EPOC 40+) es obligatoria para personas de 40 años o más",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".15. ¿Se queda sin aire más fácilmente que otras personas de su edad?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "EPOC 40+ P15: Disnea comparada con pares",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["40-110"],
+        "mensaje": "Pregunta 15 (EPOC 40+) es obligatoria para personas de 40 años o más",
+        "requeridoCuandoCumple": true
+      }
+    },
+    ".16. ¿Es mayor de 40 años?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "EPOC 40+ P16: Confirmación de ser mayor de 40 años",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["40-110"],
+        "mensaje": "Pregunta 16 (EPOC 40+) es obligatoria para personas de 40 años o más",
+        "requeridoCuandoCumple": true
+      },
+      "validacionesCruzadas": [
+        {
+          "condicion": { ".Edad.": ["40-110"] },
+          "valoresPermitidos": ["Si"],
+          "mensaje": "Si la edad es 40 o más, la respuesta a la pregunta 16 debe ser 'Si'"
+        }
+      ]
+    },
+    ".17. ¿Actualmente fuma o es un exfumador?.": {
+      "tipo": "codigo",
+      "valores": ["Si", "No"],
+      "desc": "EPOC 40+ P17: Fumador activo o exfumador",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": ".Edad.",
+        "valores": ["40-110"],
+        "mensaje": "Pregunta 17 (EPOC 40+) es obligatoria para personas de 40 años o más",
+        "requeridoCuandoCumple": true
+      }
+    },
+
+    "IdTipoDocumento": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código tipo de documento"
+    },
+    "Documento": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Número de documento"
+    },
+    "PrimerNombre": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer nombre",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    "SegundoNombre": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Segundo nombre"
+    },
+    "PrimerApellido": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Primer apellido",
+      "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+    },
+    "SegundoApellido": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Segundo apellido"
+    },
+    "IdNacionalidad": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Código de nacionalidad"
+    },
+    "IdSexo": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Sexo biológico"
+    },
+    "IdGenero": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Género",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-13"] },
+          "valoresPermitidos": ["4- No aplica", "No aplica"],
+          "mensaje": "Para menores de 14 años el Género debe ser 'No aplica'"
+        },
+        {
+          "condicion": { "Edad": ["14-110"] },
+          "valoresPermitidos": ["1-Masculino", "2-Femenino", "3-Otro", "3- Transgénero"],
+          "mensaje": "Para mayores de 14 años el Género no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "IdEstadoCivil": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Estado civil",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "Edad": ["0-13"] },
+          "valoresPermitidos": ["6- No aplica", "No aplica"],
+          "mensaje": "Para menores de 14 años el Estado Civil debe ser 'No aplica'"
+        },
+        {
+          "condicion": { "Edad": ["14-110"] },
+          "valoresPermitidos": ["1- Soltero(a)", "2- Casado(a)", "3- Viudo(a)", "4- Separado(a)", "5- Unión Libre"],
+          "mensaje": "Para mayores de 14 años el Estado Civil no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "FechaNacimiento": {
+      "obligatorio": ["laboral"],
+      "tipo": "fecha",
+      "desc": "Fecha de nacimiento"
+    },
+    "Edad": {
+      "obligatorio": ["laboral"],
+      "tipo": "numero",
+      "min": 0,
+      "max": 120,
+      "desc": "Edad del usuario"
+    },
+    "MomentoCursoVida": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Momento del curso de vida"
+    },
+    "IdEtnia": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Pertenencia étnica"
+    },
+    "HablaEspaniol": {
+      "tipo": "texto_nonempty",
+      "desc": "Habla español — obligatorio cuando la etnia es Indígena",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdEtnia",
+        "valores": ["Indígena", "1- Indígena"],
+        "mensaje": "El campo Habla Español es obligatorio cuando la Etnia es Indígena",
+        "requeridoCuandoCumple": true
+      }
+    },
+    "IdVinculoJefeHogar": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Vínculo con el jefe de hogar"
+    },
+    "IdAfiliacionSGSSS": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Régimen de afiliación al SGSSS"
+    },
+    "NombreEAPB": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nombre de la EAPB"
+    },
+    "IdNivelEducativo": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Nivel educativo"
+    },
+    "PoblacionDiferencialInclusion": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Población diferencial y de inclusión",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "IdNacionalidad": ["!COL"] },
+          "contiene": ["Migrante", "13- Migrante"],
+          "mensaje": "Para extranjeros, la población diferencial debe incluir 'Migrante'"
+        }
+      ]
+    },
+    "PoblacionInclusionOficio": {
+      "opcional": ["laboral"],
+      "tipo": "texto",
+      "desc": "Población de inclusión por oficio"
+    },
+    "Ocupacion": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto_nonempty",
+      "desc": "Ocupación del usuario"
+    },
+    "CategoriasDiscapacidad": {
+      "obligatorio": ["laboral"],
+      "tipo": "texto",
+      "desc": "Categorías de discapacidad",
+      "validacionesCruzadas": [
+        {
+          "condicion": { "PoblacionDiferencialInclusion": ["*Discapacidad*"] },
+          "noPermitidos": ["No aplica", "8- No aplica"],
+          "mensaje": "Si la población diferencial incluye Discapacidad, la categoría no puede ser 'No aplica'"
+        }
+      ]
+    },
+    "RazonAbandonoEscolar": {
+      "tipo": "texto_nonempty",
+      "desc": "Razón de abandono escolar",
+      "dependencia": {
+        "entornos": ["laboral"],
+        "campo": "IdNivelEducativo",
+        "valores": ["3. Básica primaria incompleta", "5. Básica secundaria incompleta", "12. Ninguno"],
+        "mensaje": "La razón de abandono escolar es obligatoria cuando el nivel educativo es incompleto o Ninguno",
+        "requeridoCuandoCumple": true
+      }
+    }
+  }
+}

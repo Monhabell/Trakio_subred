@@ -1,0 +1,8 @@
+{
+    "/css/app.css": "/css/app.css?id=abcdef",
+    "/js/app.js": "/js/app.js?id=123456",
+    "/css/dig/dig_product_light.css": "/css/dig/dig_product_light.css?id=789012",
+    "/css/dig/dig_product_dark.css": "/css/dig/dig_product_dark.css?id=345678",
+    "/js/custom.js": "/js/custom.js?id=901234"
+}
+

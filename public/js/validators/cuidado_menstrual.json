@@ -1,0 +1,54 @@
+{
+    "id": "Cuidado Menstrual",
+    "nombre": "Cuidado Menstrual",
+    "code": "CM",
+    "desc": "Cuidado Menstrual",
+    "entornos": [
+        "laboral",
+        "educativo",
+        "comunitario",
+        "institucional"
+    ],
+    "rules": {
+        ".Nombres y Apellidos Completos.": {
+            "tipo": "texto_nonempty",
+            "desc": "Nombre de los Usuarios",
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ],
+            "regex": "^[A-ZÑÁÉÍÓÚ]+( [A-ZÑÁÉÍÓÚ]+)*$"
+        },
+        ".1. ¿Actualmente menstrúas?.": {
+            "tipo": "texto",
+            "desc": "Pregunta Obligatoria de si metrua",
+            "obligatorio": [
+                "laboral",
+                "educativo",
+                "comunitario",
+                "institucional"
+            ]
+        },
+        ".2. ¿A qué edad tuviste tu primera menstruación - Menarquia?.": {
+            "tipo": "texto",
+            "desc": "obligatoria para la respuesta si",
+            "dependencia": {
+                "campo": ".1. ¿Actualmente menstrúas?.",
+                "valores": [
+                    "SI"
+                ],
+                "mensaje": "Este campo es obligatorio si la pregunta .1. ¿Actualmente menstrúas?. es \"SI\"",
+                "entornos": [
+                    "laboral",
+                    "educativo",
+                    "comunitario",
+                    "institucional"
+                ],
+                "requeridoCuandoCumple": true,
+                "errorSiNoCumpleTieneValor": true
+            }
+        }
+    }
+}

@@ -1,0 +1,990 @@
+/*=================================================================================================
+  DOCUMENTOS — Sistema de tema claro / oscuro
+  Se activa con el atributo [data-theme] en <html>, ya gestionado globalmente por el toggle
+  de cada layout (adm/env/dig/members). Todo queda scopeado a #documentos_principal para no
+  afectar el resto del layout que lo incluya.
+=================================================================================================*/
+
+#documentos_principal {
+  /* Paleta por defecto (oscuro) */
+  --doc-bg: #11151b;
+  --doc-surface: #1b212a;
+  --doc-surface-raised: #232b35;
+  --doc-surface-hover: #2a3340;
+  --doc-border: #313a46;
+  --doc-text: #eef1f4;
+  --doc-text-muted: #a3acb8;
+  --doc-accent: #c33a49;
+  --doc-accent-strong: #8a1f2c;
+  --doc-accent-soft: rgba(195, 58, 73, 0.16);
+  --doc-success: #2fae6a;
+  --doc-success-soft: rgba(47, 174, 106, 0.15);
+  --doc-danger: #e2555f;
+  --doc-danger-soft: rgba(226, 85, 95, 0.15);
+  --doc-warning: #e0a429;
+  --doc-radius-lg: 14px;
+  --doc-radius-md: 10px;
+  --doc-radius-sm: 6px;
+  --doc-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --doc-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.25);
+
+  color: var(--doc-text);
+}
+
+:root[data-theme="light"] #documentos_principal {
+  --doc-bg: #f3f4f7;
+  --doc-surface: #ffffff;
+  --doc-surface-raised: #f7f8fa;
+  --doc-surface-hover: #eef0f3;
+  --doc-border: #e1e4ea;
+  --doc-text: #1d2330;
+  --doc-text-muted: #66707d;
+  --doc-accent: #a32d3b;
+  --doc-accent-strong: #7e1f2a;
+  --doc-accent-soft: rgba(163, 45, 59, 0.09);
+  --doc-success: #1f9d57;
+  --doc-success-soft: rgba(31, 157, 87, 0.1);
+  --doc-danger: #d23f4c;
+  --doc-danger-soft: rgba(210, 63, 76, 0.1);
+  --doc-warning: #b9790f;
+  --doc-shadow: 0 8px 24px rgba(20, 24, 32, 0.08);
+  --doc-shadow-sm: 0 2px 10px rgba(20, 24, 32, 0.06);
+}
+
+#documentos_principal {
+  background-color: transparent;
+}
+
+/* Compatibilidad: secciones que aún usan utilidades de Bootstrap (bg-dark/text-white)
+   en lugar de las clases .doc-* quedan igualmente tematizadas claro/oscuro. */
+#documentos_principal .bg-dark {
+  background-color: var(--doc-surface) !important;
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-md);
+}
+
+#documentos_principal .text-white,
+#documentos_principal .text-light {
+  color: var(--doc-text) !important;
+}
+
+#documentos_principal * {
+  box-sizing: border-box;
+}
+
+/*------------------------------------------------------------------------------------------------
+  Tarjetas y bloques genéricos
+------------------------------------------------------------------------------------------------*/
+
+#documentos_principal .doc-card {
+  background-color: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-lg);
+  padding: 1.35rem 1.5rem;
+  box-shadow: var(--doc-shadow-sm);
+  margin-bottom: 1.25rem;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+#documentos_principal .doc-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--doc-text);
+  margin-bottom: 1.1rem;
+}
+
+#documentos_principal .doc-card-title .doc-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--doc-radius-sm);
+  background: var(--doc-accent-soft);
+  color: var(--doc-accent);
+  font-size: 0.95rem;
+}
+
+#documentos_principal .doc-alert {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  background-color: var(--doc-accent-soft);
+  border: 1px solid var(--doc-accent-soft);
+  border-left: 4px solid var(--doc-accent);
+  color: var(--doc-text);
+  border-radius: var(--doc-radius-md);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.93rem;
+}
+
+#documentos_principal .doc-alert i {
+  color: var(--doc-accent);
+  font-size: 1.1rem;
+  margin-top: 0.1rem;
+}
+
+#documentos_principal .doc-alert strong {
+  color: var(--doc-text);
+}
+
+/*------------------------------------------------------------------------------------------------
+  Campos de formulario
+------------------------------------------------------------------------------------------------*/
+
+#documentos_principal .doc-field {
+  margin-bottom: 1rem;
+}
+
+#documentos_principal .doc-field label,
+#documentos_principal .doc-field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--doc-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+#documentos_principal .form-control,
+#documentos_principal .form-select {
+  background-color: var(--doc-surface-raised);
+  border: 1px solid var(--doc-border);
+  color: var(--doc-text);
+  border-radius: var(--doc-radius-sm);
+}
+
+#documentos_principal .form-control::placeholder {
+  color: var(--doc-text-muted);
+}
+
+#documentos_principal .form-control:focus,
+#documentos_principal .form-select:focus {
+  background-color: var(--doc-surface-raised);
+  border-color: var(--doc-accent);
+  color: var(--doc-text);
+  box-shadow: 0 0 0 0.2rem var(--doc-accent-soft);
+}
+
+#documentos_principal .form-control:read-only {
+  opacity: 0.75;
+}
+
+#documentos_principal .form-control:disabled,
+#documentos_principal .form-select:disabled {
+  opacity: 0.5;
+}
+
+#documentos_principal .input-group-text {
+  background-color: var(--doc-surface-raised);
+  border: 1px solid var(--doc-border);
+  color: var(--doc-text-muted);
+}
+
+#documentos_principal .doc-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+@media (max-width: 768px) {
+  #documentos_principal .doc-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*------------------------------------------------------------------------------------------------
+  MENÚ DE PESTAÑAS
+------------------------------------------------------------------------------------------------*/
+
+#documentos_principal .doc-toolbar {
+  background-color: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-lg);
+  padding: 0.6rem;
+  box-shadow: var(--doc-shadow-sm);
+  gap: 0.6rem;
+}
+
+.btn-menu {
+  background-color: transparent;
+  border: 1px solid var(--doc-border, transparent);
+  border-radius: var(--doc-radius-md, 8px);
+  transition: all 0.2s ease;
+  color: var(--doc-text-muted, #ffffff);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.5rem 1rem;
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-menu i {
+  font-size: 0.85rem;
+}
+
+.btn-menu:hover,
+.btn-menu:focus {
+  background-color: var(--doc-surface-hover, rgba(255, 255, 255, 0.08));
+  color: var(--doc-text, #ffffff);
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-menu.active {
+  background-color: var(--doc-accent, #8a1f2c);
+  color: #ffffff;
+  transform: none;
+  box-shadow: var(--doc-shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.btn-menu:active {
+  transform: scale(0.98);
+}
+
+.dropdown-toggle.btn-menu-secondary {
+  background-color: var(--doc-surface-raised, transparent);
+  border: 1px solid var(--doc-border, transparent);
+  color: var(--doc-text-muted, #fff);
+  border-radius: var(--doc-radius-md, 8px);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-toggle.btn-menu-secondary:hover {
+  background-color: var(--doc-surface-hover, transparent);
+  color: var(--doc-text, #fff);
+}
+
+.dropdown-menu.doc-dropdown {
+  background-color: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-md);
+  box-shadow: var(--doc-shadow);
+  padding: 0;
+  overflow: hidden;
+}
+
+.dropdown-menu.doc-dropdown .doc-dropdown-form {
+  background-color: var(--doc-surface) !important;
+  padding: 1rem;
+  min-width: 230px;
+}
+
+.dropdown-menu.doc-dropdown label {
+  color: var(--doc-text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.dropdown-menu.doc-dropdown .btn {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 20px;
+  line-height: 1.5em;
+}
+
+.folder {
+  cursor: pointer;
+}
+
+.icon {
+  color: var(--doc-warning, #ffc107);
+  margin-right: 8px;
+}
+
+.folder>ul {
+  padding-left: 20px;
+  border-left: 1px solid var(--doc-border, #ccc);
+  margin-left: 12px;
+}
+
+.file-icon {
+  color: var(--doc-accent, #007bff);
+}
+
+.document-preview {
+  border-radius: var(--doc-radius-md, 5px);
+  height: 560px;
+  margin-bottom: 10px;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  justify-content: center;
+  background-color: var(--doc-surface-raised, transparent);
+  border: 1px solid var(--doc-border, transparent);
+  overflow: hidden;
+}
+
+#pdf-embed {
+  border: none;
+  background-color: #525659;
+}
+
+/*-------------------------------------UPLOAD CERTIFICATIONS ----------------------------------
+-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------*/
+
+.certificationsInput {
+  width: 100%;
+  display: none;
+}
+
+.labelFile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 190px;
+  border: 2px dashed var(--doc-border, #ccc);
+  border-radius: var(--doc-radius-md);
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  color: var(--doc-text-muted, #404040);
+  cursor: pointer;
+  background-color: var(--doc-surface-raised, transparent);
+  transition: all 0.2s ease;
+}
+
+.labelFile:hover {
+  border-color: var(--doc-accent);
+  background-color: var(--doc-accent-soft);
+}
+
+.labelFile svg path {
+  fill: var(--doc-text-muted) !important;
+}
+
+/*-------------------------------------------BTN SHOW DOCUMENTS --------------------------------
+ -----------------------------------------------------------------------------------------------
+ ---------------------------------------------------------------------------------------------*/
+
+.Documents-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: fit-content;
+  height: 45px;
+  border: none;
+  padding: 0px 15px;
+  border-radius: var(--doc-radius-md, 5px);
+  background: linear-gradient(45deg, var(--doc-accent, #800000), var(--doc-accent-strong, #400000));
+  gap: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: var(--doc-shadow-sm, 0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.Documents-btn:hover {
+  background: linear-gradient(45deg, var(--doc-accent-strong, #400000), var(--doc-accent, #800000));
+  color: #f0f0f0;
+  box-shadow: var(--doc-shadow, 0 6px 8px rgba(0, 0, 0, 0.4));
+}
+
+.Documents-btn.active {
+  outline: 2px solid var(--doc-accent);
+  outline-offset: 2px;
+}
+
+.folderContainer {
+  width: 40px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.fileBack {
+  z-index: 1;
+  width: 80%;
+  height: auto;
+}
+
+.filePage {
+  width: 50%;
+  height: auto;
+  position: absolute;
+  z-index: 2;
+  transition: all 0.3s ease-out;
+}
+
+.fileFront {
+  width: 85%;
+  height: auto;
+  position: absolute;
+  z-index: 3;
+  opacity: 0.95;
+  transform-origin: bottom;
+  transition: all 0.3s ease-out;
+}
+
+.text {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.Documents-btn:hover .filePage {
+  transform: translateY(-5px);
+}
+
+.Documents-btn:active {
+  transform: scale(0.95);
+}
+
+.Documents-btn:hover .fileFront {
+  transform: rotateX(30deg);
+}
+
+textarea {
+  white-space: normal;
+}
+
+ul {
+  list-style: none;
+  padding-left: 15px;
+  margin: 0;
+}
+
+li.folder {
+  padding: 8px 10px;
+  color: var(--doc-text, #f0f0f0);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  border-radius: var(--doc-radius-sm);
+}
+
+li.folder:hover {
+  background-color: var(--doc-surface-hover, rgba(255, 255, 255, 0.04));
+}
+
+.folder .icon {
+  margin-right: 10px;
+  color: var(--doc-warning, #d37e2f);
+  transition: transform 0.3s ease;
+}
+
+.folder:hover .icon {
+  transform: scale(1.1);
+}
+
+.file-icon {
+  color: var(--doc-accent, #e78e3b);
+}
+
+a {
+  color: var(--doc-text, #f8f9fc);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--doc-accent, #fcae06);
+  text-decoration: underline;
+}
+
+a.link-document,
+.link-document a {
+  text-decoration: none;
+}
+
+#document-tree li {
+  padding: 4px 10px;
+  border-radius: var(--doc-radius-sm);
+  transition: background-color 0.15s ease;
+}
+
+#document-tree .link-document {
+  display: block;
+  padding: 2px 0;
+  color: var(--doc-text-muted);
+}
+
+#document-tree .link-document:hover {
+  color: var(--doc-accent);
+  text-decoration: none;
+}
+
+ul.hidden {
+  display: none;
+  padding-left: 15px;
+}
+
+li.folder ul.hidden {
+  padding-left: 15px;
+}
+
+li.folder.active ul.hidden {
+  display: block;
+}
+
+li.folder ul.hidden {
+  display: none;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+li.folder.active ul.hidden {
+  display: block;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .menu-document {
+    opacity: 0;
+    transform: translateY(-250px);
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 250;
+    background-color: var(--doc-surface, rgb(1, 0, 8));
+    border: 1px solid var(--doc-border, transparent);
+    border-radius: var(--doc-radius-md);
+    box-shadow: var(--doc-shadow);
+    padding: 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .menu-document .btn-menu {
+    background: none;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .menu-document .btn-menu:hover {
+    background-color: var(--doc-surface-hover, rgba(66, 1, 1, 0.856));
+  }
+
+  .menu-document.active {
+    transform: translateY(40px);
+    opacity: 1;
+  }
+}
+
+/*----------------------------------------UPLOAD CONTAINER ------------------------------------
+-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------*/
+
+.file-upload-container {
+  max-width: 100%;
+}
+
+.file-upload {
+  position: relative;
+  border: 2px dashed var(--doc-border, #b8bcbf5e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--doc-radius-md, 10px);
+  text-align: center;
+  color: var(--doc-text, #ffffff);
+  transition: all 0.2s ease-in-out;
+  background-color: var(--doc-surface-raised, transparent);
+  min-height: 72px;
+  padding: 0.75rem;
+}
+
+.file-upload:hover {
+  background-color: var(--doc-accent-soft, #ffffff17);
+  border-color: var(--doc-accent);
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.upload-icon {
+  font-size: 26px;
+  color: var(--doc-accent, #007bff);
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.file-upload p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--doc-text-muted, #6c757d);
+}
+
+.file-upload.dragover {
+  background-color: var(--doc-accent-soft);
+  border-color: var(--doc-accent);
+  color: var(--doc-text);
+}
+
+/*--------------------------------------------SPINNER -----------------------------------------
+-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------*/
+
+.document-spinner,
+.document-spinner-2 {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--doc-border, #ccc);
+  border-top-color: var(--doc-accent, #007bff);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.firma_btn {
+  position: relative;
+  font-size: 14px;
+  color: var(--doc-text, white);
+}
+
+.firma_btn:hover .fa-solid {
+  animation: fa-beat-fade 1s infinite;
+  color: var(--doc-danger, red);
+}
+
+#new-feature-tooltip {
+  position: absolute;
+  top: 120%;
+  right: 2px;
+  background-color: var(--doc-danger, #d30505);
+  color: white;
+  padding: 10px;
+  border-radius: var(--doc-radius-sm, 3px);
+  font-size: 14px;
+  width: 210px;
+  z-index: 1050;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  top: -10px;
+  left: 95%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid var(--doc-danger, #d30505);
+}
+
+.tooltip-content {
+  text-align: center;
+}
+
+#new-feature-tooltip {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.tooltip-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 20px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.tooltip-close-btn:hover {
+  color: #b3ff00;
+}
+
+/*--------------------------------------------ACTAS -------------------------------------------
+-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------*/
+
+#box-nav-acts-signs {
+  border-bottom: 1px solid var(--doc-border, #3b4a5b);
+}
+
+#box-nav-acts-signs .nav-item {
+  color: var(--doc-text-muted, #d1d5db);
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: -1px;
+}
+
+#box-nav-acts-signs .nav-acts-signs.active {
+  color: var(--doc-text, #ffffff);
+  border: 1px solid var(--doc-accent, #d32f2f);
+  font-weight: bold;
+  border-radius: 0;
+}
+
+#box-nav-acts-signs .nav-acts-signs:hover {
+  background-color: var(--doc-surface-hover, #3b4a5b);
+  color: var(--doc-text, #ffffff);
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.user-item {
+  background-color: var(--doc-surface-raised, #2a3a4b);
+  color: var(--doc-text-muted, #d1d5db);
+  border-radius: var(--doc-radius-md, 0.5rem);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: var(--doc-shadow-sm, 0px 2px 4px rgba(0, 0, 0, 0.1));
+  font-weight: 600;
+}
+
+.user-item:hover {
+  background-color: var(--doc-surface-hover, #3b4a5b);
+  box-shadow: var(--doc-shadow, 0 0.5rem 1rem rgba(0, 0, 0, 0.2));
+}
+
+.user-item input[type="checkbox"]:checked+* {
+  background: linear-gradient(135deg, var(--doc-accent-strong, #3d2626), var(--doc-accent, #9b1919));
+  color: #ffffff;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.user-name-sign {
+  color: var(--doc-text-muted, #d1d5db);
+  min-width: 100%;
+  transition: all 0.3s ease;
+}
+
+.user-name-sign,
+.user-role {
+  padding: 0.8rem 1rem;
+}
+
+.user-role {
+  position: absolute;
+  right: 1rem;
+  color: var(--doc-text, #ffffff);
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+/*----------------------------------INFORME DE ACTIVIDADES ------------------------------------
+-----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------*/
+
+.accordion-item {
+  border: 1px solid var(--doc-border, transparent);
+  background-color: var(--doc-surface, #5e646b);
+  border-radius: var(--doc-radius-md, 8px);
+  margin-bottom: 10px;
+  box-shadow: var(--doc-shadow-sm, 0 4px 8px rgba(0, 0, 0, 0.2));
+  overflow: hidden;
+}
+
+.accordion-button {
+  background: linear-gradient(to right, var(--doc-accent-strong, #321818), var(--doc-accent, #620202b5));
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-radius: 0;
+  padding: 12px 20px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.accordion-button:hover {
+  background: linear-gradient(to right, var(--doc-accent, #7a1c1c), var(--doc-accent-strong, #8b0000));
+  box-shadow: var(--doc-shadow-sm, 0 6px 12px rgba(0, 0, 0, 0.3));
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 3px var(--doc-accent-soft, rgba(139, 0, 0, 0.5));
+}
+
+.accordion-button::after {
+  filter: brightness(0) invert(1);
+}
+
+.accordion-body {
+  background-color: var(--doc-surface, #0d1117);
+  color: var(--doc-text, #ffffff);
+  border-top: 2px solid var(--doc-accent, #8b0000);
+  padding: 15px;
+  border-radius: 0 0 8px 8px;
+}
+
+.activities-input {
+  padding: 0.2rem 1rem;
+  background-color: var(--doc-surface-raised);
+  color: var(--doc-text);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-sm);
+}
+
+.container-activities {
+  padding: 0;
+}
+
+.accordion-button:not(.collapsed) {
+  color: white;
+}
+
+.activities-btn-save {
+  background-color: var(--doc-accent-strong, #3b0000);
+  color: #fff;
+}
+
+.activities-btn-save:hover {
+  background-color: var(--doc-accent, #4c0000);
+  color: #fff;
+}
+
+.activities-header,
+.activities-info-text,
+.activities-input-group-text,
+.header-title {
+  color: var(--doc-text);
+}
+
+.activities-input-group-text {
+  color: var(--doc-text-muted);
+}
+
+/*----------------------------------------------------------------------------------------------
+  Tematización forzada de form-report.css dentro de la página de documentos.
+  form-report.css es compartido y se carga en un orden distinto según el layout (adm/env/dig/
+  members), así que estas reglas usan !important para garantizar que siempre ganen aquí,
+  sin afectar otras páginas que reutilicen esas mismas clases (report-activities, etc.).
+------------------------------------------------------------------------------------------------*/
+
+#documentos_principal .activities-container {
+  background-color: var(--doc-surface) !important;
+  color: var(--doc-text) !important;
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-lg) !important;
+}
+
+#documentos_principal .header-container {
+  background-color: var(--doc-surface-raised) !important;
+  border-left: 3px solid var(--doc-accent) !important;
+  border-right: 3px solid var(--doc-accent) !important;
+}
+
+#documentos_principal .header-title {
+  color: var(--doc-accent) !important;
+}
+
+#documentos_principal .header-section {
+  border-right: 1px solid var(--doc-border) !important;
+}
+
+#documentos_principal .activity-row {
+  background-color: var(--doc-surface-raised) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--doc-border);
+}
+
+#documentos_principal textarea,
+#documentos_principal textarea.readonly {
+  background-color: var(--doc-surface-raised) !important;
+  color: var(--doc-text) !important;
+  border: 1px solid var(--doc-border) !important;
+}
+
+#documentos_principal textarea.editable {
+  background-color: var(--doc-surface-raised) !important;
+  border: 1px solid var(--doc-accent) !important;
+  color: var(--doc-text) !important;
+  box-shadow: none !important;
+}
+
+#documentos_principal textarea.editable:focus {
+  background-color: var(--doc-surface-hover) !important;
+  color: var(--doc-text) !important;
+}
+
+#documentos_principal .activities-input,
+#documentos_principal .activities-input-readonly {
+  background-color: var(--doc-surface-raised) !important;
+  color: var(--doc-text-muted) !important;
+  border: 1px solid var(--doc-border) !important;
+}
+
+#documentos_principal .activities-input-editable {
+  background-color: var(--doc-surface-raised) !important;
+  border: 2px solid var(--doc-accent) !important;
+  color: var(--doc-text) !important;
+}
+
+#documentos_principal .activities-btn-generate {
+  background-color: var(--doc-accent-strong) !important;
+}
+
+#documentos_principal .activities-btn-generate:hover {
+  background-color: var(--doc-accent) !important;
+}
+
+#documentos_principal .activities-btn-save {
+  background-color: var(--doc-success) !important;
+}
+
+#documentos_principal .activities-btn-save:hover {
+  filter: brightness(1.1);
+}
+
+#documentos_principal #no-specific-activities-message {
+  background-color: var(--doc-surface-raised) !important;
+}
+
+#documentos_principal #no-specific-activities-message .alert-dark {
+  background-color: var(--doc-surface) !important;
+  border: 2px solid var(--doc-accent) !important;
+  color: var(--doc-text) !important;
+}

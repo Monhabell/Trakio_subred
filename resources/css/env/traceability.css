@@ -1,0 +1,158 @@
+/* ==========================================================================
+   TRACEABILITY — panel de "Mis observaciones" + tarjetas de fichas,
+   construidos sobre los tokens --shell-* (componentes en env/components.css).
+   ========================================================================== */
+
+/* ── PANEL "MIS OBSERVACIONES" ── */
+.obs-format-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.obs-format-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font: inherit;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity .15s, border-color .15s;
+}
+
+.obs-format-chip b {
+  font-family: var(--shell-mono);
+}
+
+.obs-format-chip.is-active {
+  opacity: 1;
+  border-color: var(--shell-red);
+}
+
+.obs-item.is-extra {
+  display: none;
+}
+
+.obs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.obs-item {
+  display: block;
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border);
+  border-left: 3px solid var(--shell-red);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  text-decoration: none;
+  color: var(--shell-text);
+  transition: border-color .2s, background-color .2s;
+}
+
+.obs-item:hover {
+  border-color: var(--shell-border-strong);
+  background: var(--shell-surface);
+}
+
+.obs-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  margin-bottom: 0.35rem;
+}
+
+.obs-item-format {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--shell-red);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obs-item-ficha {
+  color: var(--shell-muted);
+  flex-shrink: 0;
+}
+
+.obs-item-text {
+  font-size: 0.82rem;
+  color: var(--shell-text);
+  margin: 0 0 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.obs-item-date {
+  font-size: 0.7rem;
+  color: var(--shell-muted-2);
+}
+
+/* ── TARJETA DE FICHA (listado de trazabilidad) ── */
+.trace-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.trace-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.trace-card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.trace-card-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--shell-border);
+}
+
+.trace-card-dates > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 575.98px) {
+  .trace-card-top {
+    flex-direction: column;
+  }
+
+  .trace-card-actions {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .obs-list {
+    grid-template-columns: 1fr;
+    max-height: 300px;
+  }
+
+  .env-card.trace-card {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,388 @@
+/* ==========================================================================
+   MEMBERS HOME — dashboard operativo (KPIs, gráfica, tabla de estados),
+   construido sobre los tokens --shell-* de resources/css/members/shell.css
+   para heredar el tema claro/oscuro y ser responsive en mobile.
+   ========================================================================== */
+
+.mem-home {
+  padding: 0;
+}
+
+/* ── HEADER / FILTROS ── */
+.mem-home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.mem-home-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--shell-text);
+}
+
+.mem-home-title span {
+  color: var(--shell-red);
+}
+
+.mem-home-filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mem-home-select {
+  background: var(--shell-surface-2) !important;
+  border: 1px solid var(--shell-border-strong) !important;
+  color: var(--shell-text) !important;
+  font-size: 0.8rem !important;
+  padding: 6px 10px !important;
+  border-radius: 6px;
+  width: auto;
+}
+
+.mem-home-btn {
+  background: var(--shell-red);
+  border: none;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 6px;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.mem-home-btn:hover {
+  box-shadow: 0 0 16px var(--shell-red-glow);
+  color: #fff;
+}
+
+@media (max-width: 575.98px) {
+  .mem-home-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mem-home-filters {
+    width: 100%;
+  }
+
+  .mem-home-filters select.mem-home-select {
+    flex: 1;
+    width: auto;
+  }
+
+  .mem-home-btn {
+    width: 100%;
+  }
+}
+
+/* ── ACCESOS RÁPIDOS ── */
+.mem-shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.mem-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-left: 4px solid var(--shell-border-strong);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  text-decoration: none;
+  color: var(--shell-text);
+  transition: border-color .2s, transform .2s;
+}
+
+.mem-shortcut:hover {
+  transform: translateY(-2px);
+  color: var(--shell-text);
+}
+
+.mem-shortcut-cyan { border-left-color: #00cfd5; }
+.mem-shortcut-cyan .mem-shortcut-icon { color: #00cfd5; background: rgba(0, 207, 213, 0.12); }
+
+.mem-shortcut-red { border-left-color: var(--shell-red); }
+.mem-shortcut-red .mem-shortcut-icon { color: var(--shell-red); background: var(--shell-red-dim); }
+
+.mem-shortcut-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.mem-shortcut-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.mem-shortcut-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--shell-muted);
+}
+
+.mem-shortcut-split {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0.2rem 0;
+}
+
+.mem-shortcut-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.mem-shortcut-tag-new {
+  background: rgba(46, 204, 113, .12);
+  color: #2ecc71;
+}
+
+.mem-shortcut-tag-update {
+  background: rgba(0, 207, 213, 0.12);
+  color: #00cfd5;
+}
+
+.mem-shortcut-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.mem-shortcut-note {
+  font-size: 0.75rem;
+  color: var(--shell-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mem-shortcut-arrow {
+  margin-left: auto;
+  color: var(--shell-muted-2);
+  flex-shrink: 0;
+}
+
+@media (max-width: 575.98px) {
+  .mem-shortcuts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── KPIs ── */
+.mem-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 767.98px) {
+  .mem-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.mem-kpi {
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: 10px;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mem-kpi-title {
+  color: var(--shell-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mem-kpi-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--shell-text);
+  line-height: 1.2;
+}
+
+@media (max-width: 575.98px) {
+  .mem-kpi-value {
+    font-size: 1.4rem;
+  }
+}
+
+.mem-kpi-badge {
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border-strong);
+  color: var(--shell-muted);
+}
+
+/* ── BARRA DE PROGRESO ── */
+.mem-progress {
+  height: 6px;
+  background: var(--shell-surface-2);
+  border-radius: 10px;
+  margin-top: 8px;
+  overflow: hidden;
+  border: 1px solid var(--shell-border);
+}
+
+.mem-progress .bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--shell-red), #ff6b6b);
+  box-shadow: 0 0 10px var(--shell-red-glow);
+}
+
+/* ── PANELES ── */
+.mem-panel {
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  height: 100%;
+}
+
+.mem-panel-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-left: 3px solid var(--shell-red);
+  padding-left: 10px;
+  color: var(--shell-text);
+}
+
+@media (max-width: 575.98px) {
+  .mem-panel {
+    padding: 1rem;
+  }
+}
+
+/* ── PANEL DE ACTUALIZACIONES (acento cyan) ── */
+.mem-panel-updates {
+  background: linear-gradient(90deg, var(--shell-surface) 0%, var(--shell-surface-2) 100%);
+  border-left: 4px solid #00cfd5;
+}
+
+.mem-panel-updates .mem-panel-title {
+  border-left-color: #00cfd5;
+}
+
+.mem-updates-count {
+  text-align: center;
+  border-bottom: 1px solid var(--shell-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .mem-updates-count {
+    border-bottom: 0;
+    border-right: 1px solid var(--shell-border);
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
+.mem-updates-progress .bar {
+  background: #00cfd5;
+  box-shadow: 0 0 10px rgba(0, 207, 213, 0.35);
+}
+
+/* ── GRÁFICA ── */
+.mem-chart-wrap {
+  position: relative;
+  height: 300px;
+}
+
+@media (max-width: 767.98px) {
+  .mem-chart-wrap {
+    height: 240px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .mem-chart-wrap {
+    height: 200px;
+  }
+}
+
+/* ── ALERTA DE INCIDENCIAS ── */
+.mem-incidence-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--shell-red);
+  margin: 0;
+}
+
+@media (max-width: 575.98px) {
+  .mem-incidence-value {
+    font-size: 2.2rem;
+  }
+}
+
+.mem-incidence-box {
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border-strong);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+}
+
+/* ── TABLA ── */
+.mem-table {
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  color: var(--shell-text);
+}
+
+.mem-table thead th {
+  background: transparent;
+  color: var(--shell-muted);
+  border-bottom: 1px solid var(--shell-border);
+  font-weight: 600;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.mem-table td {
+  border-bottom: 1px solid var(--shell-border);
+  padding: 8px 10px;
+  color: var(--shell-text);
+  vertical-align: middle;
+}
+
+.mem-table .badge {
+  background: var(--shell-surface-2);
+  border: 1px solid var(--shell-border-strong);
+  color: var(--shell-text);
+}
