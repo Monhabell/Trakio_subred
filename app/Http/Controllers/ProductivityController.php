@@ -360,6 +360,8 @@ private function formatHoursToClockWithSeconds($decimalHours)
 
         // se comenta por que no entra a funcionar trakio injector  
 
+        
+
         // if (!in_array($formatId, $formatsIdNoSds)) { // Si la ficha a reportar no tiene ID SDS
         //     if (!$search_sds) { // Si no encuentra ficha en productivity_sds
         //         return response()->json(['error' => 'La ficha parece no estar digitada en GESI Form'], 500);
